@@ -14,6 +14,7 @@ class Wallet{
 
   static public function get_info($element){
     $result = json_decode(self::call("getinfo"),true);
+    krumo($result);
     return $result[$element];
   }
 }
