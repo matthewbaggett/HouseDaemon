@@ -1,0 +1,61 @@
+<div class="container-fluid-full">
+  <div class="row-fluid">
+
+    <div class="row-fluid">
+      <div class="login-box">
+        <div class="icons">
+          <a href="/"><i class="halflings-icon home"></i></a>
+        </div>
+        <h2><?php echo $this->t("Register a new " . APP_NAME . " account"); ?></h2>
+        <form method="post" action="" class="form-horizontal">
+          <fieldset>
+
+            <div title="Username" class="input-prepend">
+              <span class="add-on"><i class="halflings-icon user"></i></span>
+              <label>Username</label>
+              <input type="text" placeholder="jblogs" id="username" name="username" class="input-large span10">
+            </div>
+            <div class="clearfix"></div>
+
+            <div title="Real name" class="input-prepend">
+              <span class="add-on"><i class="halflings-icon user"></i></span>
+              <label>Real name</label>
+              <input type="text" placeholder="JoeBlogs" id="realname" name="realname" class="input-large span10">
+            </div>
+            <div class="clearfix"></div>
+
+            <div title="Email" class="input-prepend">
+              <span class="add-on"><i class="halflings-icon user"></i></span>
+              <label>Email</label>
+              <input type="text" placeholder="j.blogs@example.com" id="email" name="email" class="input-large span10">
+            </div>
+            <div class="clearfix"></div>
+
+            <div title="Password" class="input-prepend">
+              <span class="add-on"><i class="halflings-icon lock"></i></span>
+              <label>Password</label>
+              <input type="password" placeholder="type password" id="password" name="password" class="input-large span10">
+            </div>
+            <div class="clearfix"></div>
+
+            <div title="Password Again" class="input-prepend">
+              <span class="add-on"><i class="halflings-icon lock"></i></span>
+              <label>Password Again</label>
+              <input type="password" placeholder="type password" id="password2" name="password2" class="input-large span10">
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="button-register">
+              <button class="btn btn-primary" type="submit"><?php echo $this->t("Register"); ?></button>
+            </div>
+            <div class="clearfix"></div>
+
+          </fieldset>
+        </form>
+      </div><!--/span-->
+    </div><!--/row-->
+
+
+  </div><!--/.fluid-container-->
+
+</div>

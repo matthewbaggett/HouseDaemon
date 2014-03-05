@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<?php require("head.phtml"); ?>
+<body>
+    <?php require("nav.phtml"); ?>
+    <div class="container">
+        <?php if(isset($no_wrap) && $no_wrap == true): ?>
+            <?php require($template); ?>
+        <?php else: ?>
+            <?php require($template); ?>
+            <?php require("footer.phtml"); ?>
+        <?php endif; ?>
+    </div>
+    <?php require("javascripts.phtml"); ?>
+</body>
+</html>

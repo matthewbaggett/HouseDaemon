@@ -9,7 +9,7 @@ namespace tests;
 use LoneSatoshi\Models\User;
 
 require_once("./vendor/autoload.php");
-require_once("./src/config/config.inc");
+require_once("./src/config/config.php");
 
 
 class ModelUserTest extends \PHPUnit_Framework_TestCase {
@@ -20,6 +20,7 @@ class ModelUserTest extends \PHPUnit_Framework_TestCase {
     $o->created = date("Y-m-d H:i:s");
     $o->displayname = uniqid("DisplayName ");
     $o->email = "{$o->username}@example.com";
+    $o->set_password(uniqid());
     return $o;
   }
 

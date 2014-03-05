@@ -1,0 +1,34 @@
+<div role="navigation" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="<?php echo $this->url(""); ?>" class="navbar-brand"><?php echo $this->getSiteTitle(); ?></a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <?php if(isset($_SESSION['user']) && $_SESSION['user'] instanceof \LoneSatoshi\Models\User): ?>
+                <li><?php echo $this->l("dashboard", $this->t("Dashboard")); ?></li>
+                <li><?php echo $this->l("wallets", $this->t("Wallets")); ?></li>
+                <li><?php echo $this->l("preferences", $this->t("Preferences")); ?></li>
+              <?php endif; ?>
+              <li><?php echo $this->l("api", $this->t("API")); ?></li>
+              <li><?php echo $this->l("status", $this->t("Status")); ?></li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <?php if(isset($_SESSION['user']) && $_SESSION['user'] instanceof \LoneSatoshi\Models\User): ?>
+                  <li><?php echo $this->l("logout", $this->t("Logout")); ?></li>
+                <?php else: ?>
+                  <li class="active"><?php echo $this->l("login", $this->t("Login")); ?></li>
+                  <li><?php echo $this->l("register", $this->t("Register")); ?></li>
+
+                <?php endif; ?>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>

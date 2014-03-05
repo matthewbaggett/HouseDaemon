@@ -7,7 +7,7 @@
  */
 namespace tests;
 require_once("./vendor/autoload.php");
-require_once("./src/config/config.inc");
+require_once("./src/config/config.php");
 
 
 class ModelAccountTest extends \PHPUnit_Framework_TestCase {
