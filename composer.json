@@ -1,0 +1,34 @@
+{
+    "name": "lonesatoshi/lonesatoshi",
+    "authors": [
+        {
+            "name": "Matthew Baggett",
+            "email": "matthew@baggett.me"
+        }
+    ],
+    "require": {
+        "slim/slim": "2.*",
+        "filp/whoops": "1.*",
+        "zeuxisoo/slim-whoops": "dev-master",
+        "fouroneone/activerecord": "dev-composer-compatable",
+        "fouroneone/translation": "dev-master",
+        "fouroneone/session": "dev-master",
+        "swiftmailer/swiftmailer": "5.*",
+        "intervention/image": "dev-master",
+        "frenkynet/flysystem": "0.1.*",
+        "guzzle/guzzle": "3.8.*",
+        "oodle/krumo": "dev-master",
+        "herzult/php-ssh": "0.1.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "phpunit/dbUnit": "1.2.*"
+    },
+    "provide": {
+        "ext-ssh2": "*"
+    },
+    "autoload": {
+        "psr-4": {"LoneSatoshi\\": "src/"}
+    }
+
+}
