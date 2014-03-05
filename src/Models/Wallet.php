@@ -13,7 +13,7 @@ class Wallet{
   }
 
   static public function get_info($element){
-    $result = json_decode(self::get_info(),true);
+    $result = json_decode(self::call("getinfo"),true);
     return $result[$element];
   }
 }
