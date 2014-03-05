@@ -3,7 +3,8 @@ namespace LoneSatoshi\Models;
 
 class Wallet{
   static public function call($command){
-    $configuration = new \Ssh\Configuration(WALLET_ADDRESS);
+    $ip_addr = gethostbyname(WALLET_ADDRESS);
+    $configuration = new \Ssh\Configuration($ip_addr);
     $authentication = new \Ssh\Authentication\Password(WALLET_USERNAME, WALLET_PASSWORD);
     $session = new \Ssh\Session($configuration, $authentication);
     $exec = $session->getExec();
