@@ -9,11 +9,16 @@ class Wallet{
     $session = new \Ssh\Session($configuration, $authentication);
     $exec = $session->getExec();
 
-    return $exec->run("dogecoind {$command}", false, null, 80, 25, 0);
+    $command = "dogecoind {$command}";
+    $result = $exec->run($command, false, null, 80, 25, 0);
+
+    echo "Called {$command}, result: {$result}";
+    return $result;
   }
 
   static public function get_info($element){
-    $result = json_decode(self::call("getinfo"),true);
+    $output = self::call("getinfo");
+    $result = json_decode($output,true);
     krumo($result);
     return $result[$element];
   }
