@@ -12,6 +12,7 @@ $database = new \FourOneOne\ActiveRecord\DatabaseLayer(array(
 
 define("RPCUSERNAME", "lonesatoshi");
 define("RPCPASSWORD", "WAncPKHEBEsj4tUtWAncPKHEBEsj4tUt");
+define("WALLET_BIN", "/home/dogecoin/bin/dogecoind");
 define("WALLET_ADDRESS","lonesatoshi.fouroneone.us");
 define("WALLET_USERNAME", "dogecoin");
 define("WALLET_PASSWORD", "WAncPKHEBEsj4tUt");

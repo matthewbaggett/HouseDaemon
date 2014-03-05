@@ -9,7 +9,7 @@ class Wallet{
     $session = new \Ssh\Session($configuration, $authentication);
     $exec = $session->getExec();
 
-    $command = "dogecoind {$command}";
+    $command = WALLET_BIN . " {$command}";
     $result = $exec->run($command, false, null, 80, 25, 0);
 
     echo "Called {$command}, result: {$result}";
