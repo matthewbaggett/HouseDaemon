@@ -16,6 +16,7 @@ class Setting extends \FourOneOne\ActiveRecord\ActiveRecord{
     if(!$setting instanceof Setting){
       $setting = new Setting();
     }
+    $setting->name = $name;
     $setting->value = $value;
     $setting->user_id = $user_id;
     $setting->save();
