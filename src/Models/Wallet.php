@@ -47,4 +47,14 @@ class Wallet{
       $transaction->save();
     }
   }
+
+  static public function create_wallet(User $user, Coin $coin){
+    $account = new Account();
+    $account->user_id = $user->user_id;
+    $account->reference_id = $user->username . "|" . date("Y-m-d") . "|" . date("H:i:s");
+    $account->address = self::call("getnewaddress " . addslashes($account->reference_id));
+    $account->created = date("Y-m-d H:i:s");
+    $account->coin_id = $coin->coin_id;
+    $account->save();
+  }
 }
