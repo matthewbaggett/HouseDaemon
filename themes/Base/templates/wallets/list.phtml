@@ -14,7 +14,7 @@
       <td><?php echo $account->account_id; ?></td>
       <td><?php echo $account->get_coin()->name; ?></td>
       <td><?php echo $account->address; ?></td>
-      <td><?php echo $account->get_balance()->balance; ?></td>
+      <td><?php echo ($account->get_balance() instanceof \LoneSatoshi\Models\Balance) ? $account->get_balance()->balance : 0; ?></td>
     </tr>
   <?php endforeach; ?>
   </tbody>
