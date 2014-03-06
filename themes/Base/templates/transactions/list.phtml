@@ -16,10 +16,26 @@
     <?php /* @var $transaction \LoneSatoshi\Models\Transaction */ ?>
     <tr class="<?php echo $transaction->category?>">
       <td><?php echo $transaction->transaction_id; ?></td>
-      <td><span title="<?php echo $transaction->address; ?>"><?php echo substr($transaction->address, 0, 7); ?></span></td>
+      <td>
+        <?php if($transaction->get_account()->get_coin()->chain_url_format_address): ?>
+          <a href="<?php echo str_replace("::ADDRESS::", $transaction->address, $transaction->get_account()->get_coin()->chain_url_format_address); ?>" title="<?php echo $transaction->address; ?>">
+            <?php echo $transaction->address; ?>
+          </a>
+        <?php else: ?>
+          <span title="<?php echo $transaction->address; ?>"><?php echo substr($transaction->address, 0, 7); ?></span>
+        <?php endif; ?>
+      </td>
       <td><?php echo $transaction->amount; ?></td>
       <td><?php echo $transaction->confirmations; ?></td>
-      <td><span title="<?php echo $transaction->txid; ?>"><?php echo substr($transaction->txid, 0, 7); ?></span></td>
+      <td>
+        <?php if($transaction->get_account()->get_coin()->chain_url_format_transaction): ?>
+          <a href="<?php echo str_replace("::TXID::", $transaction->txid, $transaction->get_account()->get_coin()->chain_url_format_transaction); ?>" title="<?php echo $transaction->txid; ?>">
+            <?php echo $transaction->txid; ?>
+          </a>
+        <?php else: ?>
+          <span title="<?php echo $transaction->txid; ?>"><?php echo substr($transaction->txid, 0, 7); ?></span>
+        <?php endif; ?>
+      </td>
       <td><?php echo $transaction->date; ?></td>
       <td><span title="<?php echo $transaction->block_hash; ?>"><?php echo substr($transaction->block_hash, 0, 7); ?></span></td>
       <td><?php echo $transaction->block_index; ?></td>

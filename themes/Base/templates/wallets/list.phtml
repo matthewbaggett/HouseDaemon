@@ -11,7 +11,15 @@
     <?php /* @var $account \LoneSatoshi\Models\Account */ ?>
     <tr>
       <td><?php echo $account->get_coin()->name; ?></td>
-      <td><?php echo $account->address; ?></td>
+      <td>
+        <?php if($account->get_coin()->chain_url_format_address): ?>
+          <a href="<?php echo str_replace("::ADDRESS::", $account->address, $account->get_coin()->chain_url_format_address); ?>">
+            <?php echo $account->address; ?>
+          </a>
+        <?php else: ?>
+          <?php echo $account->address; ?>
+        <?php endif; ?>
+      </td>
       <td>
         <?php echo ($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->balance : 0; ?>
         /
