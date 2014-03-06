@@ -15,7 +15,7 @@ class Account extends \FourOneOne\ActiveRecord\ActiveRecord{
    * @return Balance
    */
   public function get_balance(){
-    $balance = Balance::search()->where('account_id', $account_id)->execOne();
+    $balance = Balance::search()->where('account_id', $this->account_id)->execOne();
     return $balance;
   }
 
