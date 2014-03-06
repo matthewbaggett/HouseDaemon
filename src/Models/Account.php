@@ -6,12 +6,13 @@ class Account extends \FourOneOne\ActiveRecord\ActiveRecord{
 
   public $account_id;
   public $user_id;
+  public $reference_id;
   public $address;
   public $created;
   public $coin_id;
 
   public function get_balance(){
-    return '???';
+
   }
 
   /**
