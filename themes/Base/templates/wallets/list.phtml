@@ -4,7 +4,7 @@
     <td>Wallet ID</td>
     <td>Coin</td>
     <td>Address</td>
-    <td>Balance</td>
+    <td>Balance (Confirmed/Unconfirmed)</td>
   </tr>
   </thead>
   <tbody>
@@ -14,7 +14,7 @@
       <td><?php echo $account->account_id; ?></td>
       <td><?php echo $account->get_coin()->name; ?></td>
       <td><?php echo $account->address; ?></td>
-      <td><?php echo ($account->get_balance() instanceof \LoneSatoshi\Models\Balance) ? $account->get_balance()->balance : 0; ?></td>
+      <td><?php echo ($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance()->balance : 0; ?> / <?php echo ($account->get_balance_unconfirmed() instanceof \LoneSatoshi\Models\BalanceUnconfirmed) ? $account->get_balance()->balance : 0; ?></td>
     </tr>
   <?php endforeach; ?>
   </tbody>

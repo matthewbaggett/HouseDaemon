@@ -12,10 +12,18 @@ class Account extends \FourOneOne\ActiveRecord\ActiveRecord{
   public $coin_id;
 
   /**
-   * @return Balance
+   * @return BalanceConfirmed
    */
-  public function get_balance(){
-    $balance = Balance::search()->where('account_id', $this->account_id)->execOne();
+  public function get_balance_confirmed(){
+    $balance = BalanceConfirmed::search()->where('account_id', $this->account_id)->execOne();
+    return $balance;
+  }
+
+  /**
+   * @return BalanceUnconfirmed
+   */
+  public function get_balance_unconfirmed(){
+    $balance = BalanceUnconfirmed::search()->where('account_id', $this->account_id)->execOne();
     return $balance;
   }
 
