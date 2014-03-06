@@ -6,5 +6,6 @@ class Coin extends \FourOneOne\ActiveRecord\ActiveRecord{
 
   public $coin_id;
   public $name;
+  public $symbol;
 
 }
