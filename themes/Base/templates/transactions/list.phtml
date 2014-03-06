@@ -1,0 +1,31 @@
+<table>
+  <thead>
+  <tr>
+    <td>Transaction ID</td>
+    <td>Address</td>
+    <td>Amount</td>
+    <td>Confirmations</td>
+    <td>TX ID</td>
+    <td>Date</td>
+    <td>Date Received</td>
+    <td>Block Hash</td>
+    <td>Block Index</td>
+  </tr>
+  </thead>
+  <tbody>
+  <?php foreach($transactions as $transaction): ?>
+    <?php /* @var $transaction \LoneSatoshi\Models\Transaction */ ?>
+    <tr class="<?php echo $transaction->category?>">
+      <td><?php echo $transaction->transaction_id; ?></td>
+      <td><?php echo $transaction->address; ?></td>
+      <td><?php echo $transaction->amount; ?></td>
+      <td><?php echo $transaction->confirmations; ?></td>
+      <td><?php echo $transaction->txid; ?></td>
+      <td><?php echo $transaction->date; ?></td>
+      <td><?php echo $transaction->date_received; ?></td>
+      <td><?php echo $transaction->block_hash; ?></td>
+      <td><?php echo $transaction->block_index; ?></td>
+    </tr>
+  <?php endforeach; ?>
+  </tbody>
+</table>
