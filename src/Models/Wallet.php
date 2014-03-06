@@ -54,7 +54,6 @@ class Wallet{
     $account->user_id = $user->user_id;
     $account->reference_id = $user->username . "\\|" . date("Y-m-d") . "\\|" . date("H:i:s");
     $command = "getnewaddress {$account->reference_id}";
-    die($command);
     $account->address = self::call($command);
     $account->created = date("Y-m-d H:i:s");
     $account->coin_id = $coin->coin_id;
