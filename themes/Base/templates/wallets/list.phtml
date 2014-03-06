@@ -1,7 +1,6 @@
 <table>
   <thead>
   <tr>
-    <td>Wallet ID</td>
     <td>Coin</td>
     <td>Address</td>
     <td>Balance (Confirmed/Unconfirmed)</td>
@@ -11,7 +10,6 @@
   <?php foreach($accounts as $account): ?>
     <?php /* @var $account \LoneSatoshi\Models\Account */ ?>
     <tr>
-      <td><?php echo $account->account_id; ?></td>
       <td><?php echo $account->get_coin()->name; ?></td>
       <td><?php echo $account->address; ?></td>
       <td>
