@@ -11,8 +11,12 @@ class Account extends \FourOneOne\ActiveRecord\ActiveRecord{
   public $created;
   public $coin_id;
 
+  /**
+   * @return Balance
+   */
   public function get_balance(){
-
+    $balance = Balance::search()->where('account_id', $account_id)->execOne();
+    return $balance;
   }
 
   /**
