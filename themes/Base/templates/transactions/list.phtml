@@ -19,7 +19,7 @@
       <td>
         <?php if($transaction->get_account()->get_coin()->chain_url_format_address): ?>
           <a href="<?php echo str_replace("::ADDRESS::", $transaction->address, $transaction->get_account()->get_coin()->chain_url_format_address); ?>" title="<?php echo $transaction->address; ?>">
-            <?php echo $transaction->address; ?>
+            <?php echo substr($transaction->address, 0, 7); ?>
           </a>
         <?php else: ?>
           <span title="<?php echo $transaction->address; ?>"><?php echo substr($transaction->address, 0, 7); ?></span>
@@ -30,7 +30,7 @@
       <td>
         <?php if($transaction->get_account()->get_coin()->chain_url_format_transaction): ?>
           <a href="<?php echo str_replace("::TXID::", $transaction->txid, $transaction->get_account()->get_coin()->chain_url_format_transaction); ?>" title="<?php echo $transaction->txid; ?>">
-            <?php echo $transaction->txid; ?>
+            <?php echo substr($transaction->txid, 0, 7); ?>
           </a>
         <?php else: ?>
           <span title="<?php echo $transaction->txid; ?>"><?php echo substr($transaction->txid, 0, 7); ?></span>
