@@ -39,11 +39,11 @@ class Wallet{
       $transaction->amount        = $raw_transaction->amount;
       $transaction->confirmations = $raw_transaction->confirmations;
       $transaction->txid          = $raw_transaction->txid;
-      $transaction->date          = date("Y-m-d H:i:s", $raw_transaction->date);
-      $transaction->date_received = date("Y-m-d H:i:s", $raw_transaction->date_received);
-      $transaction->block_hash    = isset($raw_transaction->block_hash) ? $raw_transaction->block_hash : null;
-      $transaction->block_index   = isset($raw_transaction->block_index) ? $raw_transaction->block_index : null;
-      $transaction->block_time    = isset($raw_transaction->block_time) ? $raw_transaction->block_time : null;
+      $transaction->date          = date("Y-m-d H:i:s", $raw_transaction->time);
+      $transaction->date_received = date("Y-m-d H:i:s", $raw_transaction->timereceived);
+      $transaction->block_hash    = isset($raw_transaction->blockhash) ? $raw_transaction->blockhash : null;
+      $transaction->block_index   = isset($raw_transaction->blockindex) ? $raw_transaction->blockindex : null;
+      $transaction->block_time    = isset($raw_transaction->blocktime) ? $raw_transaction->blocktime : null;
       $transaction->save();
     }
   }
