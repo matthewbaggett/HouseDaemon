@@ -43,7 +43,7 @@ class Wallet{
       $transaction->date_received = date("Y-m-d H:i:s", $raw_transaction->timereceived);
       $transaction->block_hash    = isset($raw_transaction->blockhash) ? $raw_transaction->blockhash : null;
       $transaction->block_index   = isset($raw_transaction->blockindex) ? $raw_transaction->blockindex : null;
-      $transaction->block_time    = isset($raw_transaction->blocktime) ? $raw_transaction->blocktime : null;
+      $transaction->block_time    = isset($raw_transaction->blocktime) ? date("Y-m-d H:i:s", $raw_transaction->blocktime) : null;
       $transaction->save();
     }
   }
