@@ -33,10 +33,15 @@ $app->view()->setSiteTitle(APP_NAME);
 
 $app->add(new \Zeuxisoo\Whoops\Provider\Slim\WhoopsMiddleware);
 
-require_once("./src/controllers/dashboard.php");
-require_once("./src/controllers/index.php");
-require_once("./src/controllers/login.php");
-require_once("./src/controllers/servers.php");
-require_once("./src/controllers/tests.php");
-
+$file_list = scandir("./src/controllers");
+foreach($file_list as $file){
+  switch($file){
+    case '.':
+    case '..':
+      // Do nothing
+      break;
+    default:
+      require_once("./src/controllers/{$file}");
+  }
+}
 $app->run();
