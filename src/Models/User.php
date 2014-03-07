@@ -18,10 +18,11 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
   }
 
   static public function check_logged_in(){
-    if($_SESSION['user'] instanceof User){
-      return false;
+    if(isset($_SESSION['user'])){
+      if($_SESSION['user'] instanceof User){
+        return false;
+      }
     }
-
     header("Location: /login");
     exit;
   }
