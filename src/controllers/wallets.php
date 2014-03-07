@@ -1,6 +1,7 @@
 <?php
 
 $app->get('/wallets', function () use ($app) {
+  \LoneSatoshi\Models\User::check_logged_in();
   $coins_to_autogenerate_wallet = \LoneSatoshi\Models\Coin::search()->where('auto_generate_wallet','Yes')->exec();
   foreach($coins_to_autogenerate_wallet as $coin_to_autogenerate_wallet){
     $existing_wallet = \LoneSatoshi\Models\Account::search()

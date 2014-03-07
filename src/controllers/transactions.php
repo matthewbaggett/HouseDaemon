@@ -1,6 +1,7 @@
 <?php
 
 $app->get('/transactions', function () use ($app) {
+  \LoneSatoshi\Models\User::check_logged_in();
   $account_ids = array();
   foreach(\LoneSatoshi\Models\Account::search()->where('user_id', $_SESSION['user']->user_id)->exec() as $account){
     /* @var $account \LoneSatoshi\Models\Account */

@@ -16,4 +16,13 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
     $this->password = hash("SHA1", $password);
     return $this;
   }
+
+  static public function check_logged_in(){
+    if($_SESSION['user'] instanceof User){
+      return false;
+    }
+
+    header("Location: /login");
+    exit;
+  }
 }
