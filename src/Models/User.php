@@ -68,7 +68,7 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
       $cum_balance += $balance->balance; //Snicker snicker tee hee
     }
 
-    if(!$cum_balance <= $amount){
+    if($cum_balance < $amount){
       throw new \Exception("Not enough money available. You have {$cum_balance} available and you requested {$amount}");
     }
 
