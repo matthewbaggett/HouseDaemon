@@ -15,6 +15,7 @@ $app->post('/address-book/add', function () use ($app) {
   $new_address->address = $_POST['address'];
   $new_address->name = $_POST['name'];
   $new_address->save();
+  exit;
   header("Location: {$_SERVER['HTTP_REFERER']}");
   exit;
 });
