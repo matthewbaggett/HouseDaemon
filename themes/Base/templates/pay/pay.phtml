@@ -1,0 +1,11 @@
+
+<form action="<?php echo $this->url("pay"); ?>" method="post">
+  <input type="hidden" name="pre-transaction-id" value="<?php echo $pre_transaction_id; ?>"/>
+  <div class="form-row">
+    <label for="amount"><?php echo $this->t("Pay Amount to :address:", array(':address' => $address)); ?>:</label>
+    <input id="amount" name="amount"/>
+  </div>
+  <div class="form-row">
+    <input type="submit"/>
+  </div>
+</form>

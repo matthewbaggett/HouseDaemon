@@ -14,15 +14,15 @@
       <td><?php echo $address->address; ?></td>
       <td><?php echo $address->created; ?></td>
       <td>
-        <a href="#"><?php echo $this->t("Pay"); ?></a>
-        <a href="#"><?php echo $this->t("View Transactions"); ?></a>
+        <?php echo $this->l("Pay", "pay/{$address->address_book_id}/{$address->address}"); ?>
+        <?php echo $this->l("View Transactions", "#fixme"); ?>
       </td>
     </tr>
   <?php endforeach; ?>
   </tbody>
 </table>
 
-<form action="/address-book/add" method="post">
+<form action="<?php echo $this->url("address-book/add"); ?>" method="post">
   <div class="form-row">
     <label for="name"><?php echo $this->t("Name"); ?>:</label>
     <input id="name" name="name"/>
