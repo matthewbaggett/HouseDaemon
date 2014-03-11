@@ -11,4 +11,14 @@ class Coin extends \FourOneOne\ActiveRecord\ActiveRecord{
   public $chain_url_format_address;
   public $chain_url_format_transaction;
 
+  /**
+   * @return Wallet
+   */
+  public function get_wallet(){
+    if($this->name == 'Dogecoin'){
+      return new Wallet();
+    }
+    return false;
+  }
+
 }
