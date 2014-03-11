@@ -14,8 +14,8 @@ $app->post('/address-book/add', function () use ($app) {
   $new_address = new \LoneSatoshi\Models\AddressBook();
   $new_address->address = $_POST['address'];
   $new_address->name = $_POST['name'];
+  $new_address->created = date("Y-m-d H:i:s");
   $new_address->save();
-  exit;
   header("Location: {$_SERVER['HTTP_REFERER']}");
   exit;
 });
