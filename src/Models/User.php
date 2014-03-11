@@ -10,6 +10,14 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
   public $password;
   public $email;
   public $created;
+  public $type;
+
+  public function is_admin(){
+    if($this->type == 'Admin'){
+      return true;
+    }
+    return false;
+  }
 
   public function set_password($password){
     // TODO: Something a bit better than SHA1 I think.
