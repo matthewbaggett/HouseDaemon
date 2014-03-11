@@ -8,6 +8,7 @@ $app->get('/cron', function () use ($app) {
     }
   }
   $cron_last_run = \LoneSatoshi\Models\Setting::get("cron_last_run");
+  echo (time()-30) . " <= " . $cron_last_run . "<br />";
   if(time() - 30 <= $cron_last_run){
     $run = true;
   }
