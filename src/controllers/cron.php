@@ -21,9 +21,10 @@ $app->get('/cron', function () use ($app) {
     \LoneSatoshi\Models\Setting::set("block_count", $block_count);
 
     $cron_end = microtime(true);
-    \LoneSatoshi\Models\Setting::set('cron_execution_time', $cron_end - $cron_start);
+    $exec_time = $cron_end - $cron_start;
+    \LoneSatoshi\Models\Setting::set('cron_execution_time', $exec_time);
     \LoneSatoshi\Models\Setting::set("cron_last_run", time());
-    die("Cron completed");
+    die("Cron completed in {$exec_time}");
   }else{
     die("Too soon to run cron again.");
   }
