@@ -54,9 +54,9 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
   public function get_balances($sort_by = null, $direction = null){
     $query = BalanceConfirmed::search();
     $query->where('user_id', $this->user_id);
-    //if($sort_by !== null){
-    //  $query->order($sort_by, $direction);
-    //}
+    if($sort_by !== null){
+      $query->order($sort_by, $direction);
+    }
     return $query->exec();
   }
 
@@ -76,7 +76,7 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
     foreach($balances as $balance){
       if($balance->balance >= $amount){
         $balance->pay($address, $amount);
-        continue;
+        break;
       }else{
         $amount = $amount - $balance->balance;
         $balance->pay($address, $balance->balance);
