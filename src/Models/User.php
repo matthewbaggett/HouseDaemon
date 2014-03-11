@@ -63,7 +63,8 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
   public function pay($address, $amount){
     $balances = $this->get_balances('balance', 'ASC');
 
-    krumo($balances);
+    var_dump($balances);
+    exit;
 
     $cum_balance = 0;
     foreach($balances as $balance){
@@ -74,7 +75,6 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
       throw new \Exception("Not enough money available. You have {$cum_balance} available and you requested {$amount}");
     }
 
-    reset($balances);
 
     // Loop over balances until paid.
     foreach($balances as $balance){
