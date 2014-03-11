@@ -14,8 +14,8 @@
       <td><?php echo $address->address; ?></td>
       <td><?php echo $address->created; ?></td>
       <td>
-        <?php echo $this->l("Pay", "pay/{$address->address_book_id}/{$address->address}"); ?>
-        <?php echo $this->l("View Transactions", "#fixme"); ?>
+        <?php echo $this->l("pay/{$address->address_book_id}/{$address->address}", 'Pay"'); ?>
+        <?php echo $this->l("#fixme", "View Transactions"); ?>
       </td>
     </tr>
   <?php endforeach; ?>
