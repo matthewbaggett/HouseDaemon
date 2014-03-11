@@ -82,7 +82,7 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
         $balance->pay($address, $balance->balance);
       }
     }
-    exit;
+    die("Payments complete");
 
   }
 }
