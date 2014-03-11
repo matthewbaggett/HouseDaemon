@@ -9,14 +9,14 @@ $app->get('/cron', function () use ($app) {
     }
   }
   $cron_last_run = \LoneSatoshi\Models\Setting::get("cron_last_run");
-  echo "Date now      : " . date("Y-m-d H:i:s") . "\n";
-  echo "Date last run : " . date("Y-m-d H:i:s", $cron_last_run) . "\n";
-  echo "Last cron took: " . \LoneSatoshi\Models\Setting::get("cron_execution_time") . " seconds" . "\n";
+  echo "Date now       : " . date("Y-m-d H:i:s") . "\n";
+  echo "Date last run  : " . date("Y-m-d H:i:s", $cron_last_run) . "\n";
+  echo "Last cron took : " . number_format(\LoneSatoshi\Models\Setting::get("cron_execution_time"),3) . " seconds" . "\n";
   if((time() - $cron_last_run) > 30){
     $run = true;
   }
 
-  echo "Last cron run: Ran " . (time() - $cron_last_run) . " seconds ago \n";
+  echo "Last cron run  :  " . (time() - $cron_last_run) . " seconds ago \n";
   if($run){
     $cron_start = microtime(true);
     \LoneSatoshi\Models\Wallet::update_transaction_log();
