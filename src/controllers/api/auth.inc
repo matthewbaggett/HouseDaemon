@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../lib/json_pretty_print.php");
+require_once(dirname(__FILE__) . "/../../lib/json_pretty_print.php");
 
 $app->get('/auth/:api_key', function ($api_key) use ($app) {
 
