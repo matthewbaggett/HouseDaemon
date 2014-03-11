@@ -9,7 +9,7 @@ $app->get('/address-book', function () use ($app) {
   ));
 });
 
-$app->get('/address-book/add', function () use ($app) {
+$app->post('/address-book/add', function () use ($app) {
   \LoneSatoshi\Models\User::check_logged_in();
   $new_address = new \LoneSatoshi\Models\AddressBook();
   $new_address->address = $_POST['address'];
