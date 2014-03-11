@@ -33,7 +33,11 @@ $app->view()->setSiteTitle(APP_NAME);
 
 $app->add(new \Zeuxisoo\Whoops\Provider\Slim\WhoopsMiddleware);
 
-$file_list = scandir("./src/controllers");
+var_dump($_SERVER);
+exit;
+$mode = "web";
+
+$file_list = scandir("./src/controllers/{$mode}");
 foreach($file_list as $file){
   switch($file){
     case '.':
@@ -41,7 +45,7 @@ foreach($file_list as $file){
       // Do nothing
       break;
     default:
-      require_once("./src/controllers/{$file}");
+      require_once("./src/controllers/{$mode}/{$file}");
   }
 }
 $app->run();
