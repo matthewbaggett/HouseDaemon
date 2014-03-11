@@ -1,6 +1,7 @@
 <?php
 
 $app->get('/cron', function () use ($app) {
+  header("Content-type: text/plain");
   $run = false;
   if(\LoneSatoshi\Models\User::get_current() instanceof \LoneSatoshi\Models\User){
     if(\LoneSatoshi\Models\User::get_current()->is_admin()){
@@ -8,17 +9,19 @@ $app->get('/cron', function () use ($app) {
     }
   }
   $cron_last_run = \LoneSatoshi\Models\Setting::get("cron_last_run");
-  echo (time()-30) . " <= " . $cron_last_run . "<br />";
+  echo "Date now:  " . date("Y-m-d H:i:s") . "\n";
+  echo "Date then: " . date("Y-m-d H:i:s", $cron_last_run) . "\n";
+  echo (time()-30) . " <= " . $cron_last_run . "\n";
   if(time() - 30 <= $cron_last_run){
     $run = true;
   }
 
-  echo "Last cron run: Ran " . (time() - $cron_last_run) . " seconds ago <br />";
+  echo "Last cron run: Ran " . (time() - $cron_last_run) . " seconds ago \n";
   if($run){
     $cron_start = microtime(true);
     \LoneSatoshi\Models\Wallet::update_transaction_log();
     $block_count = \LoneSatoshi\Models\Wallet::get_info('blocks');
-    echo "Block count is {$block_count} <br />";
+    echo "Block count is {$block_count} \n";
     \LoneSatoshi\Models\Setting::set("block_count", $block_count);
 
     $cron_end = microtime(true);
