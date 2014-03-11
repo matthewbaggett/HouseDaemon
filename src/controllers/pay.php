@@ -9,6 +9,7 @@ $app->get('/pay/:address_book_id/:address', function ($address_book_id, $address
 
   $_SESSION[$pre_transaction_id] = array(
     'user_id' => \LoneSatoshi\Models\User::get_current()->user_id,
+    'address' => $address_book_record->address,
     'address_book_id' => $address_book_id
   );
   $app->render('pay/pay.phtml', array(
