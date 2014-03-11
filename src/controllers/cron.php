@@ -16,7 +16,7 @@ $app->get('/cron', function () use ($app) {
     $run = true;
   }
 
-  echo "Last cron run  :  " . (time() - $cron_last_run) . " seconds ago \n";
+  echo "Last cron run  : " . (time() - $cron_last_run) . " seconds ago \n";
   if($run){
     $cron_start = microtime(true);
     \LoneSatoshi\Models\Wallet::update_transaction_log();
