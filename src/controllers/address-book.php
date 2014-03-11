@@ -8,3 +8,13 @@ $app->get('/address-book', function () use ($app) {
     'addresses' => $addresses,
   ));
 });
+
+$app->get('/address-book/add', function () use ($app) {
+  \LoneSatoshi\Models\User::check_logged_in();
+  $new_address = new \LoneSatoshi\Models\AddressBook();
+  $new_address->address = $_POST['address'];
+  $new_address->name = $_POST['name'];
+  $new_address->save();
+  header("Location: {$_SERVER['HTTP_REFERER']}");
+  exit;
+});
