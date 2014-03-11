@@ -18,12 +18,33 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
   }
 
   static public function check_logged_in(){
+    if(self::get_current() instanceof User){
+      return false;
+    }else{
+      header("Location: /login");
+      exit;
+    }
+  }
+
+  /**
+   * Get the current user.
+   * @return User|false
+   */
+  static public function get_current(){
     if(isset($_SESSION['user'])){
       if($_SESSION['user'] instanceof User){
-        return false;
+        return User::search()->where('user_id', $_SESSION['user']->user_id)->execOne();
       }
     }
-    header("Location: /login");
-    exit;
+    return false;
+  }
+
+  /**
+   * Get users addressbook.
+   *
+   * @return AddressBook[]
+   */
+  public function get_addresses(){
+    return AddressBook::search()->where('user_id', $this->user_id)->exec();
   }
 }

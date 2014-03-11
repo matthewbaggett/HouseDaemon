@@ -1,0 +1,34 @@
+<table>
+  <thead>
+  <tr>
+    <td>Label</td>
+    <td>Address</td>
+    <td>Date Added</td>
+  </tr>
+  </thead>
+  <tbody>
+  <?php foreach($addresses as $address): ?>
+    <?php /* @var $address \LoneSatoshi\Models\AddressBook */ ?>
+    <tr>
+      <td><?php echo $address->name; ?></td>
+      <td><?php echo $address->address; ?></td>
+      <td><?php echo $address->created; ?></td>
+      <td><a href="#">Pay</a> <a href="#">View Transactions</a></td>
+    </tr>
+  <?php endforeach; ?>
+  </tbody>
+</table>
+
+<form action="address-book/add" method="post">
+  <div class="form-row">
+    <label for="name"><?php echo t("Name"); ?>:</label>
+    <input id="name" name="name"/>
+  </div>
+  <div class="form-row">
+    <label for="address"><?php echo t("Address"); ?>:</label>
+    <input id="address" name="address"/>
+  </div>
+  <div class="form-row">
+    <input type="submit"/>
+  </div>
+</form>
