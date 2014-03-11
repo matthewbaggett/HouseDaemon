@@ -9,8 +9,9 @@ $app->get('/cron', function () use ($app) {
     }
   }
   $cron_last_run = \LoneSatoshi\Models\Setting::get("cron_last_run");
-  echo "Date now:      " . date("Y-m-d H:i:s") . "\n";
-  echo "Date last run: " . date("Y-m-d H:i:s", $cron_last_run) . "\n";
+  echo "Date now      : " . date("Y-m-d H:i:s") . "\n";
+  echo "Date last run : " . date("Y-m-d H:i:s", $cron_last_run) . "\n";
+  echo "Last cron took: " . \LoneSatoshi\Models\Setting::get("cron_execution_time") . " seconds" . "\n";
   if((time() - $cron_last_run) > 30){
     $run = true;
   }
