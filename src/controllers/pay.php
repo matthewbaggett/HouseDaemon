@@ -32,6 +32,9 @@ $app->post('/pay/:address_book_id/:address', function ($address_book_id, $addres
       if($address_book_id == $pre_transaction['address_book_record_id']){
         try{
           \LoneSatoshi\Models\User::get_current()->pay($address, $_POST['amount']);
+          \LoneSatoshi\Models\Wallet::update_transaction_log();
+          header("Location: " . url("transactions"));
+          exit;
         }catch(Exception $e){
           die($e->getMessage());
         }

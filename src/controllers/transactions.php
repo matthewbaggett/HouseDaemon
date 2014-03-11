@@ -8,6 +8,9 @@ $app->get('/transactions', function () use ($app) {
     $account_ids[] = $account->account_id;
   }
   $app->render('transactions/list.phtml', array(
-    'transactions' => \LoneSatoshi\Models\Transaction::search()->where('account_id', $account_ids, "IN")->exec(),
+    'transactions' => \LoneSatoshi\Models\Transaction::search()
+                        ->where('account_id', $account_ids, "IN")
+                        ->order("date",'DESC')
+                        ->exec(),
   ));
 });
