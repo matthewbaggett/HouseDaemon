@@ -17,7 +17,7 @@ $app->get('/cron', function () use ($app) {
     $cron_start = microtime(true);
     \LoneSatoshi\Models\Wallet::update_transaction_log();
     $block_count = \LoneSatoshi\Models\Wallet::get_info('blocks');
-    echo "Block count is {$block_count}";
+    echo "Block count is {$block_count} <br />";
     \LoneSatoshi\Models\Setting::set("block_count", $block_count);
 
     $cron_end = microtime(true);
