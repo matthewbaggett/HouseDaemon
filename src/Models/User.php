@@ -42,9 +42,36 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
   /**
    * Get users addressbook.
    *
-   * @return AddressBook[]
+   * @return AddressBook[]|false
    */
   public function get_addresses(){
     return AddressBook::search()->where('user_id', $this->user_id)->exec();
+  }
+
+  /**
+   * @return Balance[]|false
+   */
+  public function get_balances($sort_by = null, $direction = null){
+    $query = Balance::search();
+    $query->where('user_id', $this->user_id);
+    if($sort_by !== null){
+      $query->order($sort_by, $direction);
+    }
+    return $query->exec();
+  }
+
+  public function pay($address, $amount){
+    // Loop over balances until paid.
+    foreach($this->get_balances('balance', 'ASC') as $balance){
+      if($balance->balance >= $amount){
+        $balance->pay($address, $amount);
+        continue;
+      }else{
+        $amount = $amount - $balance->balance;
+        $balance->pay($address, $balance->balance);
+      }
+    }
+    exit;
+
   }
 }
