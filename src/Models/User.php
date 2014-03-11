@@ -63,7 +63,7 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
   public function pay($address, $amount){
     $balances = $this->get_balances('balance', 'ASC');
 
-    krumo($balances)
+    krumo($balances);
 
     $cum_balance = 0;
     foreach($balances as $balance){
