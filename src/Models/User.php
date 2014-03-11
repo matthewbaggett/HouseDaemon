@@ -52,7 +52,7 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
    * @return Balance[]|false
    */
   public function get_balances($sort_by = null, $direction = null){
-    $query = Balance::search();
+    $query = BalanceConfirmed::search();
     $query->where('user_id', $this->user_id);
     if($sort_by !== null){
       $query->order($sort_by, $direction);
@@ -61,8 +61,19 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
   }
 
   public function pay($address, $amount){
+    $balances = $this->get_balances('balance', 'ASC');
+
+    $cum_balance = 0;
+    foreach($balances as $balance){
+      $cum_balance += $balance->balance; //Snicker snicker tee hee
+    }
+
+    if(!$cum_balance <= $amount){
+      throw new \Exception("Not enough money available.");
+    }
+
     // Loop over balances until paid.
-    foreach($this->get_balances('balance', 'ASC') as $balance){
+    foreach($balances as $balance){
       if($balance->balance >= $amount){
         $balance->pay($address, $amount);
         continue;
