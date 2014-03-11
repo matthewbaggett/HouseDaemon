@@ -19,7 +19,7 @@ class Balance extends \FourOneOne\ActiveRecord\ActiveRecord{
     $account = $this->get_account();
     $coin = $account->get_coin();
     $wallet = $coin->get_wallet();
-    $command = "sendfrom " . $account->reference_id . " " . $address . " " . $amount;
+    $command = "sendfrom " . str_replace("|","\\|", $account->reference_id) . " " . $address . " " . $amount;
     echo "Command: {$command}<br />";
     //$wallet->call($command)
 
