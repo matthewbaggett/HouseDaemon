@@ -20,6 +20,6 @@ $app->get('/auth/:api_key', function ($api_key) use ($app) {
 
   header("Content-type: application/json");
   echo json_pretty_print($response);
-
+  exit;
 
 });
