@@ -11,6 +11,8 @@ $app->get('/cron', function () use ($app) {
   if(time() - 30 <= $cron_last_run){
     $run = true;
   }
+
+  echo "Last cron run: Ran " . (time() - $cron_last_run) . " seconds ago <br />";
   if($run){
     $cron_start = microtime(true);
     \LoneSatoshi\Models\Wallet::update_transaction_log();
@@ -23,6 +25,6 @@ $app->get('/cron', function () use ($app) {
     \LoneSatoshi\Models\Setting::set("cron_last_run", time());
     die("Cron completed");
   }else{
-    die("Too soon to run cron again. Ran " . (time() - $cron_last_run) . " seconds ago");
+    die("Too soon to run cron again.");
   }
 });
