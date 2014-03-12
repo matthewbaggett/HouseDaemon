@@ -10,9 +10,9 @@ $app->get('/status/', function () use ($app) {
   $cron_last_run = \LoneSatoshi\Models\Setting::get("cron_last_run");
   $time_to_parse_transaction_log = \LoneSatoshi\Models\Setting::get('cron_execution_time');
   $response->Times->LastUpdate = date("Y-m-d H:i:s", $cron_last_run);
-  $response->Times->LastUpdateSecondsSince = (time() - $cron_last_run);
-  $response->Times->TransactionLogDelay = $time_to_parse_transaction_log;
-  $response->BlockCount = \LoneSatoshi\Models\Setting::get("block_count");
+  $response->Times->LastUpdateSecondsSince = intVal(time() - $cron_last_run);
+  $response->Times->TransactionLogDelay = floatVal($time_to_parse_transaction_log);
+  $response->BlockCount = intVal(\LoneSatoshi\Models\Setting::get("block_count"));
 
 
   header("Content-type: application/json");
