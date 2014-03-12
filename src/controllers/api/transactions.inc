@@ -7,7 +7,7 @@ $app->get('/transactions/:session_key', function ($session_key) use ($app) {
   $response = new StdClass();
   $session = \LoneSatoshi\Models\ApiSession::load($session_key);
 
-  if(!$session->get_api_key() instanceof \LoneSatoshi\Models\ApiKey){
+  if(!$session instanceof \LoneSatoshi\Models\ApiSession || !$session->get_api_key() instanceof \LoneSatoshi\Models\ApiKey){
     $response->Status = 'FAIL';
     $response->FailureMessage = 'API key not valid or API session expired';
   }else{
