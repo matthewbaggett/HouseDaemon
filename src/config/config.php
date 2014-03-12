@@ -25,9 +25,9 @@ ini_set('memory_limit', '32M');
 date_default_timezone_set('Europe/London');
 
 // Mail Settings
-/*$mailer_transport = Swift_SmtpTransport::newInstance('.me', 465, 'ssl')
-  ->setUsername('')
-  ->setPassword('MTFV^S5k')
-;*/
-//$mailer_from = array("boris@souschef.io" =>"Boris the SousChef");
-//$mailer_default_to = array("matthew@baggett.me");
+$mailer_transport = Swift_SmtpTransport::newInstance('mail.lonesatoshi.com', 465, 'ssl')
+  ->setUsername('system@lonesatoshi.com')
+  ->setPassword('m-MzaSgN')
+;
+$mailer_from = array("system@lonesatoshi.com" =>"LoneSatoshi System");
+$mailer_default_to = array("matthew+lonesatoshicopies@baggett.me");
