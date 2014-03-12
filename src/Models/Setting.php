@@ -22,7 +22,7 @@ class Setting extends \FourOneOne\ActiveRecord\ActiveRecord{
     $setting->save();
   }
 
-  static public function get($name, $user_id = null){
+  static public function get($name, $user_id = null, $default = null){
     $setting = Setting::search()
       ->where('name', $name)
       ->where('user_id', $user_id)
@@ -30,5 +30,10 @@ class Setting extends \FourOneOne\ActiveRecord\ActiveRecord{
     if($setting instanceof Setting){
       return $setting->value;
     }
+    if($default !== null){
+      return $default;
+    }
+    return false;
+
   }
 }
