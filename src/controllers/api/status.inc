@@ -15,7 +15,10 @@ $app->get('/status/', function () use ($app) {
   $response->BlockCount = intVal(\LoneSatoshi\Models\Setting::get("block_count"));
   $response->TransactionDensity = array();
   foreach(\LoneSatoshi\Models\TransactionDensity::search()->exec() as $density){
-    $response->TransactionDensity[$density->time_period] = $density->frequency;
+    $response->TransactionDensity[$density->time_period] = array(
+      "Frequency" => $density->frequency,
+      "Volume" => $density->volume
+    );
   }
 
 

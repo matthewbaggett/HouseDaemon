@@ -7,5 +7,6 @@ class TransactionDensity extends \FourOneOne\ActiveRecord\ActiveRecord{
 
   public $frequency;
   public $time_period;
+  public $volume;
 
 }
