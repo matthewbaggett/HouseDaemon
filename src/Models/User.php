@@ -97,8 +97,9 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
 
     Notification::send(
       Notification::Warning,
-      "Payed :amount to :address in :transaction_count transactions", array(
+      "Payed :amount :coin to :address in :transaction_count transactions", array(
         ":amount" => $amount_initial,
+        ":coin" => $balance->get_account()->get_coin()->name,
         ":address" => $address,
         ":transaction_count" => $transaction_count
       )
