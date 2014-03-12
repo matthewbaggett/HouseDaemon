@@ -40,7 +40,7 @@ class Notification extends \FourOneOne\ActiveRecord\ActiveRecord{
     foreach(unserialize($this->variables) as $key => $value){
       $message = str_replace($key, $value, $message);
     }
-    return send_mail(
+    return \send_mail(
       $this->get_user()->email,
       $message,
       $message
