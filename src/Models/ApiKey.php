@@ -27,7 +27,6 @@ class ApiKey extends \FourOneOne\ActiveRecord\ActiveRecord{
    */
   public function create_session(){
     $session = $this->get_current_session();
-    var_dump($session);exit;
     if(!$session instanceof ApiSession){
       $session = new ApiSession();
       $session->api_key_id = $this->api_key_id;
