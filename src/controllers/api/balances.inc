@@ -13,8 +13,15 @@ $app->get('/balances/:session_key', function ($session_key) use ($app) {
   }else{
     $response->Status = 'OKAY';
     $response->Session = $session->get_session_array();
-    $response->BalancesConfirmed = \LoneSatoshi\Models\BalanceConfirmed::search()->where('user_id', $session->get_api_key()->get_user()->user_id)->exec();
-    $response->BalancesUnconfirmed = \LoneSatoshi\Models\BalanceUnconfirmed::search()->where('user_id', $session->get_api_key()->get_user()->user_id)->exec();
+    $response->BalancesConfirmed = \LoneSatoshi\Models\BalanceConfirmed::search()
+      ->where('user_id', $session->get_api_key()->get_user()->user_id)
+      ->exec();
+    $response->BalancesUnconfirmed = \LoneSatoshi\Models\BalanceUnconfirmed::search()
+      ->where('user_id', $session->get_api_key()->get_user()->user_id)
+      ->exec();
+
+    $response->BalancesConfirmed = $response->BalancesConfirmed->get_balance_array();
+    $response->BalancesUnconfirmed = $response->BalancesUnconfirmed->get_balance_array();
   }
 
   header("Content-type: application/json");

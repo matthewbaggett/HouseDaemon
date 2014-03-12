@@ -7,11 +7,16 @@ class Balance extends \FourOneOne\ActiveRecord\ActiveRecord{
   public $username;
   public $balance;
 
+  private $_account;
+
   /**
    * @return Account
    */
   public function get_account(){
-    return Account::search()->where('account_id', $this->account_id)->execOne();
+    if(!$this->_account){
+      $this->_account = Account::search()->where('account_id', $this->account_id)->execOne();
+    }
+    return $this->_account;
   }
 
   public function pay($address, $amount){
@@ -22,5 +27,14 @@ class Balance extends \FourOneOne\ActiveRecord\ActiveRecord{
     $command = "sendfrom " . str_replace("|","\\|", $account->reference_id) . " " . $address . " " . $amount;
     //echo "Command: {$command}<br />";
     $wallet->call($command);
+  }
+
+  public function get_balance_array(){
+    return array(
+      'address' => $this->get_account()->address,
+      'balance' => $this->balance,
+      'created' => $this->get_account()->created,
+      'coin' => $this->get_account()->get_coin()->name,
+    );
   }
 }
