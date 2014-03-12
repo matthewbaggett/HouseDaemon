@@ -53,7 +53,7 @@ class Wallet{
       $transaction->block_index   = isset($raw_transaction->blockindex) ? $raw_transaction->blockindex : null;
       $transaction->block_time    = isset($raw_transaction->blocktime) ? date("Y-m-d H:i:s", $raw_transaction->blocktime) : null;
       $transaction->save();
-      if($new_transaction){
+      if($new_transaction && $transaction->category == 'send'){
         Notification::send(
           Notification::Warning,
           "Received Payment: :amount :coin into :address",
