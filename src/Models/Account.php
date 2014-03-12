@@ -45,7 +45,10 @@ class Account extends \FourOneOne\ActiveRecord\ActiveRecord{
    */
   public function get_transactions(){
     if(!$this->_transactions){
-      $this->_transactions = Transaction::search()->where('account_id', $this->account_id)->exec();
+      $this->_transactions = Transaction::search()
+        ->where('account_id', $this->account_id)
+        ->order('date','DESC')
+        ->exec();
     }
     return $this->_transactions;
   }
