@@ -20,8 +20,12 @@ $app->get('/balances/:session_key', function ($session_key) use ($app) {
       ->where('user_id', $session->get_api_key()->get_user()->user_id)
       ->exec();
 
-    $response->BalancesConfirmed = $response->BalancesConfirmed->get_balance_array();
-    $response->BalancesUnconfirmed = $response->BalancesUnconfirmed->get_balance_array();
+    foreach($response->BalancesConfirmed as &$balance){
+      $balance = $balance->get_balance_array();
+    }
+    foreach($response->BalancesUnconfirmed as &$balance){
+      $balance = $balance->get_balance_array();
+    }
   }
 
   header("Content-type: application/json");
