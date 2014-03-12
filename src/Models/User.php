@@ -69,6 +69,7 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
   }
 
   public function pay($address, $amount){
+    $amount_initial = $amount;
     $balances = $this->get_balances('balance', 'ASC');
 
     $cum_balance = 0;
@@ -81,15 +82,27 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
     }
 
     // Loop over balances until paid.
+    $transaction_count = 0;
     foreach($balances as $balance){
       if($balance->balance >= $amount){
         $balance->pay($address, $amount);
+        $transaction_count++;
         break;
       }else{
         $amount = $amount - $balance->balance;
         $balance->pay($address, $balance->balance);
+        $transaction_count++;
       }
     }
+
+    Notification::send(
+      Notification::Warning,
+      "Payed :amount to :address in :transaction_count transactions", array(
+        ":amount" => $amount_initial,
+        ":address" => $address,
+        ":transaction_count" => $transaction_count
+      )
+    );
     return true;
 
   }
