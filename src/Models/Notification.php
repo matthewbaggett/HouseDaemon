@@ -18,10 +18,13 @@ class Notification extends \FourOneOne\ActiveRecord\ActiveRecord{
   public $variables;
   public $created;
 
-  static public function send($level, $message, $values = null){
+  static public function send($level, $message, $values = null, User $user = null){
+    if($user === null){
+      $user = User::get_current();
+    }
     $note = new Notification();
     $note->created = date("Y-m-d H:i:s");
-    $note->user_id = User::get_current()->user_id;
+    $note->user_id = $user->user_id;
     $note->message = $message;
     $note->variables = serialize($values);
     $note->level = intval($level);

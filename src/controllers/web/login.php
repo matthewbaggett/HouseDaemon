@@ -25,7 +25,8 @@ $app->post('/login', function () use ($app, $session) {
       if($attempted_user instanceof \LoneSatoshi\Models\User){
         \LoneSatoshi\Models\Notification::send(
           \LoneSatoshi\Models\Notification::Warning,
-          "FAILED login to :username from :ip_addr at :time", array(
+          "FAILED login to :username from :ip_addr at :time",
+          array(
             ":username" => $username,
             ":ip_addr" => $_SERVER['REMOTE_ADDR'],
             ":time" => date("Y-m-d H:i:s"),
