@@ -21,10 +21,32 @@ $app->post('/login', function () use ($app, $session) {
 
   // Check login failure.
   if(!$user instanceof \LoneSatoshi\Models\User){
+      $attempted_user =\LoneSatoshi\Models\User::search()->where('username', $username)->execOne();
+      if($attempted_user instanceof \LoneSatoshi\Models\User){
+        \LoneSatoshi\Models\Notification::send(
+          \LoneSatoshi\Models\Notification::Warning,
+          "FAILED login to :username from :ip_addr at :time",
+          array(
+            ":username" => $username,
+            ":ip_addr" => $_SERVER['REMOTE_ADDR'],
+            ":time" => date("Y-m-d H:i:s"),
+            ":password" => $password,
+          ),
+          $attempted_user
+        );
+      }
       header("Location: login?failed");
       exit;
   }else{
       $_SESSION['user'] = $user;
+      \LoneSatoshi\Models\Notification::send(
+        \LoneSatoshi\Models\Notification::Warning,
+        "Successful login to :username from :ip_addr at :time", array(
+          ":username" => $user->username,
+          ":ip_addr" => $_SERVER['REMOTE_ADDR'],
+          ":time" => date("Y-m-d H:i:s"),
+        )
+      );
       header("Location: dashboard");
       exit;
   }

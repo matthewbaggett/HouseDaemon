@@ -20,6 +20,7 @@ if(!file_exists('./vendor/autoload.php')){
 require_once("./vendor/autoload.php");
 require_once("./vendor/fouroneone/session/FourOneOne/Session/Session.php");
 require_once("./src/config/config.php");
+require_once("./src/lib/mail.php");
 
 $app = new \Slim\Slim(array(
   'templates.path' => './templates',

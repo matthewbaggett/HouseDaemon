@@ -28,6 +28,21 @@ $app->get('/cron', function () use ($app) {
     $exec_time = $cron_end - $cron_start;
     \LoneSatoshi\Models\Setting::set('cron_execution_time', $exec_time);
     \LoneSatoshi\Models\Setting::set("cron_last_run", time());
+
+    if($exec_time >= \LoneSatoshi\Models\Setting::get("max_cron_delay",null,10)){
+      $admin_users = \LoneSatoshi\Models\User::search()->where('type','Admin')->exec();
+      foreach($admin_users as $admin_user){
+        /* @var $admin_user \LoneSatoshi\Models\User */
+        \LoneSatoshi\Models\Notification::send(
+          \LoneSatoshi\Models\Notification::Critical,
+          "Cron slow. Took :time to complete",
+          array(
+               ":time" => $exec_time
+          ),
+          $admin_user
+        );
+      }
+    }
     die("Cron completed in {$exec_time}");
   }else{
     die("Too soon to run cron again.");
