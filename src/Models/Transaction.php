@@ -26,4 +26,20 @@ class Transaction extends \FourOneOne\ActiveRecord\ActiveRecord{
     return Account::search()->where('account_id', $this->account_id)->execOne();
   }
 
+  public function get_transaction_array(){
+    return array(
+      'transaction_id' => $this->transaction_id,
+      'address' => $this->address,
+      'category' => $this->category,
+      'txid' => $this->txid,
+      'date' => $this->date,
+      'confirmations' => $this->confirmations,
+      'block' => array(
+        'hash' => $this->block_hash,
+        'index' => $this->block_index,
+        'time' => $this->block_time,
+      )
+    );
+  }
+
 }

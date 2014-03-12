@@ -12,6 +12,7 @@ class Account extends \FourOneOne\ActiveRecord\ActiveRecord{
   public $coin_id;
 
   private $_coin;
+  private $_transactions;
 
   /**
    * @return BalanceConfirmed
@@ -37,6 +38,16 @@ class Account extends \FourOneOne\ActiveRecord\ActiveRecord{
       $this->_coin = Coin::search()->where('coin_id', $this->coin_id)->execOne();
     }
     return $this->_coin;
+  }
+
+  /**
+   * @return Transaction[]
+   */
+  public function get_transactions(){
+    if(!$this->_transactions){
+      $this->_transactions = Transaction::search()->where('account_id', $this->account_id)->exec();
+    }
+    return $this->_transactions;
   }
 
 }
