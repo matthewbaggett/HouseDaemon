@@ -10,9 +10,9 @@ $app->get('/auth/:api_key', function ($api_key) use ($app) {
     ->where('revoked', 'No')
     ->execOne();
   if($api instanceof \LoneSatoshi\Models\ApiKey){
+    $session = $api->create_session();
     $response->Status = 'OKAY';
-    $response->Session = $api->create_session();
-    unset($response->Session->session_id, $response->Session->api_key_id);
+    $response->Session = $session->get_session_array();
   }else{
     $response->Status = 'FAIL';
     $response->FailureMessage = 'API key not valid';

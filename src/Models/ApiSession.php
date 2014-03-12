@@ -12,7 +12,6 @@ class ApiSession extends \FourOneOne\ActiveRecord\ActiveRecord{
   public $created;
   public $expires;
 
-
   /**
    * Load a session by session key
    * @param $session_key
@@ -34,8 +33,10 @@ class ApiSession extends \FourOneOne\ActiveRecord\ActiveRecord{
   }
 
   public function get_session_array(){
-    $a = (array) $this;
-    unset($a['session_id'],$a['api_key_id']);
-    return $a;
+    return array(
+      'session_key' => $this->session_key,
+      'created' => $this->created,
+      'expires' => $this->expires,
+    );
   }
 }
