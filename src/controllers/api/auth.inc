@@ -12,11 +12,11 @@ $app->get('/auth/:api_key', function ($api_key) use ($app) {
   if($api instanceof \LoneSatoshi\Models\ApiKey){
     $response->Status = 'OKAY';
     $response->Session = $api->create_session();
+    unset($response->Session->session_id, $response->Session->api_key_id);
   }else{
     $response->Status = 'FAIL';
     $response->FailureMessage = 'API key not valid';
   }
-
 
   header("Content-type: application/json");
   echo json_pretty_print($response);

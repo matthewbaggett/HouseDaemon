@@ -37,4 +37,11 @@ class ApiKey extends \FourOneOne\ActiveRecord\ActiveRecord{
     $session->save();
     return $session;
   }
+
+  /**
+   * @return false|User
+   */
+  public function get_user(){
+    return User::search()->where('user_id', $this->user_id)->execOne();
+  }
 }
