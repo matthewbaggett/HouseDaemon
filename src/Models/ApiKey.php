@@ -21,6 +21,7 @@ class ApiKey extends \FourOneOne\ActiveRecord\ActiveRecord{
       ->where('expires', date("Y-m-d H:i:s"), ">=")
       ->execOne();
   }
+
   /**
    * @return ApiSession
    */
