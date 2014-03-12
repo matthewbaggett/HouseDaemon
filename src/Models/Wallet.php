@@ -28,13 +28,16 @@ class Wallet{
 
     $raw_transactions = self::call("listtransactions");
     $raw_transactions = json_decode($raw_transactions);
+
     foreach($raw_transactions as $raw_transaction){
+      $new_transaction = false;
       $transaction = Transaction::search()
         ->where('txid', $raw_transaction->txid)
         ->where('reference_id', $raw_transaction->account)
         ->execOne();
       if(!$transaction instanceof Transaction){
         $transaction = new Transaction();
+        $new_transaction = true;
       }
       $account = Account::search()->where('reference_id', $raw_transaction->account)->execOne();
       $transaction->account_id    = $account->account_id;
@@ -50,6 +53,17 @@ class Wallet{
       $transaction->block_index   = isset($raw_transaction->blockindex) ? $raw_transaction->blockindex : null;
       $transaction->block_time    = isset($raw_transaction->blocktime) ? date("Y-m-d H:i:s", $raw_transaction->blocktime) : null;
       $transaction->save();
+      if($new_transaction){
+        Notification::send(
+          Notification::Warning,
+          "Received Payment: :amount :coin into :address",
+          array(
+            ':amount' => $transaction->amount,
+            ':coin' => $transaction->get_account()->get_coin()->name,
+            ':address' => $transaction->address,
+          )
+        );
+      }
     }
   }
 
