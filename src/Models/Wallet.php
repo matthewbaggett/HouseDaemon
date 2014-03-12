@@ -27,7 +27,10 @@ class Wallet{
     $raw_transactions = self::call("listtransactions");
     $raw_transactions = json_decode($raw_transactions);
     foreach($raw_transactions as $raw_transaction){
-      $transaction = Transaction::search()->where('txid', $raw_transaction->txid)->execOne();
+      $transaction = Transaction::search()
+        ->where('txid', $raw_transaction->txid)
+        ->where('reference_id', $raw_transaction->account)
+        ->execOne();
       if(!$transaction instanceof Transaction){
         $transaction = new Transaction();
       }
