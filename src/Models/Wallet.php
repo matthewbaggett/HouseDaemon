@@ -12,6 +12,8 @@ class Wallet{
     $command = WALLET_BIN . " {$command}";
     $result = $exec->run($command, false, null, 80, 25, 0);
 
+    $result = trim($result);
+    
     return $result;
   }
 
