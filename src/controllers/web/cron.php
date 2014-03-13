@@ -27,7 +27,6 @@ $app->get('/cron', function () use ($app) {
       \LoneSatoshi\Models\Setting::set("block_count_" . $wallet->get_coin()->name, $block_count);
     }
 
-
     $cron_end = microtime(true);
     $exec_time = $cron_end - $cron_start;
     \LoneSatoshi\Models\Setting::set('cron_execution_time', $exec_time);
