@@ -8,3 +8,5 @@
     <input type="submit"/>
   </div>
 </form>
+
+<p><?php echo $this->t("You have :amount :coin available", array(':amount' => $available_balance, ':coin' => $coin->symbol)); ?></p>

@@ -3,6 +3,7 @@
 $app->get('/pay/:address_book_id/:address', function ($address_book_id, $address) use ($app) {
   \LoneSatoshi\Models\User::check_logged_in();
 
+  /* @var $address_book_record \LoneSatoshi\Models\AddressBook */
   $address_book_record = \LoneSatoshi\Models\AddressBook::search()->where('address_book_id', $address_book_id)->execOne();
 
   $pre_transaction_id = uniqid('pre_transaction_id_', true);
@@ -16,6 +17,8 @@ $app->get('/pay/:address_book_id/:address', function ($address_book_id, $address
     'address' => $address_book_record->address,
     'address_book_record_id' => $address_book_id,
     'pre_transaction_id' => $pre_transaction_id,
+    'available_balance' => $address_book_record->get_available_balance(),
+    'coin' => $address_book_record->get_coin(),
   ));
 });
 
