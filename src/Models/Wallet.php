@@ -108,7 +108,7 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
     }
   }
 
-  public function create_wallet(User $user, Coin $coin){
+  public function create_account_in_wallet(User $user, Coin $coin){
     $account = new Account();
     $account->user_id = $user->user_id;
     $account->reference_id = $user->username . "|" . date("Y-m-d") . "|" . date("H:i:s");
