@@ -33,7 +33,7 @@ $app->post('/pay/:address_book_id/:address', function ($address_book_id, $addres
         try{
           \LoneSatoshi\Models\User::get_current()->pay($address, $_POST['amount']);
           \LoneSatoshi\Models\Wallet::update_transaction_log();
-          header("Location: " . url("transactions"));
+          header("Location: /transactions");
           exit;
         }catch(Exception $e){
           die($e->getMessage());
