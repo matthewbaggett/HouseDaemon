@@ -1,7 +1,7 @@
 <?php
 
 $app->get('/cron', function () use ($app) {
-  ob_start();
+  header("Content-type: text/plain");
   $run = false;
   if(\LoneSatoshi\Models\User::get_current() instanceof \LoneSatoshi\Models\User){
     if(\LoneSatoshi\Models\User::get_current()->is_admin()){
@@ -50,10 +50,7 @@ $app->get('/cron', function () use ($app) {
   }else{
     echo "Too soon to run cron again.";
   }
+  exit;
 
-  $output = ob_get_contents();
-  ob_end_clean();
 
-  header("Content-type: text/plain");
-  echo $output;
 });
