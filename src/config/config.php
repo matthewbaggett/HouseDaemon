@@ -10,8 +10,6 @@ $database = new \FourOneOne\ActiveRecord\DatabaseLayer(array(
   'db_database' => 'lonesatoshi'
 ));
 
-define("RPCUSERNAME", "lonesatoshi");
-define("RPCPASSWORD", "WAncPKHEBEsj4tUtWAncPKHEBEsj4tUt");
 define("WALLET_BIN", "/home/dogecoin/dogecoind");
 define("WALLET_ADDRESS","lonesatoshi.com");
 define("WALLET_USERNAME", "dogecoin");
@@ -29,5 +27,5 @@ $mailer_transport = Swift_SmtpTransport::newInstance('mail.lonesatoshi.com', 465
   ->setUsername('system@lonesatoshi.com')
   ->setPassword('m-MzaSgN')
 ;
-$mailer_from = array("system@lonesatoshi.com" =>"LoneSatoshi System");
+$mailer_from = array("system@lonesatoshi.com" => "LoneSatoshi System");
 $mailer_default_to = array("matthew+lonesatoshicopies@baggett.me");

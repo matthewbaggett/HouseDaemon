@@ -12,6 +12,7 @@
     <tr>
       <td><?php echo $address->name; ?></td>
       <td><?php echo $address->address; ?></td>
+      <td><?php echo $address->get_coin()->name; ?></td>
       <td><?php echo $address->created; ?></td>
       <td>
         <?php echo $this->l("pay/{$address->address_book_id}/{$address->address}", 'Pay'); ?>
@@ -30,6 +31,15 @@
   <div class="form-row">
     <label for="address"><?php echo $this->t("Address"); ?>:</label>
     <input id="address" name="address"/>
+  </div>
+  <div class="form-row">
+    <label for="address"><?php echo $this->t("Coin"); ?>:</label>
+    <select id="coin" name="coin">
+      <option>Please Select Coin</option>
+      <?php foreach(\LoneSatoshi\Models\Coin::search()->exec() as $coin): ?>
+        <option value="<?php echo $coin->coin_id; ?>"><?php echo $coin->name; ?></option>
+      <?php endforeach; ?>
+    </select>
   </div>
   <div class="form-row">
     <input type="submit"/>

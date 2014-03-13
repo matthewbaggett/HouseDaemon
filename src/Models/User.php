@@ -59,18 +59,23 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
   /**
    * @return Balance[]|false
    */
-  public function get_balances($sort_by = null, $direction = null){
+  public function get_balances(Coin $coin = null, $sort_by = null, $direction = null){
     $query = BalanceConfirmed::search();
     $query->where('user_id', $this->user_id);
+
+    if($coin !== null){
+      $query->where('coin_id', $coin->coin_id);
+    }
+
     if($sort_by !== null){
       $query->order($sort_by, $direction);
     }
     return $query->exec();
   }
 
-  public function pay($address, $amount){
+  public function pay($address, Coin $coin, $amount){
     $amount_initial = $amount;
-    $balances = $this->get_balances('balance', 'ASC');
+    $balances = $this->get_balances($coin, 'balance', 'ASC');
 
     $cum_balance = 0;
     foreach($balances as $balance){
@@ -85,12 +90,12 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
     $transaction_count = 0;
     foreach($balances as $balance){
       if($balance->balance >= $amount){
-        $balance->pay($address, $amount);
+        $balance->pay($coin, $address, $amount);
         $transaction_count++;
         break;
       }else{
         $amount = $amount - $balance->balance;
-        $balance->pay($address, $balance->balance);
+        $balance->pay($coin, $address, $balance->balance);
         $transaction_count++;
       }
     }

@@ -19,10 +19,14 @@ $app->get('/cron', function () use ($app) {
   echo "Last cron run  : " . (time() - $cron_last_run) . " seconds ago \n";
   if($run){
     $cron_start = microtime(true);
-    \LoneSatoshi\Models\Wallet::update_transaction_log();
-    $block_count = \LoneSatoshi\Models\Wallet::get_info('blocks');
-    echo "Block count is {$block_count} \n";
-    \LoneSatoshi\Models\Setting::set("block_count", $block_count);
+    foreach(\LoneSatoshi\Models\Wallet::search()->exec() as $wallet){
+      /* @var $wallet \LoneSatoshi\Models\Wallet */
+      $wallet->update_transaction_log();
+      $block_count = $wallet->get_info('blocks');
+      echo "{$wallet->get_coin()->name} Block count is {$block_count} \n";
+      \LoneSatoshi\Models\Setting::set("block_count_" . $wallet->get_coin()->name, $block_count);
+    }
+
 
     $cron_end = microtime(true);
     $exec_time = $cron_end - $cron_start;

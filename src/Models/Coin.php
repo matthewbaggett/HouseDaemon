@@ -15,10 +15,7 @@ class Coin extends \FourOneOne\ActiveRecord\ActiveRecord{
    * @return Wallet
    */
   public function get_wallet(){
-    if($this->name == 'Dogecoin'){
-      return new Wallet();
-    }
-    return false;
+    return Wallet::search('coin_id', $this->coin_id)->execOne();
   }
 
 }

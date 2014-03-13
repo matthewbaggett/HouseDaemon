@@ -19,11 +19,15 @@ class Balance extends \FourOneOne\ActiveRecord\ActiveRecord{
     return $this->_account;
   }
 
-  public function pay($address, $amount){
+  public function pay(Coin $check_coin, $address, $amount){
     //echo "Pay {$amount} to {$address} from {$this->get_account()->address} ({$this->balance})<br />";
     $account = $this->get_account();
     $coin = $account->get_coin();
     $wallet = $coin->get_wallet();
+    if($coin->coin_id != $check_coin->coin_id){
+      throw new \Exception("Coin ID does not match Check Coin ID");
+      exit;
+    }
     $command = "sendfrom " . str_replace("|","\\|", $account->reference_id) . " " . $address . " " . $amount;
     //echo "Command: {$command}<br />";
     $wallet->call($command);
