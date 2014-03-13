@@ -1,7 +1,7 @@
 <?php
 
 $app->get('/cron', function () use ($app) {
-  header("Content-type: text/plain");
+  $output = '';
   $run = false;
   if(\LoneSatoshi\Models\User::get_current() instanceof \LoneSatoshi\Models\User){
     if(\LoneSatoshi\Models\User::get_current()->is_admin()){
@@ -9,14 +9,14 @@ $app->get('/cron', function () use ($app) {
     }
   }
   $cron_last_run = \LoneSatoshi\Models\Setting::get("cron_last_run");
-  echo "Date now       : " . date("Y-m-d H:i:s") . "\n";
-  echo "Date last run  : " . date("Y-m-d H:i:s", $cron_last_run) . "\n";
-  echo "Last cron took : " . number_format(\LoneSatoshi\Models\Setting::get("cron_execution_time"),3) . " seconds" . "\n";
+  $output.= "Date now       : " . date("Y-m-d H:i:s") . "\n";
+  $output.= "Date last run  : " . date("Y-m-d H:i:s", $cron_last_run) . "\n";
+  $output.= "Last cron took : " . number_format(\LoneSatoshi\Models\Setting::get("cron_execution_time"),3) . " seconds" . "\n";
   if((time() - $cron_last_run) > 30){
     $run = true;
   }
 
-  echo "Last cron run  : " . (time() - $cron_last_run) . " seconds ago \n";
+  $output.= "Last cron run  : " . (time() - $cron_last_run) . " seconds ago \n";
   if($run){
     $cron_start = microtime(true);
     foreach(\LoneSatoshi\Models\Wallet::search()->exec() as $wallet){
@@ -24,7 +24,7 @@ $app->get('/cron', function () use ($app) {
       $wallet->update_transaction_log();
       $wallet->update_peer_log();
       $block_count = $wallet->get_info('blocks');
-      echo "{$wallet->get_coin()->name} Block count is {$block_count} \n";
+      $output.= "{$wallet->get_coin()->name} Block count is {$block_count} \n";
       \LoneSatoshi\Models\Setting::set("block_count_" . $wallet->get_coin()->name, $block_count);
     }
 
@@ -47,10 +47,13 @@ $app->get('/cron', function () use ($app) {
         );
       }
     }
-    echo "Cron completed in {$exec_time}";
+    $output.= "Cron completed in {$exec_time}";
   }else{
-    echo "Too soon to run cron again.";
+    $output.= "Too soon to run cron again.";
   }
+
+  header("Content-type: text/plain");
+  echo $output;
   exit;
 
 
