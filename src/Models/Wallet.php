@@ -137,20 +137,20 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
         $peer = new NetworkPeer();
         $new_peer = true;
       }
-      $peer->wallet_id = $this->wallet_id;
-      $peer->address = $ip;
-      $peer->port = $port;
-      $peer->last_send = $raw_peer->lastsend;
-      $peer->last_recv = $raw_peer->lastrecv;
-      $peer->bytes_sent = isset($raw_peer->bytessent) ? $raw_peer->bytessent : null;
-      $peer->bytes_recv = isset($raw_peer->bytesrecv) ? $raw_peer->bytesrecv : null;
-      $peer->blocks_requested = $raw_peer->blocksrequested;
-      $peer->connection_time = $raw_peer->conntime;
-      $peer->version = $raw_peer->version;
-      $peer->subversion = $raw_peer->subver;
-      $peer->inbound = $raw_peer->inbound ? 'true':'false';
-      $peer->starting_height = $raw_peer->startingheight;
-      $peer->ban_score = $raw_peer->banscore;
+      $peer->wallet_id        = $this->wallet_id;
+      $peer->address          = $ip;
+      $peer->port             = $port;
+      $peer->last_send        = $raw_peer->lastsend;
+      $peer->last_recv        = $raw_peer->lastrecv;
+      $peer->bytes_sent       = isset($raw_peer->bytessent) ? $raw_peer->bytessent : null;
+      $peer->bytes_recv       = isset($raw_peer->bytesrecv) ? $raw_peer->bytesrecv : null;
+      $peer->blocks_requested = isset($raw_peer->blocksrequested) ? $raw_peer->blocksrequested : null;
+      $peer->connection_time  = isset($raw_peer->conntime) ? $raw_peer->conntime : null;
+      $peer->version          = isset($raw_peer->version) ? $raw_peer->version : null;
+      $peer->subversion       = isset($raw_peer->subver) ? $raw_peer->subver : null;
+      $peer->inbound          = $raw_peer->inbound ? 'true':'false';
+      $peer->starting_height  = isset($raw_peer->startingheight) ? $raw_peer->startingheight : null;
+      $peer->ban_score        = isset($raw_peer->banscore) ? $raw_peer->banscore : null;
 
       $peer->save();
     }
