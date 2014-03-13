@@ -2,6 +2,7 @@
   <thead>
   <tr>
     <td>Transaction ID</td>
+    <td>Coin</td>
     <td>Address</td>
     <td>Amount</td>
     <td>Confirmations</td>
@@ -16,6 +17,7 @@
     <?php /* @var $transaction \LoneSatoshi\Models\Transaction */ ?>
     <tr class="<?php echo $transaction->category?>">
       <td><?php echo $transaction->transaction_id; ?></td>
+      <td><?php echo $transaction->get_account()->get_coin()->name; ?></td>
       <td>
         <?php if($transaction->get_account()->get_coin()->chain_url_format_address): ?>
           <a href="<?php echo str_replace("::ADDRESS::", $transaction->address, $transaction->get_account()->get_coin()->chain_url_format_address); ?>" title="<?php echo $transaction->address; ?>">
