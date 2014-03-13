@@ -14,7 +14,6 @@
         "fouroneone/translation": "dev-master",
         "fouroneone/session": "dev-master",
         "swiftmailer/swiftmailer": "5.*",
-        "intervention/image": "dev-master",
         "frenkynet/flysystem": "0.1.*",
         "guzzle/guzzle": "3.8.*",
         "oodle/krumo": "dev-master",
