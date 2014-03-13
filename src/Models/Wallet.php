@@ -63,8 +63,19 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
     return $result[$element];
   }
 
+  public function create_account_in_wallet(User $user, Coin $coin){
+    $account = new Account();
+    $account->user_id = $user->user_id;
+    $account->reference_id = $user->username . "|" . date("Y-m-d") . "|" . date("H:i:s");
+    $command = "getnewaddress " . str_replace("|","\\|", $account->reference_id);
+    $account->address = $this->call($command);
+    $account->created = date("Y-m-d H:i:s");
+    $account->coin_id = $coin->coin_id;
+    $account->save();
+  }
+
   public function update_transaction_log(){
-    $last = Transaction::search()->order('date', 'DESC')->execOne();
+    //$last = Transaction::search()->order('date', 'DESC')->execOne();
 
     $raw_transactions = $this->call("listtransactions");
     $raw_transactions = json_decode($raw_transactions);
@@ -108,14 +119,40 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
     }
   }
 
-  public function create_account_in_wallet(User $user, Coin $coin){
-    $account = new Account();
-    $account->user_id = $user->user_id;
-    $account->reference_id = $user->username . "|" . date("Y-m-d") . "|" . date("H:i:s");
-    $command = "getnewaddress " . str_replace("|","\\|", $account->reference_id);
-    $account->address = $this->call($command);
-    $account->created = date("Y-m-d H:i:s");
-    $account->coin_id = $coin->coin_id;
-    $account->save();
+  public function update_peer_log(){
+    $raw_peers = $this->call("getpeerinfo");
+    $raw_peers = json_decode($raw_peers);
+    $yesterday = strtotime("yesterday");
+    foreach($raw_peers as $raw_peer){
+      $addr_bits = explode(":",$raw_peer->addr,2);
+      $ip = $addr_bits[0];
+      $port = $addr_bits[1];
+      $peer = NetworkPeer::search()
+        ->where('address', $ip)
+        ->where('port', $port)
+        ->where('connection_time', date("Y-m-d H:i:s", $yesterday), ">")
+        ->where('wallet_id', $this->wallet_id)
+        ->execOne();
+      if(!$peer instanceof NetworkPeer){
+        $peer = new NetworkPeer();
+        $new_peer = true;
+      }
+      $peer->wallet_id = $this->wallet_id;
+      $peer->address = $ip;
+      $peer->port = $port;
+      $peer->last_send = $raw_peers->lastsend;
+      $peer->last_recv = $raw_peers->lastrecv;
+      $peer->bytes_sent = $raw_peers->bytessent;
+      $peer->bytes_recv = $raw_peers->bytesrecv;
+      $peer->blocks_requested = $raw_peers->blocksrequested;
+      $peer->connection_time = $raw_peers->conntime;
+      $peer->version = $raw_peers->version;
+      $peer->subversion = $raw_peers->subver;
+      $peer->inbound = $raw_peers->inbound ? 'true':'false';
+      $peer->starting_height = $raw_peers->startingheight;
+      $peer->ban_score = $raw_peers->banscore;
+
+      $peer->save();
+    }
   }
 }

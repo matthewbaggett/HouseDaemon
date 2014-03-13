@@ -22,6 +22,7 @@ $app->get('/cron', function () use ($app) {
     foreach(\LoneSatoshi\Models\Wallet::search()->exec() as $wallet){
       /* @var $wallet \LoneSatoshi\Models\Wallet */
       $wallet->update_transaction_log();
+      $wallet->update_peer_log();
       $block_count = $wallet->get_info('blocks');
       echo "{$wallet->get_coin()->name} Block count is {$block_count} \n";
       \LoneSatoshi\Models\Setting::set("block_count_" . $wallet->get_coin()->name, $block_count);
