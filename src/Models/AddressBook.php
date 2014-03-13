@@ -32,7 +32,10 @@ class AddressBook extends \FourOneOne\ActiveRecord\ActiveRecord{
   public function get_available_balance(){
     $balance = 0;
     foreach($this->get_accounts() as $account){
-      $balance = $balance + $account->get_balance_confirmed()->balance;
+      $confirmed_balance = $account->get_balance_confirmed();
+      if($confirmed_balance instanceof BalanceConfirmed){
+        $balance = $balance + $confirmed_balance->balance;
+      }
     }
     return $balance;
   }
