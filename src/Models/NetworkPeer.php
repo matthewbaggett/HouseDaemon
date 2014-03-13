@@ -20,5 +20,6 @@ class NetworkPeer extends \FourOneOne\ActiveRecord\ActiveRecord{
   public $inbound;
   public $starting_height;
   public $ban_score;
+  public $last_seen;
 
 }
