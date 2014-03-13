@@ -124,7 +124,6 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
     $raw_peers = json_decode($raw_peers);
     $yesterday = strtotime("yesterday");
     foreach($raw_peers as $raw_peer){
-      var_dump($raw_peer);
       $addr_bits = explode(":",$raw_peer->addr,2);
       $ip = $addr_bits[0];
       $port = $addr_bits[1];
@@ -143,8 +142,8 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
       $peer->port = $port;
       $peer->last_send = $raw_peer->lastsend;
       $peer->last_recv = $raw_peer->lastrecv;
-      $peer->bytes_sent = $raw_peer->bytessent;
-      $peer->bytes_recv = $raw_peer->bytesrecv;
+      $peer->bytes_sent = isset($raw_peer->bytessent) ? $raw_peer->bytessent : null;
+      $peer->bytes_recv = isset($raw_peer->bytesrecv) ? $raw_peer->bytesrecv : null;
       $peer->blocks_requested = $raw_peer->blocksrequested;
       $peer->connection_time = $raw_peer->conntime;
       $peer->version = $raw_peer->version;
