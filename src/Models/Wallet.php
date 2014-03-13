@@ -88,7 +88,7 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
       $transaction->confirmations = $raw_transaction->confirmations;
       $transaction->txid          = $raw_transaction->txid;
       $transaction->date          = date("Y-m-d H:i:s", $raw_transaction->time);
-      $transaction->date_received = date("Y-m-d H:i:s", $raw_transaction->timereceived);
+      $transaction->date_received = isset($raw_transaction->timereceived) ? date("Y-m-d H:i:s", $raw_transaction->timereceived) : null;
       $transaction->block_hash    = isset($raw_transaction->blockhash) ? $raw_transaction->blockhash : null;
       $transaction->block_index   = isset($raw_transaction->blockindex) ? $raw_transaction->blockindex : null;
       $transaction->block_time    = isset($raw_transaction->blocktime) ? date("Y-m-d H:i:s", $raw_transaction->blocktime) : null;
