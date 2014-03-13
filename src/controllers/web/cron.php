@@ -1,7 +1,7 @@
 <?php
 
 $app->get('/cron', function () use ($app) {
-  header("Content-type: text/plain");
+  ob_start();
   $run = false;
   if(\LoneSatoshi\Models\User::get_current() instanceof \LoneSatoshi\Models\User){
     if(\LoneSatoshi\Models\User::get_current()->is_admin()){
@@ -46,8 +46,14 @@ $app->get('/cron', function () use ($app) {
         );
       }
     }
-    die("Cron completed in {$exec_time}");
+    echo "Cron completed in {$exec_time}";
   }else{
-    die("Too soon to run cron again.");
+    echo "Too soon to run cron again.";
   }
+
+  $output = ob_get_contents();
+  ob_end_clean();
+
+  header("Content-type: text/plain");
+  echo $output;
 });
