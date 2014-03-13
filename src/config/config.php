@@ -10,11 +10,6 @@ $database = new \FourOneOne\ActiveRecord\DatabaseLayer(array(
   'db_database' => 'lonesatoshi'
 ));
 
-define("WALLET_BIN", "/home/dogecoin/dogecoind");
-define("WALLET_ADDRESS","lonesatoshi.com");
-define("WALLET_USERNAME", "dogecoin");
-define("WALLET_PASSWORD", "WAncPKHEBEsj4tUt");
-
 // PHP Settings
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
