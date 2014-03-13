@@ -140,17 +140,17 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
       $peer->wallet_id = $this->wallet_id;
       $peer->address = $ip;
       $peer->port = $port;
-      $peer->last_send = $raw_peers->lastsend;
-      $peer->last_recv = $raw_peers->lastrecv;
-      $peer->bytes_sent = $raw_peers->bytessent;
-      $peer->bytes_recv = $raw_peers->bytesrecv;
-      $peer->blocks_requested = $raw_peers->blocksrequested;
-      $peer->connection_time = $raw_peers->conntime;
-      $peer->version = $raw_peers->version;
-      $peer->subversion = $raw_peers->subver;
-      $peer->inbound = $raw_peers->inbound ? 'true':'false';
-      $peer->starting_height = $raw_peers->startingheight;
-      $peer->ban_score = $raw_peers->banscore;
+      $peer->last_send = $raw_peer->lastsend;
+      $peer->last_recv = $raw_peer->lastrecv;
+      $peer->bytes_sent = $raw_peer->bytessent;
+      $peer->bytes_recv = $raw_peer->bytesrecv;
+      $peer->blocks_requested = $raw_peer->blocksrequested;
+      $peer->connection_time = $raw_peer->conntime;
+      $peer->version = $raw_peer->version;
+      $peer->subversion = $raw_peer->subver;
+      $peer->inbound = $raw_peer->inbound ? 'true':'false';
+      $peer->starting_height = $raw_peer->startingheight;
+      $peer->ban_score = $raw_peer->banscore;
 
       $peer->save();
     }
