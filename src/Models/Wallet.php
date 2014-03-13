@@ -61,7 +61,8 @@ class Wallet{
             ':amount' => $transaction->amount,
             ':coin' => $transaction->get_account()->get_coin()->name,
             ':address' => $transaction->address,
-          )
+          ),
+          $transaction->get_account()->get_user()
         );
       }
     }

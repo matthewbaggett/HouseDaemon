@@ -53,4 +53,11 @@ class Account extends \FourOneOne\ActiveRecord\ActiveRecord{
     return $this->_transactions;
   }
 
+  /**
+   * @return User
+   */
+  public function get_user(){
+    return User::search()->where('user_id', $this->user_id)->execOne();
+  }
+
 }
