@@ -38,6 +38,7 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
       $gi = geoip_open(APP_DISK_ROOT . "/geo/GeoIP.dat", GEOIP_STANDARD);
       $gicity = geoip_open(APP_DISK_ROOT . "/geo/GeoLiteCity.dat", GEOIP_STANDARD);
       require_once(APP_DISK_ROOT . "/vendor/geoip/geoip/src/timezone.php");
+      require_once(APP_DISK_ROOT . "/vendor/geoip/geoip/src/geoipregionvars.php");
 
       // Get Data.
       $city = geoip_record_by_addr($gicity, $ip_addr);
@@ -71,6 +72,20 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
 
   static public function get_by_ip($ip_addr){
     return self::populate($ip_addr);
+  }
+
+  public function get_place(){
+    if(!$this->country){
+      return "Unknown Place";
+    }
+    if(!$this->region){
+      return "{$this->country}";
+    }
+    if(!$this->city){
+      return "{$this->region}, {$this->country}";
+    }else{
+      return "{$this->city}, {$this->region}, {$this->country_3}";
+    }
   }
 
 }
