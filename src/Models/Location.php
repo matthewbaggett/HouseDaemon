@@ -43,7 +43,7 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
 
       // Get Data.
       $city = geoip_record_by_addr($gicity, $ip_addr);
-      $org = \geoip_org_by_addr($gi, $ip_addr);
+      $org = geoip_org_by_addr($gi, $ip_addr);
 
       // Populate.
       $location->address = $ip_addr;
