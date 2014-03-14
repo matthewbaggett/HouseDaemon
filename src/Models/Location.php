@@ -11,6 +11,12 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
   public $country_3;
   public $continent;
   public $region;
+  public $region_name;
+  public $latitude;
+  public $longitude;
+  public $metro_code;
+  public $postal_code;
+  public $time_zone;
   public $org;
 
   /**
@@ -23,12 +29,27 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
       return $location;
     }else{
       $location = new Location();
-      $gi = \geoip_open(APP_DISK_ROOT . "/geo/GeoIP.dat", GEOIP_STANDARD);
-      $location->country = \geoip_country_name_by_addr($gi, $ip_addr);
-      $location->country_3 = \geoip_country_code3_by_name($gi, $ip_addr);
-      $location->continent = \geoip_continent_code_by_name($gi, $ip_addr);
-      $location->region = \geoip_region_by_addr($gi, $ip_addr);
+
+      // Set up Maxmind stuff
+      global $GEOIP_REGION_NAME;
+      $gi = geoip_open(APP_DISK_ROOT . "/geo/GeoIP.dat", GEOIP_STANDARD);
+      $gicity = geoip_open(APP_DISK_ROOT . "/geo/GeoIPCity.dat", GEOIP_STANDARD);
+      $city = geoip_record_by_addr($gicity, $ip_addr);
+
+      // Populate.
+      $location->country = $city->country_name;
+      $location->country_3 = $city->country_code3;
+      $location->continent = $city->continent_code;
+      $location->region = $city->region;
+      $location->region_name = $GEOIP_REGION_NAME[$city->country_code][$city->region];
+      $location->latitude = $city->latitude;
+      $location->longitude = $city->longitude;
+      $location->metro_code = $city->metro_code;
+      $location->postal_code = $city->postal_code;
+      $location->time_zone = get_time_zone($city->country_code, $city->region);
       $location->org = \geoip_org_by_addr($gi, $ip_addr);
+
+      // Save 'er down.
       $location->save();
 
       return $location;
