@@ -36,7 +36,15 @@ $app->post('/pay/:address_book_id/:address', function ($address_book_id, $addres
         try{
           $address_book_item = \LoneSatoshi\Models\AddressBook::search()->where('address_book_id', $address_book_id)->execOne();
           $coin = $address_book_item->get_coin();
+          /* @var $coin \LoneSatoshi\Models\Coin */
+
+          // Pay the money
           \LoneSatoshi\Models\User::get_current()->pay($address, $coin, $_POST['amount']);
+
+          // Update the transaction log
+          $coin->get_wallet()->update_transaction_log();
+
+          // Throw the user out to transactions.
           header("Location: /transactions");
           exit;
         }catch(Exception $e){
