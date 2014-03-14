@@ -3,7 +3,6 @@
 namespace LoneSatoshi\Models;
 
 require_once(APP_DISK_ROOT . "/vendor/geoip/geoip/src/timezone.php");
-require_once(APP_DISK_ROOT . "/vendor/geoip/geoip/src/geoipregionvars.php");
 
 class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
   protected $_table = "locations";
@@ -47,7 +46,9 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
       $org = geoip_org_by_addr($gi, $ip_addr);
 
       // Populate.
-      $region_name = $GEOIP_REGION_NAME[$city->country_code][$city->region];
+      require(APP_DISK_ROOT . "/vendor/geoip/geoip/src/geoipregionvars.php");
+
+      $region_name = $GEOIP_REGION_NAME[$city->country_code]  [$city->region];
 
       die("Region Name for {$ip_addr} [{$city->country_code}][{$city->region}] = {$region_name}");
       $location->address = $ip_addr;
