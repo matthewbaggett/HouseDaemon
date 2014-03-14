@@ -11,7 +11,6 @@ $app->get('/wallets', function () use ($app) {
                         ->execOne();
     if(!$existing_wallet instanceof \LoneSatoshi\Models\Account){
       $wallet = $coin_to_autogenerate_wallet->get_wallet();
-      die("Coin {$coin_to_autogenerate_wallet->coin_id} says I should be generating new account in wallet {$wallet->get_coin()->name}");
       $wallet->create_account_in_wallet($_SESSION['user'], $coin_to_autogenerate_wallet);
     }
   }

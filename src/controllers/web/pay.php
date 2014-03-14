@@ -24,12 +24,9 @@ $app->get('/pay/:address_book_id/:address', function ($address_book_id, $address
 
 $app->post('/pay/:address_book_id/:address', function ($address_book_id, $address) use ($app) {
   \LoneSatoshi\Models\User::check_logged_in();
-  //echo "<pre>";
-  //var_dump($_POST);
 
   $pre_transaction = $_SESSION[$_POST['pre-transaction-id']];
-  //var_dump($pre_transaction);
-  //exit;
+
   if(\LoneSatoshi\Models\User::get_current()->user_id == $pre_transaction['user_id']){
     if($address == $pre_transaction['address']){
       if($address_book_id == $pre_transaction['address_book_record_id']){
