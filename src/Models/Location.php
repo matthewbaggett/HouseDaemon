@@ -44,13 +44,14 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
       // Get Data.
       $city = geoip_record_by_addr($gicity, $ip_addr);
       $org = geoip_org_by_addr($gi, $ip_addr);
+      var_dump($org);exit;
 
       // Populate.
       require(APP_DISK_ROOT . "/vendor/geoip/geoip/src/geoipregionvars.php");
 
-      $region_name = $GEOIP_REGION_NAME[$city->country_code]  [$city->region];
+      $region_name = $GEOIP_REGION_NAME[$city->country_code][$city->region];
 
-      die("Region Name for {$ip_addr} [{$city->country_code}][{$city->region}] = {$region_name}");
+      //die("Region Name for {$ip_addr} [{$city->country_code}][{$city->region}] = {$region_name}");
       $location->address = $ip_addr;
       $location->country = $city->country_name;
       $location->country_2 = $city->country_code;
