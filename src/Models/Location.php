@@ -55,7 +55,11 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
       $location->city = $city->city;
       $location->metro_code = $city->metro_code;
       $location->postal_code = $city->postal_code;
-      $location->time_zone = \get_time_zone($city->country_code, $city->region);
+      try{
+        $location->time_zone = \get_time_zone($city->country_code, $city->region);
+      }catch(\Exception $e){
+        $location->time_zone = null;
+      }
       $location->org = $org;
 
       // Save 'er down.
