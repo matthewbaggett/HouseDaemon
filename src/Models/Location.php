@@ -2,6 +2,9 @@
 
 namespace LoneSatoshi\Models;
 
+require_once(APP_DISK_ROOT . "/vendor/geoip/geoip/src/timezone.php");
+require_once(APP_DISK_ROOT . "/vendor/geoip/geoip/src/geoipregionvars.php");
+
 class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
   protected $_table = "locations";
 
@@ -37,8 +40,6 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
       // Set up Maxmind stuff
       $gi = geoip_open(APP_DISK_ROOT . "/geo/GeoIP.dat", GEOIP_STANDARD);
       $gicity = geoip_open(APP_DISK_ROOT . "/geo/GeoLiteCity.dat", GEOIP_STANDARD);
-      require_once(APP_DISK_ROOT . "/vendor/geoip/geoip/src/timezone.php");
-      require_once(APP_DISK_ROOT . "/vendor/geoip/geoip/src/geoipregionvars.php");
       global $GEOIP_REGION_NAME;
 
       // Get Data.
