@@ -16,7 +16,9 @@ class Coin extends \FourOneOne\ActiveRecord\ActiveRecord{
    */
   public function get_wallet(){
     echo "Looking for wallet with coin_id {$this->coin_id}";
-    return Wallet::search('coin_id', $this->coin_id)->execOne();
+    $wallet = Wallet::search('coin_id', $this->coin_id)->execOne();
+    var_dump($wallet);
+    return $wallet;
   }
 
 }
