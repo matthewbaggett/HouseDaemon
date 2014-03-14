@@ -47,13 +47,16 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
       $org = geoip_org_by_addr($gi, $ip_addr);
 
       // Populate.
+      $region_name = $GEOIP_REGION_NAME[$city->country_code][$city->region];
+
+      die("Region Name for {$ip_addr} [{$city->country_code}][{$city->region}] = {$region_name}");
       $location->address = $ip_addr;
       $location->country = $city->country_name;
       $location->country_2 = $city->country_code;
       $location->country_3 = $city->country_code3;
       $location->continent = $city->continent_code;
       $location->region = $city->region;
-      $location->region_name = $GEOIP_REGION_NAME[$city->country_code][$city->region];
+      $location->region_name = $region_name;
       $location->latitude = $city->latitude;
       $location->longitude = $city->longitude;
       $location->city = $city->city;
