@@ -36,4 +36,8 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
 
   }
 
+  static public function get_by_ip($ip_addr){
+    return self::populate($ip_addr);
+  }
+
 }

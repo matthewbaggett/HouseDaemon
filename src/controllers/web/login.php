@@ -19,10 +19,13 @@ $app->post('/login', function () use ($app, $session) {
     $user = \LoneSatoshi\Models\User::search()->where('email', $username)->where('password', hash("SHA1", $password))->execOne();
   }
 
+  $location = \LoneSatoshi\Models\Location::get_by_ip($_SERVER['REMOTE_ADDR']);
+
   // Check login failure.
   if(!$user instanceof \LoneSatoshi\Models\User){
       $attempted_user =\LoneSatoshi\Models\User::search()->where('username', $username)->execOne();
       if($attempted_user instanceof \LoneSatoshi\Models\User){
+
         \LoneSatoshi\Models\Notification::send(
           \LoneSatoshi\Models\Notification::Warning,
           "FAILED login to :username from :ip_addr at :time",
