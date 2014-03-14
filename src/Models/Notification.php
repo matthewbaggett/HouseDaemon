@@ -8,6 +8,7 @@ class Notification extends \FourOneOne\ActiveRecord\ActiveRecord{
   const Critical = 1;
   const Warning = 5;
   const Dull = 9;
+  const Debug = 10;
 
   const EmailThreshold = Notification::Warning;
 
