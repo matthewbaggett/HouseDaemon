@@ -34,7 +34,11 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
       global $GEOIP_REGION_NAME;
       $gi = geoip_open(APP_DISK_ROOT . "/geo/GeoIP.dat", GEOIP_STANDARD);
       $gicity = geoip_open(APP_DISK_ROOT . "/geo/GeoLiteCity.dat", GEOIP_STANDARD);
+      require_once(APP_DISK_ROOT . "/vendor/geoip/geoip/src/timezone.php");
+
+      // Get Data.
       $city = geoip_record_by_addr($gicity, $ip_addr);
+      $org = \geoip_org_by_addr($gi, $ip_addr);
 
       // Populate.
       $location->country = $city->country_name;
@@ -47,14 +51,13 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
       $location->metro_code = $city->metro_code;
       $location->postal_code = $city->postal_code;
       $location->time_zone = \get_time_zone($city->country_code, $city->region);
-      $location->org = \geoip_org_by_addr($gi, $ip_addr);
+      $location->org = $org;
 
       // Save 'er down.
       $location->save();
 
       return $location;
     }
-
   }
 
   static public function get_by_ip($ip_addr){
