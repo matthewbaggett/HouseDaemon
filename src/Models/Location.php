@@ -84,13 +84,13 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
     if(!$this->country){
       return "Unknown Place";
     }
-    if(!$this->region){
+    if(!$this->region_name){
       return "{$this->country}";
     }
     if(!$this->city){
-      return "{$this->region}, {$this->country}";
+      return "{$this->region_name}, {$this->country}";
     }else{
-      return "{$this->city}, {$this->region}, {$this->country_3}";
+      return "{$this->city}, {$this->region_name}, {$this->country_3}";
     }
   }
 
