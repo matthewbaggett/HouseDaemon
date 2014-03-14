@@ -4,7 +4,7 @@ define("TIME_STARTUP", microtime(true));
 define("WEB_HOST", $_SERVER['HTTP_HOST']);
 define("WEB_ROOT", dirname($_SERVER['SCRIPT_NAME']));
 define("WEB_DISK_ROOT", dirname($_SERVER['SCRIPT_FILENAME']));
-define("APP_DISK_ROOT", WEB_DISK_ROOT . "/../");
+define("APP_DISK_ROOT", WEB_DISK_ROOT);
 define("APP_ROOT", APP_DISK_ROOT);
 define("WEB_IS_SSL", $_SERVER['SERVER_PORT']==443?true:false);
 define("APP_NAME", "LoneSatoshi");

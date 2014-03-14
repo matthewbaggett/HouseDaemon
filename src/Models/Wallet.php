@@ -153,6 +153,8 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
       $peer->ban_score        = isset($raw_peer->banscore) ? $raw_peer->banscore : null;
       $peer->last_seen        = date("Y-m-d H:i:s");
 
+      Location::populate($peer->address);
+
       $peer->save();
     }
   }
