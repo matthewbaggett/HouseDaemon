@@ -14,6 +14,7 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
   public $region_name;
   public $latitude;
   public $longitude;
+  public $city;
   public $metro_code;
   public $postal_code;
   public $time_zone;
@@ -51,6 +52,7 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
       $location->region_name = $GEOIP_REGION_NAME[$city->country_code][$city->region];
       $location->latitude = $city->latitude;
       $location->longitude = $city->longitude;
+      $location->city = $city->city;
       $location->metro_code = $city->metro_code;
       $location->postal_code = $city->postal_code;
       $location->time_zone = \get_time_zone($city->country_code, $city->region);
