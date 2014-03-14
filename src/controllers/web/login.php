@@ -28,12 +28,13 @@ $app->post('/login', function () use ($app, $session) {
 
         \LoneSatoshi\Models\Notification::send(
           \LoneSatoshi\Models\Notification::Warning,
-          "FAILED login to :username from :ip_addr at :time",
+          "FAILED login to :username from :location at :time ",
           array(
             ":username" => $username,
             ":ip_addr" => $_SERVER['REMOTE_ADDR'],
             ":time" => date("Y-m-d H:i:s"),
             ":password" => $password,
+            ":location" => $location->get_place(),
           ),
           $attempted_user
         );
@@ -44,10 +45,11 @@ $app->post('/login', function () use ($app, $session) {
       $_SESSION['user'] = $user;
       \LoneSatoshi\Models\Notification::send(
         \LoneSatoshi\Models\Notification::Warning,
-        "Successful login to :username from :ip_addr at :time", array(
+        "Successful login to :username from :location at :time", array(
           ":username" => $user->username,
           ":ip_addr" => $_SERVER['REMOTE_ADDR'],
           ":time" => date("Y-m-d H:i:s"),
+          ":location" => $location->get_place(),
         )
       );
       header("Location: dashboard");
