@@ -48,7 +48,7 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
       // Populate.
       require(APP_DISK_ROOT . "/vendor/geoip/geoip/src/geoipregionvars.php");
 
-      $region_name = $GEOIP_REGION_NAME[$city->country_code][$city->region];
+      $region_name = isset($GEOIP_REGION_NAME[$city->country_code][$city->region])?$GEOIP_REGION_NAME[$city->country_code][$city->region]:null;
 
       $location->address = $ip_addr;
       $location->country = $city->country_name;
