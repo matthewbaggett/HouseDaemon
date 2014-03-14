@@ -124,10 +124,10 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
     $raw_peers = json_decode($raw_peers);
     $yesterday = strtotime("yesterday");
     foreach($raw_peers as $raw_peer){
-      $address_to_split = str_replace("::","==", $raw_peer->addr);
-      $addr_bits = explode(":",$address_to_split,2);
-      $ip = str_replace("==","::", $addr_bits[0]);
-      $port = $addr_bits[1];
+      $bits = parse_url($raw_peer->addr);
+      $port = $bits['port'];
+      $ip = $bits['host'];
+
       $peer = NetworkPeer::search()
         ->where('address', $ip)
         ->where('port', $port)
