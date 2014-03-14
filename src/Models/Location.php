@@ -46,7 +46,7 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
       $location->longitude = $city->longitude;
       $location->metro_code = $city->metro_code;
       $location->postal_code = $city->postal_code;
-      $location->time_zone = get_time_zone($city->country_code, $city->region);
+      $location->time_zone = \get_time_zone($city->country_code, $city->region);
       $location->org = \geoip_org_by_addr($gi, $ip_addr);
 
       // Save 'er down.
