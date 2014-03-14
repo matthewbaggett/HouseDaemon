@@ -125,6 +125,9 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
     $yesterday = strtotime("yesterday");
     foreach($raw_peers as $raw_peer){
       $bits = parse_url($raw_peer->addr);
+      if(!isset($bits['port'])){
+        echo "<pre>"; var_dump($bits);exit;
+      }
       $port = $bits['port'];
       $ip = $bits['host'];
 
