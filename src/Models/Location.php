@@ -8,6 +8,7 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
   public $location_id;
   public $address;
   public $country;
+  public $country_2;
   public $country_3;
   public $continent;
   public $region;
@@ -34,11 +35,11 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
       $location = new Location();
 
       // Set up Maxmind stuff
-      global $GEOIP_REGION_NAME;
       $gi = geoip_open(APP_DISK_ROOT . "/geo/GeoIP.dat", GEOIP_STANDARD);
       $gicity = geoip_open(APP_DISK_ROOT . "/geo/GeoLiteCity.dat", GEOIP_STANDARD);
       require_once(APP_DISK_ROOT . "/vendor/geoip/geoip/src/timezone.php");
       require_once(APP_DISK_ROOT . "/vendor/geoip/geoip/src/geoipregionvars.php");
+      global $GEOIP_REGION_NAME;
 
       // Get Data.
       $city = geoip_record_by_addr($gicity, $ip_addr);
@@ -47,6 +48,7 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
       // Populate.
       $location->address = $ip_addr;
       $location->country = $city->country_name;
+      $location->country_2 = $city->country_code;
       $location->country_3 = $city->country_code3;
       $location->continent = $city->continent_code;
       $location->region = $city->region;
