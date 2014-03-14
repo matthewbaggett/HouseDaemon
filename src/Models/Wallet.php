@@ -130,6 +130,7 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
       }
       $port = $bits['port'];
       $ip = $bits['host'];
+      $ip = str_replace("_addr", "", $ip);
 
       $peer = NetworkPeer::search()
         ->where('address', $ip)
