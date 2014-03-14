@@ -43,8 +43,13 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
         global $GEOIP_REGION_NAME;
 
         // Get Data.
-        $city = geoip_record_by_addr($gicity, $ip_addr);
-        $org = geoip_org_by_addr($gi, $ip_addr);
+        if(filter_var($ip_addr, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)){
+          $city = GeoIP_record_by_addr_v6($gicity, $ip_addr);
+          $org = geoip_org_by_addr($gi, $ip_addr);
+        }else{
+          $city = GeoIP_record_by_addr($gicity, $ip_addr);
+          $org = geoip_org_by_addr($gi, $ip_addr);
+        }
 
         // Populate.
         require(APP_DISK_ROOT . "/vendor/geoip/geoip/src/geoipregionvars.php");
