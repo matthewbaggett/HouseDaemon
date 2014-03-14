@@ -24,7 +24,9 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
    * @return Location
    */
   static public function populate($ip_addr){
-    $location = Location::search()->where('address', $ip_addr)->execOne();
+    $location = Location::search()
+      ->where('address', $ip_addr)
+      ->execOne();
     if($location instanceof Location){
       return $location;
     }else{
@@ -41,6 +43,7 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
       $org = \geoip_org_by_addr($gi, $ip_addr);
 
       // Populate.
+      $location->address = $ip_addr;
       $location->country = $city->country_name;
       $location->country_3 = $city->country_code3;
       $location->continent = $city->continent_code;
