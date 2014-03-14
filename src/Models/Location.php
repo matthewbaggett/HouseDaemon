@@ -33,7 +33,7 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
       // Set up Maxmind stuff
       global $GEOIP_REGION_NAME;
       $gi = geoip_open(APP_DISK_ROOT . "/geo/GeoIP.dat", GEOIP_STANDARD);
-      $gicity = geoip_open(APP_DISK_ROOT . "/geo/GeoIPCity.dat", GEOIP_STANDARD);
+      $gicity = geoip_open(APP_DISK_ROOT . "/geo/GeoLiteCity.dat", GEOIP_STANDARD);
       $city = geoip_record_by_addr($gicity, $ip_addr);
 
       // Populate.
