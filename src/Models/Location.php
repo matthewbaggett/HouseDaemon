@@ -28,6 +28,10 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
    * @return Location
    */
   static public function populate($ip_addr){
+    if(stripos($ip_addr, "]") !== false){
+      $bits = explode("]", $ip_addr);
+      $ip_addr = $bits[0] . "]";
+    }
     $ip_addr = str_replace("_addr", "", $ip_addr);
     try{
       $location = Location::search()
