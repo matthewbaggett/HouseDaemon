@@ -86,15 +86,15 @@ class Location extends \FourOneOne\ActiveRecord\ActiveRecord{
         return $location;
       }
     }catch(\Exception $e){
-      Notification::send(
-        Notification::Debug,
-        "Could not find location for ':ip_addr'. :dump",
-        array(
-          ':ip' => $ip_addr,
-          ':dump' => var_export($city)
-        ),
-        User::search()->where('username', 'geusebio')->execOne()
-      );
+      //Notification::send(
+      //  Notification::Debug,
+      //  "Could not find location for ':ip_addr'. :dump",
+      //  array(
+      //    ':ip' => $ip_addr,
+      //    ':dump' => var_export($city)
+      //  ),
+      //  User::search()->where('username', 'geusebio')->execOne()
+      //);
     }
   }
 
