@@ -1,10 +1,16 @@
 <table>
   <thead>
-  <tr>
-    <td class="coin">Coin</td>
-    <td colspan="2">Address</td>
-    <td colspan="2">Balance (Confirmed/Unconfirmed)</td>
-  </tr>
+    <tr>
+      <td class="coin">Coin</td>
+      <td colspan="2">Address</td>
+      <td colspan="2">Balance</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td colspan="2"></td>
+      <td>Confirmed</td>
+      <td>Unconfirmed</td>
+    </tr>
   </thead>
   <tbody>
   <?php foreach($accounts as $account): ?>
@@ -15,9 +21,9 @@
         <?php echo $account->address; ?>
       </td>
       <td class="blockchain">
-        <?php if($account->get_coin()->chain_url_format_address): ?>
+        <?php if($account->get_coin()->chain_url_format_address && $account->get_coin()->chain_name): ?>
           <a href="<?php echo str_replace("::ADDRESS::", $account->address, $account->get_coin()->chain_url_format_address); ?>">
-            blockchain
+            <?php echo $account->get_coin()->chain_name; ?>
           </a>
         <?php endif; ?>
       </td>

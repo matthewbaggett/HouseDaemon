@@ -10,6 +10,7 @@ class Coin extends \FourOneOne\ActiveRecord\ActiveRecord{
   public $auto_generate_wallet = "No";
   public $chain_url_format_address;
   public $chain_url_format_transaction;
+  public $chain_name;
 
   /**
    * @return Wallet
