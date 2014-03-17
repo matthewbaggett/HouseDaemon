@@ -86,45 +86,49 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
     }
     $raw_transactions = json_decode($raw_transactions);
 
-    foreach($raw_transactions as $raw_transaction){
-      $new_transaction = false;
-      $transaction = Transaction::search()
-        ->where('txid', $raw_transaction->txid)
-        ->where('reference_id', $raw_transaction->account)
-        ->execOne();
-      if(!$transaction instanceof Transaction){
-        $transaction = new Transaction();
-        $new_transaction = true;
-        $new_transaction_count++;
+    if(count($raw_transactions) > 0){
+      foreach($raw_transactions as $raw_transaction){
+        $new_transaction = false;
+        $transaction = Transaction::search()
+          ->where('txid', $raw_transaction->txid)
+          ->where('reference_id', $raw_transaction->account)
+          ->execOne();
+        if(!$transaction instanceof Transaction){
+          $transaction = new Transaction();
+          $new_transaction = true;
+          $new_transaction_count++;
+        }
+        $account = Account::search()->where('reference_id', $raw_transaction->account)->execOne();
+        $transaction->account_id    = $account->account_id;
+        $transaction->reference_id  = $raw_transaction->account;
+        $transaction->address       = $raw_transaction->address;
+        $transaction->category      = $raw_transaction->category;
+        $transaction->amount        = $raw_transaction->amount;
+        $transaction->confirmations = $raw_transaction->confirmations;
+        $transaction->txid          = $raw_transaction->txid;
+        $transaction->date          = date("Y-m-d H:i:s", $raw_transaction->time);
+        $transaction->date_received = isset($raw_transaction->timereceived) ? date("Y-m-d H:i:s", $raw_transaction->timereceived) : null;
+        $transaction->block_hash    = isset($raw_transaction->blockhash) ? $raw_transaction->blockhash : null;
+        $transaction->block_index   = isset($raw_transaction->blockindex) ? $raw_transaction->blockindex : null;
+        $transaction->block_time    = isset($raw_transaction->blocktime) ? date("Y-m-d H:i:s", $raw_transaction->blocktime) : null;
+        $transaction->save();
+        if($new_transaction && $transaction->category == 'receive'){
+          Notification::send(
+            Notification::Warning,
+            "Received Payment: :amount :coin into :address",
+            array(
+              ':amount' => $transaction->amount,
+              ':coin' => $transaction->get_account()->get_coin()->name,
+              ':address' => $transaction->address,
+            ),
+            $transaction->get_account()->get_user()
+          );
+        }
       }
-      $account = Account::search()->where('reference_id', $raw_transaction->account)->execOne();
-      $transaction->account_id    = $account->account_id;
-      $transaction->reference_id  = $raw_transaction->account;
-      $transaction->address       = $raw_transaction->address;
-      $transaction->category      = $raw_transaction->category;
-      $transaction->amount        = $raw_transaction->amount;
-      $transaction->confirmations = $raw_transaction->confirmations;
-      $transaction->txid          = $raw_transaction->txid;
-      $transaction->date          = date("Y-m-d H:i:s", $raw_transaction->time);
-      $transaction->date_received = isset($raw_transaction->timereceived) ? date("Y-m-d H:i:s", $raw_transaction->timereceived) : null;
-      $transaction->block_hash    = isset($raw_transaction->blockhash) ? $raw_transaction->blockhash : null;
-      $transaction->block_index   = isset($raw_transaction->blockindex) ? $raw_transaction->blockindex : null;
-      $transaction->block_time    = isset($raw_transaction->blocktime) ? date("Y-m-d H:i:s", $raw_transaction->blocktime) : null;
-      $transaction->save();
-      if($new_transaction && $transaction->category == 'receive'){
-        Notification::send(
-          Notification::Warning,
-          "Received Payment: :amount :coin into :address",
-          array(
-            ':amount' => $transaction->amount,
-            ':coin' => $transaction->get_account()->get_coin()->name,
-            ':address' => $transaction->address,
-          ),
-          $transaction->get_account()->get_user()
-        );
-      }
+      return $new_transaction_count;
+    }else{
+      return false;
     }
-    return $new_transaction_count;
   }
 
   public function update_peer_log(){
