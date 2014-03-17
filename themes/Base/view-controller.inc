@@ -79,7 +79,7 @@ class ViewController extends \Slim\View
         }
 
         $url = ltrim($url);
-        return (WEB_IS_SSL?'https://':'http://') . WEB_HOST . WEB_ROOT . "/" . $url;
+        return (WEB_IS_SSL?'https://':'http://') . WEB_HOST . rtrim(WEB_ROOT, "/") . "/" . $url;
     }
 
     public function link($url, $text){
