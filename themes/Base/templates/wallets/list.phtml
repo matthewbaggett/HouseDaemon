@@ -62,16 +62,16 @@ $hour_ago = strtotime('1 hour ago');
         <?php echo ($account->get_balance_unconfirmed() instanceof \LoneSatoshi\Models\BalanceUnconfirmed) ? $account->get_balance_unconfirmed()->balance : 0; ?>
       </td>
       <td>
-        <?php echo $transactions_count['month']; ?>
+        <?php echo number_format($transactions_count['month'],0); ?>
       </td>
       <td>
-        <?php echo $transactions_count['week']; ?>
+        <?php echo number_format($transactions_count['week'],0); ?>
       </td>
       <td>
-        <?php echo $transactions_count['day']; ?>
+        <?php echo number_format($transactions_count['day'],0); ?>
       </td>
       <td>
-        <?php echo $transactions_count['hour']; ?>
+        <?php echo number_format($transactions_count['hour'],0); ?>
       </td>
     </tr>
   <?php endforeach; ?>
