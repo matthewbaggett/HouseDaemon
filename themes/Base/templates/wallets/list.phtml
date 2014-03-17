@@ -1,10 +1,16 @@
+<?php
+$month_ago = strtotime('1 month ago');
+$week_ago = strtotime('1 week ago');
+$day_ago = strtotime('1 day ago');
+$hour_ago = strtotime('1 hour ago');
+?>
 <table>
   <thead>
     <tr>
       <td class="coin">Coin</td>
       <td colspan="2">Address</td>
       <td colspan="2">Balance</td>
-      <td colspan="3">Rate</td>
+      <td colspan="4">Rate</td>
     </tr>
     <tr>
       <td></td>
@@ -21,14 +27,12 @@
   <?php foreach($accounts as $account): ?>
     <?php
     /* @var $account \LoneSatoshi\Models\Account */
-    $month_ago = strtotime('1 month ago');
-    $week_ago = strtotime('1 week ago');
-    $day_ago = strtotime('1 day ago');
-    $hour_ago = strtotime('1 hour ago');
     $transactions_count['month']  = \LoneSatoshi\Models\Transaction::search()->where('account_id',$account->account_id)->where('date', date('Y-m-d H:i:s', $month_ago))->exec();
     $transactions_count['week']   = \LoneSatoshi\Models\Transaction::search()->where('account_id',$account->account_id)->where('date', date('Y-m-d H:i:s', $week_ago))->exec();
     $transactions_count['day']    = \LoneSatoshi\Models\Transaction::search()->where('account_id',$account->account_id)->where('date', date('Y-m-d H:i:s', $day_ago))->exec();
     $transactions_count['hour']   = \LoneSatoshi\Models\Transaction::search()->where('account_id',$account->account_id)->where('date', date('Y-m-d H:i:s', $hour_ago))->exec();
+    var_dump($transactions_count);
+
     foreach($transactions_count as $period => &$values){
       $cumulative = 0;
       foreach($values as $transaction){
@@ -37,6 +41,7 @@
       }
       $values = $cumulative;
     }
+    var_dump($transactions_count);
     ?>
 
     <tr>
