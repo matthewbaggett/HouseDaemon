@@ -64,7 +64,7 @@ $hour_ago = strtotime('1 hour ago');
       <td class="unconfirmed">
         <?php echo ($account->get_balance_unconfirmed() instanceof \LoneSatoshi\Models\BalanceUnconfirmed) ? $account->get_balance_unconfirmed()->balance : 0; ?>
       </td>
-      <td><?php echo $this->l("/transactions/refresh/{$account->account_id}", "Refresh"); ?></td>
+      <td><?php echo $this->l("transactions/refresh/{$account->account_id}", "Refresh"); ?></td>
       <td>
         <?php echo number_format($transactions_count['month'],0); ?>
       </td>

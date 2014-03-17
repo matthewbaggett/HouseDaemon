@@ -73,6 +73,9 @@ class ViewController extends \Slim\View
             return $url;
         }
 
+        // Remove excess slashes to the left of URL.
+        $url = ltrim($url,"/");
+
         $url = ltrim($url);
         return (WEB_IS_SSL?'https://':'http://') . WEB_HOST . WEB_ROOT . "/" . $url;
     }
