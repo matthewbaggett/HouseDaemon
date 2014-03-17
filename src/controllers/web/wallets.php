@@ -30,6 +30,8 @@ $app->get('/wallets', function () use ($app) {
 });
 
 $app->get('/wallets/add', function () use ($app) {
+  \LoneSatoshi\Models\User::check_logged_in();
+
   $app->render('wallets/add.phtml', array(
     'coins' => \LoneSatoshi\Models\Coin::search()->exec(),
   ));
@@ -37,6 +39,18 @@ $app->get('/wallets/add', function () use ($app) {
 
 
 $app->post('/wallets/add', function () use ($app) {
-  var_dump($_POST);exit;
-  
+  \LoneSatoshi\Models\User::check_logged_in();
+  $user = \LoneSatoshi\Models\User::get_current();
+  /* @var $coin \LoneSatoshi\Models\Coin */
+  $coin = \LoneSatoshi\Models\Coin::search()->where('coin_id', $_POST['coin'])->execOne();
+  if(!$coin instanceof \LoneSatoshi\Models\Coin){
+    die("Coin not found");
+  }
+  $wallet = $coin->get_wallet();
+  if(!$wallet instanceof \LoneSatoshi\Models\Wallet){
+    die("Wallet not found");
+  }
+  $wallet->create_account_in_wallet($user, $coin);
+  header("Location: /wallets");
+  exit;
 });
