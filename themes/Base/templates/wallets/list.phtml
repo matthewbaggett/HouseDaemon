@@ -31,7 +31,6 @@ $hour_ago = strtotime('1 hour ago');
     $transactions_count['week']   = \LoneSatoshi\Models\Transaction::search()->where('account_id',$account->account_id)->where('date', date('Y-m-d H:i:s', $week_ago), ">=")->exec();
     $transactions_count['day']    = \LoneSatoshi\Models\Transaction::search()->where('account_id',$account->account_id)->where('date', date('Y-m-d H:i:s', $day_ago), ">=")->exec();
     $transactions_count['hour']   = \LoneSatoshi\Models\Transaction::search()->where('account_id',$account->account_id)->where('date', date('Y-m-d H:i:s', $hour_ago), ">=")->exec();
-    var_dump($transactions_count);
 
     foreach($transactions_count as $period => &$values){
       $cumulative = 0;
@@ -41,8 +40,7 @@ $hour_ago = strtotime('1 hour ago');
       }
       $values = $cumulative;
     }
-    var_dump($transactions_count);
-    exit;
+
     ?>
 
     <tr>
