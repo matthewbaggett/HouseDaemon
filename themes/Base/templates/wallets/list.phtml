@@ -4,23 +4,25 @@ $week_ago = strtotime('1 week ago');
 $day_ago = strtotime('1 day ago');
 $hour_ago = strtotime('1 hour ago');
 ?>
+<a href="<?php echo $this->url("wallets/add"); ?>" class="btn btn-primary btn-lg" role="button"><?php echo $this->t("Add new Wallet"); ?></a>
+
 <table class="table table-striped">
   <thead>
     <tr>
-      <td class="coin">Coin</td>
-      <td colspan="2">Address</td>
-      <td colspan="2">Balance</td>
-      <td colspan="4">Rate</td>
+      <td class="coin"><?php echo $this->t("Coin");?></td>
+      <td colspan="2"><?php echo $this->t("Address");?></td>
+      <td colspan="2"><?php echo $this->t("Balance");?></td>
+      <td colspan="4"><?php echo $this->t("Rate");?></td>
     </tr>
     <tr>
       <td></td>
       <td colspan="2"></td>
-      <td>Confirmed</td>
-      <td>Unconfirmed</td>
-      <td>Month</td>
-      <td>Week</td>
-      <td>Day</td>
-      <td>Hour</td>
+      <td><?php echo $this->t("Confirmed");?></td>
+      <td><?php echo $this->t("Unconfirmed");?></td>
+      <td><?php echo $this->t("Month");?></td>
+      <td><?php echo $this->t("Week");?></td>
+      <td><?php echo $this->t("Day");?></td>
+      <td><?php echo $this->t("Hour");?></td>
     </tr>
   </thead>
   <tbody>
