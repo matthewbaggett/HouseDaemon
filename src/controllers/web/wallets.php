@@ -30,8 +30,13 @@ $app->get('/wallets', function () use ($app) {
 });
 
 $app->get('/wallets/add', function () use ($app) {
-
   $app->render('wallets/add.phtml', array(
     'coins' => \LoneSatoshi\Models\Coin::search()->exec(),
   ));
+});
+
+
+$app->post('/wallets/add', function () use ($app) {
+  var_dump($_POST);exit;
+  
 });
