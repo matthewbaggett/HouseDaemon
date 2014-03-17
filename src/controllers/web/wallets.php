@@ -14,7 +14,16 @@ $app->get('/wallets', function () use ($app) {
       $wallet->create_account_in_wallet($_SESSION['user'], $coin_to_autogenerate_wallet);
     }
   }
+
+  $accounts = \LoneSatoshi\Models\Account::search()->where('user_id', $_SESSION['user']->user_id)->exec();
+
+  foreach($accounts as $account){
+    /* @var $account \LoneSatoshi\Models\Account */
+    $accounts_weighted[$account->get_balance_confirmed()] = $account;
+  }
+  ksort($accounts_weighted);
+  $accounts_weighted = array_reverse($accounts_weighted);
   $app->render('wallets/list.phtml', array(
-    'accounts' => \LoneSatoshi\Models\Account::search()->where('user_id', $_SESSION['user']->user_id)->exec(),
+    'accounts' => $accounts_weighted,
   ));
 });
