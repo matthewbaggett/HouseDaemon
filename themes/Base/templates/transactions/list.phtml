@@ -6,6 +6,7 @@
     <td>Address</td>
     <td>Amount</td>
     <td>Confirmations</td>
+    <td>Refresh</td>
     <td>TX ID</td>
     <td>Date</td>
     <td>Block Hash</td>
@@ -29,6 +30,7 @@
       </td>
       <td><?php echo $transaction->amount; ?></td>
       <td><?php echo $transaction->confirmations; ?></td>
+      <?php echo $this->l("transactions/refresh/{$transaction->get_account()->account_id}", "Refresh"); ?>
       <td>
         <?php if($transaction->get_account()->get_coin()->chain_url_format_transaction): ?>
           <a href="<?php echo str_replace("::TXID::", $transaction->txid, $transaction->get_account()->get_coin()->chain_url_format_transaction); ?>" title="<?php echo $transaction->txid; ?>">
