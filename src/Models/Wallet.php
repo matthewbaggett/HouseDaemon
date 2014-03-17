@@ -80,7 +80,7 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
     $new_transaction_count = 0;
 
     if($account instanceof Account){
-      $raw_transactions = $this->call("listtransactions {$account->reference_id}");
+      $raw_transactions = $this->call("listtransactions " . str_replace("|", "\\|", $account->reference_id));
     }else{
       $raw_transactions = $this->call("listtransactions");
     }
