@@ -19,7 +19,8 @@ $app->get('/wallets', function () use ($app) {
 
   foreach($accounts as $account){
     /* @var $account \LoneSatoshi\Models\Account */
-    $accounts_weighted[$account->get_balance_confirmed()->balance . $account->account_id] = $account;
+    $balance = ($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\Balance) ? $account->get_balance_confirmed()->balance : 0;
+    $accounts_weighted[$balance . $account->account_id] = $account;
   }
   ksort($accounts_weighted);
   $accounts_weighted = array_reverse($accounts_weighted);
