@@ -1,0 +1,17 @@
+<form action="<?php echo $this->url("wallets/add"); ?>" method="post">
+  <input type="hidden" name="pre-transaction-id" value="<?php echo $pre_transaction_id; ?>"/>
+  <div class="form-row">
+    <label for="coin"><?php echo $this->t("Create a new wallet of type:"); ?>:</label>
+    <select id="coin" name="coin">
+      <option>Select a Coin</option>
+      <?php foreach($coins as $coin): ?>
+        <option value="<?php echo $coin->coin_id; ?>"><?php echo $coin->name; ?></option>
+      <?php endforeach; ?>
+    </select>
+  </div>
+  <div class="form-row">
+    <input type="submit"/>
+  </div>
+</form>
+
+<p><?php echo $this->t("Wallets CANNOT be removed! Adding a wallet is permanent!"); ?></p>
