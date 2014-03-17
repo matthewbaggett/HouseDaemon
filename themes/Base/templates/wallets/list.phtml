@@ -4,17 +4,29 @@
       <td class="coin">Coin</td>
       <td colspan="2">Address</td>
       <td colspan="2">Balance</td>
+      <td colspan="3">Rate</td>
     </tr>
     <tr>
       <td></td>
       <td colspan="2"></td>
       <td>Confirmed</td>
       <td>Unconfirmed</td>
+      <td>Month</td>
+      <td>Week</td>
+      <td>Day</td>
+      <td>Hour</td>
     </tr>
   </thead>
   <tbody>
   <?php foreach($accounts as $account): ?>
-    <?php /* @var $account \LoneSatoshi\Models\Account */ ?>
+    <?php
+    /* @var $account \LoneSatoshi\Models\Account */
+    $transactions_count['month'] = \LoneSatoshi\Models\Transaction::search()->where('account_id',$account->account_id)->
+    $transactions_count['week']
+    $transactions_count['day']
+    $transactions_count['hour']
+    ?>
+
     <tr>
       <td class="coin"><?php echo $account->get_coin()->name; ?></td>
       <td class="address">
@@ -32,6 +44,18 @@
       </td>
       <td class="unconfirmed">
         <?php echo ($account->get_balance_unconfirmed() instanceof \LoneSatoshi\Models\BalanceUnconfirmed) ? $account->get_balance_unconfirmed()->balance : 0; ?>
+      </td>
+      <td>
+        <?php echo $transactions_count['month']; ?>
+      </td>
+      <td>
+        <?php echo $transactions_count['week']; ?>
+      </td>
+      <td>
+        <?php echo $transactions_count['day']; ?>
+      </td>
+      <td>
+        <?php echo $transactions_count['hour']; ?>
       </td>
     </tr>
   <?php endforeach; ?>
