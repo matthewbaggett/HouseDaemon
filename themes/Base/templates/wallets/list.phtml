@@ -1,28 +1,30 @@
 <table>
   <thead>
   <tr>
-    <td>Coin</td>
-    <td>Address</td>
-    <td>Balance (Confirmed/Unconfirmed)</td>
+    <td class="coin">Coin</td>
+    <td colspan="2">Address</td>
+    <td colspan="2">Balance (Confirmed/Unconfirmed)</td>
   </tr>
   </thead>
   <tbody>
   <?php foreach($accounts as $account): ?>
     <?php /* @var $account \LoneSatoshi\Models\Account */ ?>
     <tr>
-      <td><?php echo $account->get_coin()->name; ?></td>
-      <td>
+      <td class="coin"><?php echo $account->get_coin()->name; ?></td>
+      <td class="address">
+        <?php echo $account->address; ?>
+      </td>
+      <td class="blockchain">
         <?php if($account->get_coin()->chain_url_format_address): ?>
           <a href="<?php echo str_replace("::ADDRESS::", $account->address, $account->get_coin()->chain_url_format_address); ?>">
-            <?php echo $account->address; ?>
+            blockchain
           </a>
-        <?php else: ?>
-          <?php echo $account->address; ?>
         <?php endif; ?>
       </td>
-      <td>
+      <td class="confirmed">
         <?php echo ($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->balance : 0; ?>
-        /
+      </td>
+      <td class="unconfirmed">
         <?php echo ($account->get_balance_unconfirmed() instanceof \LoneSatoshi\Models\BalanceUnconfirmed) ? $account->get_balance_unconfirmed()->balance : 0; ?>
       </td>
     </tr>
