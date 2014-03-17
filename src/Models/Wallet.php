@@ -74,10 +74,16 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
     $account->save();
   }
 
-  public function update_transaction_log(){
+  public function update_transaction_log(Account $account = null){
     //$last = Transaction::search()->order('date', 'DESC')->execOne();
 
-    $raw_transactions = $this->call("listtransactions");
+    $new_transaction_count = 0;
+
+    if($account instanceof Account){
+      $raw_transactions = $this->call("listtransactions {$account->reference_id}");
+    }else{
+      $raw_transactions = $this->call("listtransactions");
+    }
     $raw_transactions = json_decode($raw_transactions);
 
     foreach($raw_transactions as $raw_transaction){
@@ -89,6 +95,7 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
       if(!$transaction instanceof Transaction){
         $transaction = new Transaction();
         $new_transaction = true;
+        $new_transaction_count++;
       }
       $account = Account::search()->where('reference_id', $raw_transaction->account)->execOne();
       $transaction->account_id    = $account->account_id;
@@ -117,6 +124,7 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
         );
       }
     }
+    return $new_transaction_count;
   }
 
   public function update_peer_log(){

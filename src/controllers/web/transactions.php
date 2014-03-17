@@ -9,8 +9,20 @@ $app->get('/transactions', function () use ($app) {
   }
   $app->render('transactions/list.phtml', array(
     'transactions' => \LoneSatoshi\Models\Transaction::search()
-                        ->where('account_id', $account_ids, "IN")
-                        ->order("date",'DESC')
-                        ->exec(),
+        ->where('account_id', $account_ids, "IN")
+        ->order("date",'DESC')
+        ->exec(),
   ));
+});
+
+$app->get('/transactions/refresh/:account_id', function ($account_id) use ($app) {
+  \LoneSatoshi\Models\User::check_logged_in();
+
+  $user = \LoneSatoshi\Models\User::get_current();
+  /* @var $account \LoneSatoshi\Models\Account */
+  $account = \LoneSatoshi\Models\Account::search()->where('account_id', $account_id)->where('user_id', $user->user_id)->execOne();
+  $account->refresh();
+
+  header("Location: {$_SERVER['HTTP_REFERER']}");
+  exit;
 });

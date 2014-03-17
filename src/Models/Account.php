@@ -60,4 +60,9 @@ class Account extends \FourOneOne\ActiveRecord\ActiveRecord{
     return User::search()->where('user_id', $this->user_id)->execOne();
   }
 
+  public function refresh(){
+    $wallet = $this->get_coin()->get_wallet();
+    return $wallet->update_transaction_log($this);
+  }
+
 }
