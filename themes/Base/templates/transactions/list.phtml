@@ -30,7 +30,7 @@
       </td>
       <td><?php echo $transaction->amount; ?></td>
       <td><?php echo $transaction->confirmations; ?></td>
-      <td><a href="<?php echo $this->url("transactions/refresh/{$transaction->get_account()->account_id}");?>" class="btn btn-default btn-xs"><?php echo $this->t("Refresh"); ?></a></td>
+      <td><a href="<?php echo $this->url("transactions/refresh/{$transaction->get_account()->account_id}");?>" class="btn btn-warning btn-xs"><?php echo $this->t("Refresh"); ?></a></td>
       <td>
         <?php if($transaction->get_account()->get_coin()->chain_url_format_transaction): ?>
           <a href="<?php echo str_replace("::TXID::", $transaction->txid, $transaction->get_account()->get_coin()->chain_url_format_transaction); ?>" title="<?php echo $transaction->txid; ?>">
