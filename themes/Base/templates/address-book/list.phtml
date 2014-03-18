@@ -16,8 +16,8 @@
       <td><?php echo $address->address; ?></td>
       <td><?php echo $address->get_coin()->name; ?></td>
       <td><?php echo $address->created; ?></td>
-      <td><?php echo $this->l("pay/{$address->address_book_id}/{$address->address}", 'Pay'); ?></td>
-      <td><?php echo $this->l("#fixme", "View Transactions"); ?></td>
+      <td><a class="btn btn-danger btn-xs" href="<?php echo $this->url("pay/{$address->address_book_id}/{$address->address}");?>"><?php echo $this->t("Pay"); ?></a></td>
+      <td><a class="btn btn-info btn-xs" href="<?php echo $this->url("#fixme"); ?>"><?php echo $this->t("Transactions"); ?></a></td>
     </tr>
   <?php endforeach; ?>
   </tbody>
