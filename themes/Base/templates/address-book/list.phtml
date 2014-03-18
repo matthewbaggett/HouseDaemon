@@ -35,7 +35,7 @@
   <div class="form-row">
     <label for="address"><?php echo $this->t("Coin"); ?>:</label>
     <select id="coin" name="coin">
-      <option>Please Select Coin</option>
+      <option><?php echo $this->t("Please Select Coin"); ?></option>
       <?php foreach(\LoneSatoshi\Models\Coin::search()->exec() as $coin): ?>
         <option value="<?php echo $coin->coin_id; ?>"><?php echo $coin->name; ?></option>
       <?php endforeach; ?>
