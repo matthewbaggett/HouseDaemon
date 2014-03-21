@@ -1,20 +1,23 @@
-table.wallets{}
+table.wallets,
+table.transactions{}
 
 table.wallets td.address,
 table.wallets td.confirmed,
 table.wallets td.unconfirmed,
-table.wallets td.rate{
+table.wallets td.rate,
+table.transactions td.address,
+table.transactions td.amount,
+table.transactions td.confirmations,
+table.transactions td.txid,
+table.transactions td.blockhash,
+table.transactions td.blockindex{
     font-family: monospace;
 }
 table.wallets td.confirmed,
 table.wallets td.unconfirmed,
-table.wallets td.rate{
+table.wallets td.rate,
+table.transactions td.amount{
     text-align: right;
 }
 
-table.transactions{}
-table.transactions td.address,
-table.transactions td.amount,
-table.transactions td.confirmations{
-    font-family: monospace;
-}
+

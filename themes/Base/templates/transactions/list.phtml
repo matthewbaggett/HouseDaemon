@@ -30,8 +30,8 @@
       </td>
       <td class="amount"><?php echo number_format($transaction->amount,10); ?></td>
       <td class="confirmations"><?php echo $transaction->confirmations; ?></td>
-      <td><a href="<?php echo $this->url("transactions/refresh/{$transaction->get_account()->account_id}");?>" class="btn btn-warning btn-xs"><?php echo $this->t("Refresh"); ?></a></td>
-      <td>
+      <td class="refresh"><a href="<?php echo $this->url("transactions/refresh/{$transaction->get_account()->account_id}");?>" class="btn btn-warning btn-xs"><?php echo $this->t("Refresh"); ?></a></td>
+      <td class="txid">
         <?php if($transaction->get_account()->get_coin()->chain_url_format_transaction): ?>
           <a href="<?php echo str_replace("::TXID::", $transaction->txid, $transaction->get_account()->get_coin()->chain_url_format_transaction); ?>" title="<?php echo $transaction->txid; ?>">
             <?php echo substr($transaction->txid, 0, 7); ?>
@@ -40,9 +40,9 @@
           <span title="<?php echo $transaction->txid; ?>"><?php echo substr($transaction->txid, 0, 7); ?></span>
         <?php endif; ?>
       </td>
-      <td><?php echo $transaction->date; ?></td>
-      <td><span title="<?php echo $transaction->block_hash; ?>"><?php echo substr($transaction->block_hash, 0, 7); ?></span></td>
-      <td><?php echo $transaction->block_index; ?></td>
+      <td class="date"><?php echo $transaction->date; ?></td>
+      <td class="blockhash"><span title="<?php echo $transaction->block_hash; ?>"><?php echo substr($transaction->block_hash, 0, 7); ?></span></td>
+      <td class="blockindex"><?php echo $transaction->block_index; ?></td>
     </tr>
   <?php endforeach; ?>
   </tbody>
