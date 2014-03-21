@@ -1,0 +1,8 @@
+table.wallets{}
+
+table.wallets td.address,
+table.wallets td.confirmed,
+table.wallets td.unconfirmed{
+    font-family: monospace;
+    text-align: right;
+}
