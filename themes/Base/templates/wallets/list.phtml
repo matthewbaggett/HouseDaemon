@@ -9,14 +9,18 @@ $hour_ago = strtotime('1 hour ago');
 <table class="table table-striped wallets">
   <thead>
     <tr>
-      <td class="coin"><?php echo $this->t("Coin");?></td>
-      <td colspan="2"><?php echo $this->t("Address");?></td>
-      <td colspan="3"><?php echo $this->t("Balance");?></td>
-      <td colspan="4"><?php echo $this->t("Rate");?></td>
+      <td class="coin"><?php echo $this->t("Coin"); ?></td>
+      <td colspan="2"><?php echo $this->t("Address"); ?></td>
+      <td colspan="3"><?php echo $this->t("Valuation"); ?></td>
+      <td colspan="3"><?php echo $this->t("Balance"); ?></td>
+      <td colspan="4"><?php echo $this->t("Rate"); ?></td>
     </tr>
     <tr>
       <td></td>
       <td colspan="2"></td>
+      <td><?php echo $this->t("BTC"); ?></td>
+      <td><?php echo $this->t("USD"); ?></td>
+      <td><?php echo $this->t("GBP"); ?></td>
       <td><?php echo $this->t("Confirmed");?></td>
       <td><?php echo $this->t("Unconfirmed");?></td>
       <td></td>
@@ -57,6 +61,15 @@ $hour_ago = strtotime('1 hour ago');
             <?php echo $account->get_coin()->chain_name; ?>
           </a>
         <?php endif; ?>
+      </td>
+      <td class="valuation-btc">
+        <?php echo number_format(($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->get_valuation("BTC") : 0, 10); ?>
+      </td>
+      <td class="valuation-usd">
+        <?php echo number_format(($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->get_valuation("USD") : 0, 10); ?>
+      </td>
+      <td class="valuation-gbp">
+        <?php echo number_format(($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->get_valuation("GBP") : 0, 10); ?>
       </td>
       <td class="confirmed">
         <?php echo number_format(($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->balance : 0, 10); ?>

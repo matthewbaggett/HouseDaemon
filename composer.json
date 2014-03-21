@@ -15,10 +15,10 @@
         "fouroneone/session": "dev-master",
         "swiftmailer/swiftmailer": "5.*",
         "frenkynet/flysystem": "0.1.*",
-        "guzzle/guzzle": "3.8.*",
         "oodle/krumo": "dev-master",
         "herzult/php-ssh": "0.1.*",
-        "geoip/geoip": "~1.14"
+        "geoip/geoip": "~1.14",
+        "lonesatoshi/exchangeapi": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
