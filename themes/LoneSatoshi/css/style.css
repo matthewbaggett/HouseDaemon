@@ -5,6 +5,9 @@ table.wallets td.address,
 table.wallets td.confirmed,
 table.wallets td.unconfirmed,
 table.wallets td.rate,
+table.wallets td.valuation-btc,
+table.wallets td.valuation-usd,
+table.wallets td.valuation-gbp,
 table.transactions td.address,
 table.transactions td.amount,
 table.transactions td.confirmations,
@@ -16,6 +19,9 @@ table.transactions td.blockindex{
 table.wallets td.confirmed,
 table.wallets td.unconfirmed,
 table.wallets td.rate,
+table.wallets td.valuation-btc,
+table.wallets td.valuation-usd,
+table.wallets td.valuation-gbp,
 table.transactions td.amount{
     text-align: right;
 }
