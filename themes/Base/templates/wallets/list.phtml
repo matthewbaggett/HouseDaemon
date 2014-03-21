@@ -59,10 +59,10 @@ $hour_ago = strtotime('1 hour ago');
         <?php endif; ?>
       </td>
       <td class="confirmed">
-        <?php echo ($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->balance : 0; ?>
+        <?php echo number_format(($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->balance : 0, 10); ?>
       </td>
       <td class="unconfirmed">
-        <?php echo ($account->get_balance_unconfirmed() instanceof \LoneSatoshi\Models\BalanceUnconfirmed) ? $account->get_balance_unconfirmed()->balance : 0; ?>
+        <?php echo number_format(($account->get_balance_unconfirmed() instanceof \LoneSatoshi\Models\BalanceUnconfirmed) ? $account->get_balance_unconfirmed()->balance : 0, 10); ?>
       </td>
       <td><a href="<?php echo $this->url("transactions/refresh/{$account->account_id}");?>" class="btn btn-warning btn-xs"><?php echo $this->t("Refresh"); ?></a></td>
       <td class="rate rate-month"><?php echo number_format($transactions_count['month'],0); ?></td>
