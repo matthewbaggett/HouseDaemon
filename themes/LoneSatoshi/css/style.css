@@ -2,7 +2,12 @@ table.wallets{}
 
 table.wallets td.address,
 table.wallets td.confirmed,
-table.wallets td.unconfirmed{
+table.wallets td.unconfirmed,
+table.wallets td.rate{
     font-family: monospace;
+}
+table.wallets td.confirmed,
+table.wallets td.unconfirmed,
+table.wallets td.rate{
     text-align: right;
 }

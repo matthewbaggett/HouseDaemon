@@ -65,18 +65,10 @@ $hour_ago = strtotime('1 hour ago');
         <?php echo ($account->get_balance_unconfirmed() instanceof \LoneSatoshi\Models\BalanceUnconfirmed) ? $account->get_balance_unconfirmed()->balance : 0; ?>
       </td>
       <td><a href="<?php echo $this->url("transactions/refresh/{$account->account_id}");?>" class="btn btn-warning btn-xs"><?php echo $this->t("Refresh"); ?></a></td>
-      <td>
-        <?php echo number_format($transactions_count['month'],0); ?>
-      </td>
-      <td>
-        <?php echo number_format($transactions_count['week'],0); ?>
-      </td>
-      <td>
-        <?php echo number_format($transactions_count['day'],0); ?>
-      </td>
-      <td>
-        <?php echo number_format($transactions_count['hour'],0); ?>
-      </td>
+      <td class="rate rate-month"><?php echo number_format($transactions_count['month'],0); ?></td>
+      <td class="rate rate-week"><?php echo number_format($transactions_count['week'],0); ?></td>
+      <td class="rate rate-day"><?php echo number_format($transactions_count['day'],0); ?></td>
+      <td class="rate rate-hour"><?php echo number_format($transactions_count['hour'],0); ?></td>
     </tr>
   <?php endforeach; ?>
   </tbody>
