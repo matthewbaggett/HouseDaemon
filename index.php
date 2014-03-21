@@ -51,4 +51,6 @@ foreach($file_list as $file){
       require_once("./src/controllers/{$mode}/{$file}");
   }
 }
+
+\ExchangeApi\Valuations::fetch();
 $app->run();

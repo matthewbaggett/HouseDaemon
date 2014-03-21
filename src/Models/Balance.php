@@ -42,11 +42,12 @@ class Balance extends \FourOneOne\ActiveRecord\ActiveRecord{
     );
   }
 
-  public function get_valuation($comparison){
+  public function get_valuation($to){
+    $from = $this->get_account()->get_coin()->symbol;
     try{
       return \ExchangeApi\Valuations::get_price(
-        $this->get_account()->get_coin()->symbol,
-        $comparison,
+        $from,
+        $to,
         $this->balance
       );
     }catch(\ExchangeApi\Exception $e){

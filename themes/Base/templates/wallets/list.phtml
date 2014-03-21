@@ -3,6 +3,10 @@ $month_ago = strtotime('1 month ago');
 $week_ago = strtotime('1 week ago');
 $day_ago = strtotime('1 day ago');
 $hour_ago = strtotime('1 hour ago');
+
+$cum_btc = 0;
+$cum_usd = 0;
+$cum_gbp = 0;
 ?>
 <a href="<?php echo $this->url("wallets/add"); ?>" class="btn btn-primary btn-lg" role="button"><?php echo $this->t("Add new Wallet"); ?></a>
 
@@ -48,10 +52,23 @@ $hour_ago = strtotime('1 hour ago');
       $values = $cumulative;
     }
 
+    $o_coin         = $account->get_coin();
+    $coin_name      = $o_coin->name;
+    $o_confirmed    = $account->get_balance_confirmed();
+    $o_unconfirmed  = $account->get_balance_unconfirmed();
+    $confirmed      = ($o_confirmed instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $o_confirmed->balance : 0;
+    $unconfirmed    = ($o_unconfirmed instanceof \LoneSatoshi\Models\BalanceUnconfirmed) ? $o_unconfirmed->balance : 0;
+    $btc            = ($o_confirmed instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $o_confirmed->get_valuation("BTC") : 0;
+    $btc_rate       = number_format(\ExchangeApi\Valuations::get_rate($o_coin->symbol, 'BTC'), 8);
+    $usd            = ($o_confirmed instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $o_confirmed->get_valuation("USD") : 0;
+    $gbp            = ($o_confirmed instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $o_confirmed->get_valuation("GBP") : 0;
+    $cum_btc += $btc;
+    $cum_usd += $usd;
+    $cum_gbp += $gbp;
     ?>
 
     <tr>
-      <td class="coin"><?php echo $account->get_coin()->name; ?></td>
+      <td class="coin"><?php echo $coin_name; ?></td>
       <td class="address">
         <?php echo $account->address; ?>
       </td>
@@ -62,21 +79,11 @@ $hour_ago = strtotime('1 hour ago');
           </a>
         <?php endif; ?>
       </td>
-      <td class="valuation-btc">
-        <?php echo number_format(($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->get_valuation("BTC") : 0, 10); ?>
-      </td>
-      <td class="valuation-usd">
-        <?php echo number_format(($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->get_valuation("USD") : 0, 2); ?>
-      </td>
-      <td class="valuation-gbp">
-        <?php echo number_format(($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->get_valuation("GBP") : 0, 2); ?>
-      </td>
-      <td class="confirmed">
-        <?php echo number_format(($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->balance : 0, 10); ?>
-      </td>
-      <td class="unconfirmed">
-        <?php echo number_format(($account->get_balance_unconfirmed() instanceof \LoneSatoshi\Models\BalanceUnconfirmed) ? $account->get_balance_unconfirmed()->balance : 0, 10); ?>
-      </td>
+      <td class="valuation-btc" title="<?php echo "{$confirmed} at {$btc_rate}"; ?>"><?php echo number_format($btc, 8); ?></td>
+      <td class="valuation-usd"><?php echo number_format($usd, 2); ?></td>
+      <td class="valuation-gbp"><?php echo number_format($gbp, 2); ?></td>
+      <td class="confirmed"><?php echo number_format($confirmed, 8); ?></td>
+      <td class="unconfirmed"><?php echo number_format($unconfirmed, 8); ?></td>
       <td><a href="<?php echo $this->url("transactions/refresh/{$account->account_id}");?>" class="btn btn-warning btn-xs"><?php echo $this->t("Refresh"); ?></a></td>
       <td class="rate rate-month"><?php echo number_format($transactions_count['month'],0); ?></td>
       <td class="rate rate-week"><?php echo number_format($transactions_count['week'],0); ?></td>
@@ -85,4 +92,21 @@ $hour_ago = strtotime('1 hour ago');
     </tr>
   <?php endforeach; ?>
   </tbody>
+  <tfoot>
+  <tr>
+    <td class="coin">Total</td>
+    <td class="address"></td>
+    <td class="blockchain"></td>
+    <td class="valuation-btc"><?php echo number_format($cum_btc, 8); ?></td>
+    <td class="valuation-usd"><?php echo number_format($cum_usd, 2); ?></td>
+    <td class="valuation-gbp"><?php echo number_format($cum_gbp, 2); ?></td>
+    <td class="confirmed"></td>
+    <td class="unconfirmed"></td>
+    <td></td>
+    <td class="rate rate-month"></td>
+    <td class="rate rate-week"></td>
+    <td class="rate rate-day"></td>
+    <td class="rate rate-hour"></td>
+  </tr>
+  </tfoot>
 </table>
