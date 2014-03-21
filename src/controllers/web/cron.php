@@ -28,6 +28,26 @@ $app->get('/cron', function () use ($app) {
       \LoneSatoshi\Models\Setting::set("block_count_" . $wallet->get_coin()->name, $block_count);
     }
 
+    $week_ago = strtotime('1 week ago');
+
+    $old_network_peers = \LoneSatoshi\Models\NetworkPeer::search()->where('last_recv', $week_ago,'<')->exec();
+    foreach($old_network_peers as $old_network_peer){
+      $old_network_peer->delete();
+    }
+    $output.= "Deleted " . count($old_network_peers) . " old network peers\n";
+
+    $old_notifications = \LoneSatoshi\Models\Notification::search()->where('created', date("Y-m-d H:i:s", $week_ago),'<')->exec();
+    foreach($old_notifications as $old_notification){
+      $old_notification->delete();
+    }
+    $output.= "Deleted " . count($old_notifications) . " old notifications\n";
+
+    $old_wallet_actions = \LoneSatoshi\Models\Notification::search()->where('created', date("Y-m-d H:i:s", $week_ago),'<')->exec();
+    foreach($old_wallet_actions as $old_wallet_action){
+      $old_wallet_action->delete();
+    }
+    $output.= "Deleted " . count($old_wallet_actions) . " old wallet actions\n";
+
     $cron_end = microtime(true);
     $exec_time = $cron_end - $cron_start;
     \LoneSatoshi\Models\Setting::set('cron_execution_time', $exec_time);
