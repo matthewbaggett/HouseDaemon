@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<table class="table table-striped transactions">
   <thead>
   <tr>
     <td>Transaction ID</td>
@@ -17,9 +17,9 @@
   <?php foreach($transactions as $transaction): ?>
     <?php /* @var $transaction \LoneSatoshi\Models\Transaction */ ?>
     <tr class="<?php echo $transaction->category?>">
-      <td><?php echo $transaction->transaction_id; ?></td>
-      <td><?php echo $transaction->get_account()->get_coin()->name; ?></td>
-      <td>
+      <td class="transaction_id"><?php echo $transaction->transaction_id; ?></td>
+      <td class="coin"><?php echo $transaction->get_account()->get_coin()->name; ?></td>
+      <td class="address">
         <?php if($transaction->get_account()->get_coin()->chain_url_format_address): ?>
           <a href="<?php echo str_replace("::ADDRESS::", $transaction->address, $transaction->get_account()->get_coin()->chain_url_format_address); ?>" title="<?php echo $transaction->address; ?>">
             <?php echo substr($transaction->address, 0, 7); ?>
@@ -28,8 +28,8 @@
           <span title="<?php echo $transaction->address; ?>"><?php echo substr($transaction->address, 0, 7); ?></span>
         <?php endif; ?>
       </td>
-      <td><?php echo $transaction->amount; ?></td>
-      <td><?php echo $transaction->confirmations; ?></td>
+      <td class="amount"><?php echo number_format($transaction->amount,10); ?></td>
+      <td class="confirmations"><?php echo $transaction->confirmations; ?></td>
       <td><a href="<?php echo $this->url("transactions/refresh/{$transaction->get_account()->account_id}");?>" class="btn btn-warning btn-xs"><?php echo $this->t("Refresh"); ?></a></td>
       <td>
         <?php if($transaction->get_account()->get_coin()->chain_url_format_transaction): ?>

@@ -11,3 +11,10 @@ table.wallets td.unconfirmed,
 table.wallets td.rate{
     text-align: right;
 }
+
+table.transactions{}
+table.transactions td.address,
+table.transactions td.amount,
+table.transactions td.confirmations{
+    font-family: monospace;
+}
