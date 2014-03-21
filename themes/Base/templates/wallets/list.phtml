@@ -66,10 +66,10 @@ $hour_ago = strtotime('1 hour ago');
         <?php echo number_format(($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->get_valuation("BTC") : 0, 10); ?>
       </td>
       <td class="valuation-usd">
-        <?php echo number_format(($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->get_valuation("USD") : 0, 10); ?>
+        <?php echo number_format(($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->get_valuation("USD") : 0, 2); ?>
       </td>
       <td class="valuation-gbp">
-        <?php echo number_format(($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->get_valuation("GBP") : 0, 10); ?>
+        <?php echo number_format(($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->get_valuation("GBP") : 0, 2); ?>
       </td>
       <td class="confirmed">
         <?php echo number_format(($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\BalanceConfirmed) ? $account->get_balance_confirmed()->balance : 0, 10); ?>

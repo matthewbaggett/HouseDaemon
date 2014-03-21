@@ -1,7 +1,6 @@
 <?php
 namespace LoneSatoshi\Models;
 
-
 class Balance extends \FourOneOne\ActiveRecord\ActiveRecord{
   public $account_id;
   public $user_id;
@@ -41,10 +40,17 @@ class Balance extends \FourOneOne\ActiveRecord\ActiveRecord{
       'created' => $this->get_account()->created,
       'coin' => $this->get_account()->get_coin()->name,
     );
-
   }
 
   public function get_valuation($comparison){
-    \ExchangeApi\Valuations::fetch();
+    try{
+      return \ExchangeApi\Valuations::get_price(
+        $this->get_account()->get_coin()->symbol,
+        $comparison,
+        $this->balance
+      );
+    }catch(\ExchangeApi\Exception $e){
+      return 0;
+    }
   }
 }

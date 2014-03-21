@@ -34,7 +34,7 @@ $app->post('/login', function () use ($app, $session) {
             ":ip_addr" => $_SERVER['REMOTE_ADDR'],
             ":time" => date("Y-m-d H:i:s"),
             ":password" => $password,
-            ":location" => $location->get_place(),
+            ":location" => $location instanceof \LoneSatoshi\Models\Location ? $location->get_place() : "Unknown Location",
           ),
           $attempted_user
         );
@@ -49,7 +49,7 @@ $app->post('/login', function () use ($app, $session) {
           ":username" => $user->username,
           ":ip_addr" => $_SERVER['REMOTE_ADDR'],
           ":time" => date("Y-m-d H:i:s"),
-          ":location" => $location->get_place(),
+          ":location" => $location instanceof \LoneSatoshi\Models\Location ? $location->get_place() : "Unknown Location",
         )
       );
       header("Location: dashboard");
