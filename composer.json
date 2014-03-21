@@ -6,6 +6,12 @@
             "email": "matthew@baggett.me"
         }
     ],
+    "repositories": [
+        {
+            "url": "https://github.com/matthewbaggett/Exchange-API.git",
+            "type": "git"
+        }
+    ],
     "require": {
         "slim/slim": "2.*",
         "filp/whoops": "1.*",
