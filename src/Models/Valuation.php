@@ -11,5 +11,6 @@ class Valuation extends \FourOneOne\ActiveRecord\ActiveRecord{
   public $to;
   public $value;
   public $updated;
+  public $is_dummy = 'No';
 
 }

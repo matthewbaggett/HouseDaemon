@@ -93,6 +93,7 @@ $app->get('/cron/valuations', function () use ($app) {
     $batch->updated = $time_updated;
     $batch->save(true);
 
+    // Add real valuations
     foreach($data as $source_name => $source_data){
       foreach($source_data as $from_key => $to){
         foreach($to as $to_key => $data){
@@ -106,6 +107,19 @@ $app->get('/cron/valuations', function () use ($app) {
           $valuation->save(false);
         }
       }
+    }
+
+    // Add dummy valuations
+    foreach(\LoneSatoshi\Models\Valuation::search()->where('valuation_batch_id', $batch->valuation_batch_id)->exec() as $valuation){
+      $dummy_valuation = new \LoneSatoshi\Models\Valuation();
+      $dummy_valuation->valuation_batch_id = $batch->valuation_batch_id;
+      $dummy_valuation->source = $valuation->source;
+      $dummy_valuation->from = $valuation->from;
+      $dummy_valuation->to = $valuation->from;
+      $dummy_valuation->value = 1.0;
+      $dummy_valuation->updated = $time_updated;
+      $dummy_valuation->is_dummy = "Yes";
+      $dummy_valuation->save();
     }
   }
   header("Content-type: text/plain");
