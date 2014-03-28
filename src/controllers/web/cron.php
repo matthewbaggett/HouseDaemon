@@ -82,11 +82,13 @@ $app->get('/cron', function () use ($app) {
 $app->get('/cron/valuations', function () use ($app) {
   $output = '';
   $updated = \ExchangeApi\Valuations::fetch();
+  $time_updated = date("Y-m-d H:i:s");
 
+  $existing_batch = \LoneSatoshi\Models\ValuationBatch::search()->where('updated', date('Y-m-d H:i:s', time() - 60))->execOne();
 
-  if($updated){
+  if($updated && !$existing_batch instanceof \LoneSatoshi\Models\ValuationBatch){
     $data = \ExchangeApi\Valuations::get_data();
-    $time_updated = date("Y-m-d H:i:s");
+
     $batch = new \LoneSatoshi\Models\ValuationBatch();
     $batch->updated = $time_updated;
     $batch->save(true);
