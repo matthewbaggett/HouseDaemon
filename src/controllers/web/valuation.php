@@ -26,7 +26,7 @@ function make_valuation_chart_data($base_coin, $values){
 
   $result = array();
 
-  $result[] = $headers;
+  //$result[] = $headers;
   foreach($data as $d){
     $result[] = $d;
   }
