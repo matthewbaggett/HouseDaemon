@@ -52,5 +52,23 @@ foreach($file_list as $file){
   }
 }
 
-\ExchangeApi\Valuations::fetch();
+$updated = \ExchangeApi\Valuations::fetch();
+
+if($updated){
+  $data = \ExchangeApi\Valuations::get_data();
+  $time_update = date("Y-m-d H:i:s");
+  foreach($data as $source_name => $source_data){
+    foreach($source_data as $from_key => $to){
+      foreach($to as $to_key => $data){
+        $valuation = new \LoneSatoshi\Models\Valuation();
+        $valuation->source = $source_name;
+        $valuation->from = $from_key;
+        $valuation->to = $to_key;
+        $valuation->value = $data['price'];
+        $valuation->updated = $time_updated;
+        $valuation->save();
+      }
+    }
+  }
+}
 $app->run();
