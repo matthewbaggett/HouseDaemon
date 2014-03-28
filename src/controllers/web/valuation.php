@@ -5,15 +5,22 @@ function make_valuation_chart_data($base_coin, $values){
   $data = array();
 
   $headers[] = 'Time';
+  $units = array();
 
   foreach($values as $target_coin => $exchange_rates){
     $headers[] = $target_coin;
-    $unit = array();
-    $unit[] = end($exchange_rates)->date;
     foreach($exchange_rates as $exchange_rate){
       /* @var $exchange_rate \LoneSatoshi\Models\ExchangeRate */
-      $data[] = $exchange_rate->rate;
+      $units[$exchange_rate->date][$exchange_rate->output] = $exchange_rate->rate;
     }
+  }
+
+  foreach($units as $date => $j){
+    $elem = array($date);
+    foreach($j as $output => $rate){
+       $elem[] = $rate;
+    }
+    $data[] = $elem;
   }
 
   $result = array();
