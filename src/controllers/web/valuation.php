@@ -1,5 +1,22 @@
 <?php
 
+function make_valuation_chart_data($values){
+  $headers = array();
+  $data = array();
+  foreach($values as $thingy){
+    var_dump($thingy);exit;
+  }
+
+  $result = array();
+
+  $result[] = $headers;
+  foreach($data as $d){
+    $result[] = $d;
+  }
+
+  return $result;
+}
+
 $app->get('/valuation/:coin/', function ($coina) use ($app) {
 
   $values = array();
@@ -18,7 +35,8 @@ $app->get('/valuation/:coin/', function ($coina) use ($app) {
     }
   }
   $app->render('valuation/track.phtml', array(
-    'values' => $values
+    'values' => $values,
+    'valuations' => make_valuation_chart_data($values),
   ));
 });
 
@@ -37,7 +55,8 @@ $app->get('/valuation/:coina/:coinb', function ($coina, $coinb) use ($app) {
       ->exec();
   }
   $app->render('valuation/track.phtml', array(
-    'values' => $values
+    'values' => $values,
+    'valuations' => make_valuation_chart_data($values),
   ));
 });
 

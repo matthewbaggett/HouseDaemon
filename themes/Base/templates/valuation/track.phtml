@@ -1,1 +1,20 @@
+<script type="text/javascript">
+  var valuations = <?php echo json_encode($valuations); ?>;
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(valuations);
+
+    var options = {
+      title: 'Company Performance'
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
+</script>
+
+<div id="chart_div"></div>
+
+
 <?php var_dump($values); ?>
