@@ -1,14 +1,36 @@
 <?php
 
-$app->get('/valuation/:coina/:coinb', function ($coina, $coinb) use ($app) {
+$app->get('/valuation/:coin/', function ($coina) use ($app) {
 
-  $values = \LoneSatoshi\Models\Valuation::search()
+  $values = array();
+  foreach(array('BTC', 'GBP', 'USD') as $coinb){
+    $values[$coinb] = \LoneSatoshi\Models\Valuation::search()
+      ->where('from', $coina)
+      ->where('to', $coinb)
+      ->where('source','average')
+      ->exec();
+    if(!$values[$coinb]){
+      $values[$coinb] = \LoneSatoshi\Models\Valuation::search()
+        ->where('to', $coina)
+        ->where('from', $coinb)
+        ->where('source','average')
+        ->exec();
+    }
+  }
+  $app->render('valuations/track.phtml', array(
+    'values' => $values
+  ));
+});
+
+$app->get('/valuation/:coina/:coinb', function ($coina, $coinb) use ($app) {
+  $values = array();
+  $values[$coinb] = \LoneSatoshi\Models\Valuation::search()
     ->where('from', $coina)
     ->where('to', $coinb)
     ->where('source','average')
     ->exec();
-  if(!$values){
-    $values = \LoneSatoshi\Models\Valuation::search()
+  if(!$values[$coinb]){
+    $values[$coinb] = \LoneSatoshi\Models\Valuation::search()
       ->where('to', $coina)
       ->where('from', $coinb)
       ->where('source','average')
