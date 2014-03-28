@@ -3,8 +3,9 @@
   google.load("visualization", "1", {packages:["corechart"]});
   google.setOnLoadCallback(drawChart);
   function drawChart() {
-    for ( var i = 0; i < valuations.rows.length; i++ ) {
-      valuations.rows[i].c[0].v = new Date( valuations.rows[i].c[0].v * 1000 );
+    console.log(valuations);
+    for ( var i = 0; i < valuations.length; i++ ) {
+      valuations[i].c[0].v = new Date( valuations[i].c[0].v * 1000 );
     }
     console.log(valuations);
 
