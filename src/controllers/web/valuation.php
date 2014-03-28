@@ -3,7 +3,7 @@
 function make_valuation_chart_data($values){
   $headers = array();
   $data = array();
-  var_dump($values);exit;
+  krumo($values);exit;
 
   foreach($values as $thingy){
   }
