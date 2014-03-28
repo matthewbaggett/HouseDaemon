@@ -6,6 +6,9 @@
     console.log(valuations);
     for ( var i = 1; i < valuations.length; i++ ) {
       valuations[i][0] = new Date( valuations[i][0] * 1000 );
+      for( var j = 1; j < valuations[i].length; j++){
+        valuations[i][j] = Number(valuations[i][j]);
+      }
     }
     console.log(valuations);
 
