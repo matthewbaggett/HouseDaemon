@@ -39,7 +39,7 @@ $app->get('/valuation/:coin/', function ($coina) use ($app) {
   }
   $app->render('valuation/track.phtml', array(
     'values' => $values,
-    'valuations' => make_valuation_chart_data($values),
+    'valuations' => make_valuation_chart_data($coina, $values),
   ));
 });
 
@@ -59,7 +59,7 @@ $app->get('/valuation/:coina/:coinb', function ($coina, $coinb) use ($app) {
   }
   $app->render('valuation/track.phtml', array(
     'values' => $values,
-    'valuations' => make_valuation_chart_data($values),
+    'valuations' => make_valuation_chart_data($coina, $values),
   ));
 });
 
