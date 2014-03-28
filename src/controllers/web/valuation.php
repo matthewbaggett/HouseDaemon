@@ -3,8 +3,9 @@
 function make_valuation_chart_data($values){
   $headers = array();
   $data = array();
+  var_dump($values);exit;
+
   foreach($values as $thingy){
-    var_dump($thingy);exit;
   }
 
   $result = array();
