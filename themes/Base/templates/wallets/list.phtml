@@ -79,6 +79,7 @@ $cum_gbp = 0;
           </a>
         <?php endif; ?>
       </td>
+      <td class="valuation"><a href="<?php echo $this->url("valuation/{$account->get_coin()->symbol}"); ?>" class="btn btn-xs btn-info">Value</a></td>
       <td class="valuation-btc" title="<?php echo "{$confirmed} at {$btc_rate}"; ?>"><?php echo number_format($btc, 8); ?></td>
       <td class="valuation-usd"><?php echo number_format($usd, 2); ?></td>
       <td class="valuation-gbp"><?php echo number_format($gbp, 2); ?></td>
