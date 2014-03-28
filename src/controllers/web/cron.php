@@ -103,8 +103,6 @@ $app->get('/cron/valuations', function () use ($app) {
   header("Content-type: text/plain");
   echo $output;
   exit;
-
-
 });
 
 
