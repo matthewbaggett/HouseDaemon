@@ -1,11 +1,19 @@
 <?php
 
-function make_valuation_chart_data($values){
+function make_valuation_chart_data($base_coin, $values){
   $headers = array();
   $data = array();
-  krumo($values);exit;
 
-  foreach($values as $thingy){
+  $headers[] = 'Time';
+
+  foreach($values as $target_coin => $exchange_rates){
+    $headers[] = $target_coin;
+    $unit = array();
+    $unit[] = end($exchange_rates)->date;
+    foreach($exchange_rates as $exchange_rate){
+      /* @var $exchange_rate \LoneSatoshi\Models\ExchangeRate */
+      $data[] = $exchange_rate->rate;
+    }
   }
 
   $result = array();
@@ -14,6 +22,8 @@ function make_valuation_chart_data($values){
   foreach($data as $d){
     $result[] = $d;
   }
+
+  krumo($result);exit;
 
   return $result;
 }
