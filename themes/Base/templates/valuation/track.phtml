@@ -4,7 +4,7 @@
   google.setOnLoadCallback(drawChart);
   function drawChart() {
     console.log(valuations);
-    for ( var i = 0; i < valuations.length; i++ ) {
+    for ( var i = 1; i < valuations.length; i++ ) {
       valuations[i][0] = new Date( valuations[i][0] * 1000 );
     }
     console.log(valuations);

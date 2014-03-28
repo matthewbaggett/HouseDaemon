@@ -19,14 +19,14 @@ function make_valuation_chart_data($base_coin, $values){
     $elem = array();
     $elem[] = strtotime($date);
     foreach($j as $output => $rate){
-       $elem[] = $rate;
+       $elem[] = floatval($rate);
     }
     $data[] = $elem;
   }
 
   $result = array();
 
-  //$result[] = $headers;
+  $result[] = $headers;
   foreach($data as $d){
     $result[] = $d;
   }
