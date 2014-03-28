@@ -83,19 +83,25 @@ $app->get('/cron/valuations', function () use ($app) {
   $output = '';
   $updated = \ExchangeApi\Valuations::fetch();
 
+
   if($updated){
     $data = \ExchangeApi\Valuations::get_data();
     $time_updated = date("Y-m-d H:i:s");
+    $batch = new \LoneSatoshi\Models\ValuationBatch();
+    $batch->updated = $time_updated;
+    $batch->save(true);
+
     foreach($data as $source_name => $source_data){
       foreach($source_data as $from_key => $to){
         foreach($to as $to_key => $data){
           $valuation = new \LoneSatoshi\Models\Valuation();
+          $valuation->valuation_batch_id = $batch->valuation_batch_id;
           $valuation->source = $source_name;
           $valuation->from = $from_key;
           $valuation->to = $to_key;
           $valuation->value = $data['price'];
           $valuation->updated = $time_updated;
-          $valuation->save();
+          $valuation->save(false);
         }
       }
     }
