@@ -115,6 +115,7 @@ $app->get('/cron/valuations', function () use ($app) {
     foreach(\LoneSatoshi\Models\Valuation::search()->where('valuation_batch_id', $batch->valuation_batch_id)->exec() as $valuation){
       /* @var $valuation \LoneSatoshi\Models\Valuation */
       $coins_to_make_dummies_of[] = $valuation->from;
+      $coins_to_make_dummies_of[] = $valuation->to;
       $sources_to_make_dummies_of[] = $valuation->source;
     }
     $coins_to_make_dummies_of = array_unique($coins_to_make_dummies_of);
