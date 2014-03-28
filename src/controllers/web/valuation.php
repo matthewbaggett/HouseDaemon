@@ -17,7 +17,7 @@ function make_valuation_chart_data($base_coin, $values){
 
   foreach($units as $date => $j){
     $elem = array();
-    $elem[] = $date;
+    $elem[] = strtotime($date);
     foreach($j as $output => $rate){
        $elem[] = $rate;
     }
