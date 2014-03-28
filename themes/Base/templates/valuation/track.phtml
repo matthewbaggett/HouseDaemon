@@ -5,7 +5,7 @@
   function drawChart() {
     console.log(valuations);
     for ( var i = 0; i < valuations.length; i++ ) {
-      valuations[i].c[0].v = new Date( valuations[i].c[0].v * 1000 );
+      valuations[i][0] = new Date( valuations[i][0] * 1000 );
     }
     console.log(valuations);
 
