@@ -110,16 +110,27 @@ $app->get('/cron/valuations', function () use ($app) {
     }
 
     // Add dummy valuations
+    $coins_to_make_dummies_of = array();
+    $sources_to_make_dummies_of = array();
     foreach(\LoneSatoshi\Models\Valuation::search()->where('valuation_batch_id', $batch->valuation_batch_id)->exec() as $valuation){
-      $dummy_valuation = new \LoneSatoshi\Models\Valuation();
-      $dummy_valuation->valuation_batch_id = $batch->valuation_batch_id;
-      $dummy_valuation->source = $valuation->source;
-      $dummy_valuation->from = $valuation->from;
-      $dummy_valuation->to = $valuation->from;
-      $dummy_valuation->value = 1.0;
-      $dummy_valuation->updated = $time_updated;
-      $dummy_valuation->is_dummy = "Yes";
-      $dummy_valuation->save();
+      /* @var $valuation \LoneSatoshi\Models\Valuation */
+      $coins_to_make_dummies_of[] = $valuation->from;
+      $sources_to_make_dummies_of[] = $valuation->source;
+    }
+    $coins_to_make_dummies_of = array_unique($coins_to_make_dummies_of);
+    $sources_to_make_dummies_of = array_unique($sources_to_make_dummies_of);
+    foreach($coins_to_make_dummies_of as $dummy_coin){
+      foreach($sources_to_make_dummies_of as $dummy_source){
+        $dummy_valuation = new \LoneSatoshi\Models\Valuation();
+        $dummy_valuation->valuation_batch_id = $batch->valuation_batch_id;
+        $dummy_valuation->source = $dummy_source;
+        $dummy_valuation->from = $dummy_coin;
+        $dummy_valuation->to = $dummy_coin;
+        $dummy_valuation->value = 1.0;
+        $dummy_valuation->updated = $time_updated;
+        $dummy_valuation->is_dummy = "Yes";
+        $dummy_valuation->save();
+      }
     }
   }
   header("Content-type: text/plain");
