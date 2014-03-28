@@ -15,8 +15,6 @@ function make_valuation_chart_data($base_coin, $values){
     }
   }
 
-  krumo($units);
-
   foreach($units as $date => $j){
     $elem = array();
     $elem[] = $date;
@@ -32,8 +30,6 @@ function make_valuation_chart_data($base_coin, $values){
   foreach($data as $d){
     $result[] = $d;
   }
-
-  krumo($result);exit;
 
   return $result;
 }
