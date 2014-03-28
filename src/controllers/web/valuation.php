@@ -15,8 +15,11 @@ function make_valuation_chart_data($base_coin, $values){
     }
   }
 
+  krumo($units);
+
   foreach($units as $date => $j){
-    $elem = array($date);
+    $elem = array();
+    $elem[] = $date;
     foreach($j as $output => $rate){
        $elem[] = $rate;
     }
