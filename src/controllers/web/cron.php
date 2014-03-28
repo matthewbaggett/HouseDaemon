@@ -84,7 +84,7 @@ $app->get('/cron/valuations', function () use ($app) {
   $updated = \ExchangeApi\Valuations::fetch();
   $time_updated = date("Y-m-d H:i:s");
 
-  $existing_batch = \LoneSatoshi\Models\ValuationBatch::search()->where('updated', date('Y-m-d H:i:s', time() - 60))->execOne();
+  $existing_batch = \LoneSatoshi\Models\ValuationBatch::search()->where('updated', date('Y-m-d H:i:s', time() - 60*5))->execOne();
 
   if($updated && !$existing_batch instanceof \LoneSatoshi\Models\ValuationBatch){
     $data = \ExchangeApi\Valuations::get_data();
