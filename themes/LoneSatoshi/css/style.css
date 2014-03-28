@@ -1,5 +1,11 @@
 table.wallets,
-table.transactions{}
+table.transactions{
+    font-size: 10px;
+}
+table.wallets .btn.btn-xs,
+table.transactions .btn.btn-xs{
+    font-size: 10px;
+}
 
 table.wallets td.address,
 table.wallets td.confirmed,
