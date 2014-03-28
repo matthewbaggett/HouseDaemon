@@ -17,7 +17,7 @@ $app->get('/valuation/:coin/', function ($coina) use ($app) {
         ->exec();
     }
   }
-  $app->render('valuations/track.phtml', array(
+  $app->render('valuation/track.phtml', array(
     'values' => $values
   ));
 });
@@ -36,7 +36,7 @@ $app->get('/valuation/:coina/:coinb', function ($coina, $coinb) use ($app) {
       ->where('source','average')
       ->exec();
   }
-  $app->render('valuations/track.phtml', array(
+  $app->render('valuation/track.phtml', array(
     'values' => $values
   ));
 });
