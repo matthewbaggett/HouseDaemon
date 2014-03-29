@@ -14,7 +14,7 @@ JOIN users u
   ON a.user_id = u.user_id
 JOIN coins c
   ON c.coin_id = a.coin_id
-WHERE confirmations < 10
+WHERE confirmations < c.confirmations_required
 GROUP BY t.account_id;
 
 DROP VIEW balances_confirmed;
@@ -33,5 +33,5 @@ JOIN users u
   ON a.user_id = u.user_id
 JOIN coins c
   ON c.coin_id = a.coin_id
-WHERE confirmations >= 10
+WHERE confirmations >= c.confirmations_required
 GROUP BY t.account_id
