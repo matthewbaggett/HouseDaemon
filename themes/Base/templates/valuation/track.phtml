@@ -15,7 +15,7 @@
     var data = google.visualization.arrayToDataTable(valuations);
 
     var options = {
-      title: 'Company Performance'
+      title: '<?php echo $valuation_title; ?>'
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('chart_div'));

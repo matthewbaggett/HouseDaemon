@@ -44,6 +44,7 @@ $app->get('/valuation/:coin/', function ($coina) use ($app) {
       ->exec();
   }
   $app->render('valuation/track.phtml', array(
+    'valuation_title' => "Comparing {$coina} to " . implode(", ", array_keys($values)),
     'values' => $values,
     'valuations' => make_valuation_chart_data($coina, $values),
   ));
@@ -56,6 +57,7 @@ $app->get('/valuation/:coina/:coinb', function ($coina, $coinb) use ($app) {
     ->where('output', $coinb)
     ->exec();
   $app->render('valuation/track.phtml', array(
+    'valuation_title' => "Comparing {$coina} to {$coinb}",
     'values' => $values,
     'valuations' => make_valuation_chart_data($coina, $values),
   ));
