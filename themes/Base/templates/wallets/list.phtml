@@ -91,7 +91,10 @@ $cum_gbp = 0;
       <td class="valuation-gbp"><?php echo number_format($gbp, 2); ?></td>
       <td class="confirmed"><?php echo number_format($confirmed, 8); ?></td>
       <td class="unconfirmed"><?php echo number_format($unconfirmed, 8); ?></td>
-      <td><a href="<?php echo $this->url("transactions/refresh/{$account->account_id}");?>" class="btn btn-warning btn-xs"><?php echo $this->t("Refresh"); ?></a></td>
+      <td>
+        <a href="<?php echo $this->url("transactions/refresh/{$account->account_id}");?>" class="btn btn-warning btn-xs"><?php echo $this->t("Refresh"); ?></a>
+        <a href="<?php echo $this->url("transactions/view/{$account->account_id}");?>" class="btn btn-info btn-xs"><?php echo $this->t("Transactions"); ?></a>
+      </td>
       <td class="rate rate-month"><?php echo number_format($transactions_count['month'],0); ?></td>
       <td class="rate rate-week"><?php echo number_format($transactions_count['week'],0); ?></td>
       <td class="rate rate-day"><?php echo number_format($transactions_count['day'],0); ?></td>
