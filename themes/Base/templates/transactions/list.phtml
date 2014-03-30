@@ -44,7 +44,7 @@
     </tr>
     </thead>
     <tbody>
-    <?php foreach($transactions as $transaction): ?>
+    <?php foreach(array_reverse($transactions,true) as $transaction): ?>
       <?php /* @var $transaction \LoneSatoshi\Models\Transaction */ ?>
       <tr class="<?php echo $transaction->category?>">
         <td class="transaction_id"><?php echo $transaction->transaction_id; ?></td>

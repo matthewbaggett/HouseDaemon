@@ -28,7 +28,7 @@ $app->get('/transactions/view/:account_id', function ($account_id) use ($app) {
 
   $transactions = \LoneSatoshi\Models\Transaction::search()
     ->where('account_id', $account->account_id)
-    ->order("date",'DESC')
+    ->order("date",'ASC')
     ->exec();
 
   $account_balance_chart = array();
