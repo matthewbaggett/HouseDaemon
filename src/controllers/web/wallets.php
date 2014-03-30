@@ -43,6 +43,25 @@ $app->get('/wallets/rename/:account_id', function ($account_id) use ($app) {
   ));
 });
 
+$app->post('/wallets/rename/:account_id', function ($account_id) use ($app) {
+  \LoneSatoshi\Models\User::check_logged_in();
+
+  $account = \LoneSatoshi\Models\Account::search()
+    ->where('user_id', \LoneSatoshi\Models\User::get_current()->user_id)
+    ->where('account_id', $account_id)
+    ->execOne();
+
+  if(!$account instanceof \LoneSatoshi\Models\Account){
+    die("No such account");
+  }
+
+  $account->name = $_POST['name'];
+  $account->save();
+
+  header("Location: /wallets");
+  exit;
+});
+
 $app->get('/wallets/add', function () use ($app) {
   \LoneSatoshi\Models\User::check_logged_in();
 
