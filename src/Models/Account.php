@@ -8,6 +8,7 @@ class Account extends \FourOneOne\ActiveRecord\ActiveRecord{
   public $user_id;
   public $reference_id;
   public $address;
+  public $name;
   public $created;
   public $coin_id;
 

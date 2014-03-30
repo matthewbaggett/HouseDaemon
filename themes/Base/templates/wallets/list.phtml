@@ -14,14 +14,15 @@ $cum_gbp = 0;
   <thead>
     <tr>
       <td class="coin"><?php echo $this->t("Coin"); ?></td>
-      <td colspan="2"><?php echo $this->t("Address"); ?></td>
+      <td colspan="3"><?php echo $this->t("Name & Address"); ?></td>
       <td colspan="4"><?php echo $this->t("Valuation"); ?></td>
       <td colspan="3"><?php echo $this->t("Balance"); ?></td>
       <td colspan="4"><?php echo $this->t("Rate"); ?></td>
     </tr>
     <tr>
       <td></td>
-      <td colspan="2"></td>
+      <td colspan="1">Name</td>
+      <td colspan="2">Address</td>
       <td><?php echo $this->t("Track"); ?></td>
       <td><?php echo $this->t("BTC"); ?></td>
       <td><?php echo $this->t("USD"); ?></td>
@@ -70,9 +71,8 @@ $cum_gbp = 0;
 
     <tr>
       <td class="coin"><?php echo $coin_name; ?></td>
-      <td class="address">
-        <?php echo $account->address; ?>
-      </td>
+      <td class="name"><?php echo $account->name?$account->name:'<em>Untitled Wallet</em>'; ?></td>
+      <td class="address"><?php echo $account->address; ?></td>
       <td class="blockchain">
         <?php if($account->get_coin()->chain_url_format_address && $account->get_coin()->chain_name): ?>
           <a href="<?php echo str_replace("::ADDRESS::", $account->address, $account->get_coin()->chain_url_format_address); ?>">
@@ -97,6 +97,7 @@ $cum_gbp = 0;
   <tfoot>
   <tr>
     <td class="coin">Total</td>
+    <td class="name"></td>
     <td class="address"></td>
     <td class="blockchain"></td>
     <td class="valuation"></td>
