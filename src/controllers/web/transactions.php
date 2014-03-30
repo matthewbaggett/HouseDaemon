@@ -3,7 +3,29 @@
 $app->get('/transactions', function () use ($app) {
   \LoneSatoshi\Models\User::check_logged_in();
   $account_ids = array();
-  foreach(\LoneSatoshi\Models\Account::search()->where('user_id', $_SESSION['user']->user_id)->exec() as $account){
+  $accounts = \LoneSatoshi\Models\Account::search()
+    ->where('user_id', $_SESSION['user']->user_id)
+    ->exec();
+  foreach($accounts as $account){
+    /* @var $account \LoneSatoshi\Models\Account */
+    $account_ids[] = $account->account_id;
+  }
+  $app->render('transactions/list.phtml', array(
+    'transactions' => \LoneSatoshi\Models\Transaction::search()
+        ->where('account_id', $account_ids, "IN")
+        ->order("date",'DESC')
+        ->exec(),
+  ));
+});
+
+$app->get('/transactions/view/:account_id', function ($account_id) use ($app) {
+  \LoneSatoshi\Models\User::check_logged_in();
+  $account_ids = array();
+  $accounts = \LoneSatoshi\Models\Account::search()
+    ->where('user_id', $_SESSION['user']->user_id)
+    ->where('account_id', $account_id)
+    ->exec();
+  foreach($accounts as $account){
     /* @var $account \LoneSatoshi\Models\Account */
     $account_ids[] = $account->account_id;
   }
