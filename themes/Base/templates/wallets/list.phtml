@@ -73,7 +73,7 @@ $cum_gbp = 0;
       <td class="coin"><?php echo $coin_name; ?></td>
       <td class="name">
         <?php echo $account->name?$account->name:'<em>Untitled Wallet</em>'; ?>
-        <a href="<?php echo $this->url("wallets/rename/{$account->account_id}"); ?>" class="btn btn-primary btn-xs">
+        <a href="<?php echo $this->url("wallets/rename/{$account->account_id}"); ?>" class="btn btn-primary btn-xs" title="Rename">
           <span class="glyphicon glyphicon-pencil"></span>
         </a>
       </td>
@@ -87,17 +87,21 @@ $cum_gbp = 0;
           </a>
         <?php endif; ?>
       </td>
-      <td class="valuation"><a href="<?php echo $this->url("valuation/{$account->get_coin()->symbol}"); ?>" class="btn btn-xs btn-info">Value</a></td>
+      <td class="valuation">
+        <a href="<?php echo $this->url("valuation/{$account->get_coin()->symbol}"); ?>" class="btn btn-xs btn-info" title="Track Value">
+          <span class="glyphicon glyphicon-stats"></span>
+        </a>
+      </td>
       <td class="valuation-btc" title="<?php echo "{$confirmed} at {$btc_rate}"; ?>"><?php echo number_format($btc, 8); ?></td>
       <td class="valuation-usd"><?php echo number_format($usd, 2); ?></td>
       <td class="valuation-gbp"><?php echo number_format($gbp, 2); ?></td>
       <td class="confirmed"><?php echo number_format($confirmed, 8); ?></td>
       <td class="unconfirmed"><?php echo number_format($unconfirmed, 8); ?></td>
       <td>
-        <a href="<?php echo $this->url("transactions/refresh/{$account->account_id}");?>" class="btn btn-warning btn-xs">
+        <a href="<?php echo $this->url("transactions/refresh/{$account->account_id}");?>" class="btn btn-warning btn-xs" title="Refresh">
           <span class="glyphicon glyphicon-refresh"></span>
         </a>
-        <a href="<?php echo $this->url("transactions/view/{$account->account_id}");?>" class="btn btn-info btn-xs">
+        <a href="<?php echo $this->url("transactions/view/{$account->account_id}");?>" class="btn btn-info btn-xs" title="Transactions">
           <span class="glyphicon glyphicon-list"></span>
         </a>
       </td>
