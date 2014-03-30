@@ -32,4 +32,9 @@ table.transactions td.amount{
     text-align: right;
 }
 
-
+#chart_account_balance,
+#chart_valuation{
+    height: 600px;
+    width: 100%;
+    float: left; display: block;
+}

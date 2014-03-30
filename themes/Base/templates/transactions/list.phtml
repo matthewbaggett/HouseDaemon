@@ -18,13 +18,13 @@
       title: '<?php echo $account->name?$account->name:'Untitled Wallet'; ?>'
     };
 
-    var chart = new google.visualization.LineChart(document.getElementById('account_balance_chart'));
+    var chart = new google.visualization.LineChart(document.getElementById('chart_account_balance'));
     chart.draw(data, options);
   }
 </script>
 
 <div class="row">
-  <div id="account_balance_chart"></div>
+  <div id="chart_account_balance"></div>
 </div>
 
 <div class="row">
