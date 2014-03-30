@@ -20,18 +20,14 @@ $app->get('/transactions', function () use ($app) {
 
 $app->get('/transactions/view/:account_id', function ($account_id) use ($app) {
   \LoneSatoshi\Models\User::check_logged_in();
-  $account_ids = array();
-  $accounts = \LoneSatoshi\Models\Account::search()
+  $account = \LoneSatoshi\Models\Account::search()
     ->where('user_id', $_SESSION['user']->user_id)
     ->where('account_id', $account_id)
-    ->exec();
-  foreach($accounts as $account){
-    /* @var $account \LoneSatoshi\Models\Account */
-    $account_ids[] = $account->account_id;
-  }
+    ->execOne();
+
 
   $transactions = \LoneSatoshi\Models\Transaction::search()
-    ->where('account_id', $account_ids, "IN")
+    ->where('account_id', $account->account_id)
     ->order("date",'DESC')
     ->exec();
 
@@ -45,6 +41,7 @@ $app->get('/transactions/view/:account_id', function ($account_id) use ($app) {
   }
 
   $app->render('transactions/list.phtml', array(
+    'account' => $account,
     'transactions' => $transactions,
     'account_balance_chart' => $account_balance_chart,
   ));

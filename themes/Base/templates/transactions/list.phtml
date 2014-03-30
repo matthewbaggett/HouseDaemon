@@ -15,7 +15,7 @@
     var data = google.visualization.arrayToDataTable(account_balance_chart);
 
     var options = {
-      title: '<?php echo $valuation_title; ?>'
+      title: '<?php echo $account->name?$account->name:'Untitled Wallet'; ?>'
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('account_balance_chart'));
