@@ -71,8 +71,13 @@ $cum_gbp = 0;
 
     <tr>
       <td class="coin"><?php echo $coin_name; ?></td>
-      <td class="name"><?php echo $account->name?$account->name:'<em>Untitled Wallet</em>'; ?></td>
-      <td class="address"><?php echo $account->address; ?></td>
+      <td class="name">
+        <?php echo $account->name?$account->name:'<em>Untitled Wallet</em>'; ?>
+        <a href="wallet/rename/<?php echo $account->account_id; ?>" class="btn btn-primary btn-xs">Edit</a>
+      </td>
+      <td class="address">
+        <?php echo $account->address; ?>
+      </td>
       <td class="blockchain">
         <?php if($account->get_coin()->chain_url_format_address && $account->get_coin()->chain_name): ?>
           <a href="<?php echo str_replace("::ADDRESS::", $account->address, $account->get_coin()->chain_url_format_address); ?>">
