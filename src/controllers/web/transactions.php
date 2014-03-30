@@ -29,11 +29,24 @@ $app->get('/transactions/view/:account_id', function ($account_id) use ($app) {
     /* @var $account \LoneSatoshi\Models\Account */
     $account_ids[] = $account->account_id;
   }
+
+  $transactions = \LoneSatoshi\Models\Transaction::search()
+    ->where('account_id', $account_ids, "IN")
+    ->order("date",'DESC')
+    ->exec();
+
+  $account_balance_chart = array();
+  $account_balance_chart[] = array('Date', 'Amount');
+  foreach($transactions as $transaction){
+    /* @var $transaction \LoneSatoshi\Models\Transaction */
+    $account_balance_chart[] = array(
+      $transaction->date, $transaction->amount
+    );
+  }
+
   $app->render('transactions/list.phtml', array(
-    'transactions' => \LoneSatoshi\Models\Transaction::search()
-        ->where('account_id', $account_ids, "IN")
-        ->order("date",'DESC')
-        ->exec(),
+    'transactions' => $transactions,
+    'account_balance_chart' => $account_balance_chart,
   ));
 });
 

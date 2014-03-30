@@ -1,49 +1,80 @@
-<table class="table table-striped transactions">
-  <thead>
-  <tr>
-    <td>Transaction ID</td>
-    <td>Coin</td>
-    <td>Address</td>
-    <td>Amount</td>
-    <td>Confirmations</td>
-    <td>Refresh</td>
-    <td>TX ID</td>
-    <td>Date</td>
-    <td>Block Hash</td>
-    <td>Block Index</td>
-  </tr>
-  </thead>
-  <tbody>
-  <?php foreach($transactions as $transaction): ?>
-    <?php /* @var $transaction \LoneSatoshi\Models\Transaction */ ?>
-    <tr class="<?php echo $transaction->category?>">
-      <td class="transaction_id"><?php echo $transaction->transaction_id; ?></td>
-      <td class="coin"><?php echo $transaction->get_account()->get_coin()->name; ?></td>
-      <td class="address">
-        <?php if($transaction->get_account()->get_coin()->chain_url_format_address): ?>
-          <a href="<?php echo str_replace("::ADDRESS::", $transaction->address, $transaction->get_account()->get_coin()->chain_url_format_address); ?>" title="<?php echo $transaction->address; ?>">
-            <?php echo substr($transaction->address, 0, 7); ?>
-          </a>
-        <?php else: ?>
-          <span title="<?php echo $transaction->address; ?>"><?php echo substr($transaction->address, 0, 7); ?></span>
-        <?php endif; ?>
-      </td>
-      <td class="amount"><?php echo number_format($transaction->amount,10); ?></td>
-      <td class="confirmations"><?php echo $transaction->confirmations; ?></td>
-      <td class="refresh"><a href="<?php echo $this->url("transactions/refresh/{$transaction->get_account()->account_id}");?>" class="btn btn-warning btn-xs"><?php echo $this->t("Refresh"); ?></a></td>
-      <td class="txid">
-        <?php if($transaction->get_account()->get_coin()->chain_url_format_transaction): ?>
-          <a href="<?php echo str_replace("::TXID::", $transaction->txid, $transaction->get_account()->get_coin()->chain_url_format_transaction); ?>" title="<?php echo $transaction->txid; ?>">
-            <?php echo substr($transaction->txid, 0, 7); ?>
-          </a>
-        <?php else: ?>
-          <span title="<?php echo $transaction->txid; ?>"><?php echo substr($transaction->txid, 0, 7); ?></span>
-        <?php endif; ?>
-      </td>
-      <td class="date"><?php echo $transaction->date; ?></td>
-      <td class="blockhash"><span title="<?php echo $transaction->block_hash; ?>"><?php echo substr($transaction->block_hash, 0, 7); ?></span></td>
-      <td class="blockindex"><?php echo $transaction->block_index; ?></td>
+<script type="text/javascript">
+  var account_balance_chart = <?php echo json_encode($account_balance_chart); ?>;
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    console.log(account_balance_chart);
+    for ( var i = 1; i < account_balance_chart.length; i++ ) {
+      account_balance_chart[i][0] = new Date( account_balance_chart[i][0] * 1000 );
+      for( var j = 1; j < account_balance_chart[i].length; j++){
+        account_balance_chart[i][j] = Number(account_balance_chart[i][j]);
+      }
+    }
+    console.log(account_balance_chart);
+
+    var data = google.visualization.arrayToDataTable(account_balance_chart);
+
+    var options = {
+      title: '<?php echo $valuation_title; ?>'
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('account_balance_chart'));
+    chart.draw(data, options);
+  }
+</script>
+
+<div class="row">
+  <div id="account_balance_chart"></div>
+</div>
+
+<div class="row">
+  <table class="table table-striped transactions">
+    <thead>
+    <tr>
+      <td>Transaction ID</td>
+      <td>Coin</td>
+      <td>Address</td>
+      <td>Amount</td>
+      <td>Confirmations</td>
+      <td>Refresh</td>
+      <td>TX ID</td>
+      <td>Date</td>
+      <td>Block Hash</td>
+      <td>Block Index</td>
     </tr>
-  <?php endforeach; ?>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+    <?php foreach($transactions as $transaction): ?>
+      <?php /* @var $transaction \LoneSatoshi\Models\Transaction */ ?>
+      <tr class="<?php echo $transaction->category?>">
+        <td class="transaction_id"><?php echo $transaction->transaction_id; ?></td>
+        <td class="coin"><?php echo $transaction->get_account()->get_coin()->name; ?></td>
+        <td class="address">
+          <?php if($transaction->get_account()->get_coin()->chain_url_format_address): ?>
+            <a href="<?php echo str_replace("::ADDRESS::", $transaction->address, $transaction->get_account()->get_coin()->chain_url_format_address); ?>" title="<?php echo $transaction->address; ?>">
+              <?php echo substr($transaction->address, 0, 7); ?>
+            </a>
+          <?php else: ?>
+            <span title="<?php echo $transaction->address; ?>"><?php echo substr($transaction->address, 0, 7); ?></span>
+          <?php endif; ?>
+        </td>
+        <td class="amount"><?php echo number_format($transaction->amount,10); ?></td>
+        <td class="confirmations"><?php echo $transaction->confirmations; ?></td>
+        <td class="refresh"><a href="<?php echo $this->url("transactions/refresh/{$transaction->get_account()->account_id}");?>" class="btn btn-warning btn-xs"><?php echo $this->t("Refresh"); ?></a></td>
+        <td class="txid">
+          <?php if($transaction->get_account()->get_coin()->chain_url_format_transaction): ?>
+            <a href="<?php echo str_replace("::TXID::", $transaction->txid, $transaction->get_account()->get_coin()->chain_url_format_transaction); ?>" title="<?php echo $transaction->txid; ?>">
+              <?php echo substr($transaction->txid, 0, 7); ?>
+            </a>
+          <?php else: ?>
+            <span title="<?php echo $transaction->txid; ?>"><?php echo substr($transaction->txid, 0, 7); ?></span>
+          <?php endif; ?>
+        </td>
+        <td class="date"><?php echo $transaction->date; ?></td>
+        <td class="blockhash"><span title="<?php echo $transaction->block_hash; ?>"><?php echo substr($transaction->block_hash, 0, 7); ?></span></td>
+        <td class="blockindex"><?php echo $transaction->block_index; ?></td>
+      </tr>
+    <?php endforeach; ?>
+    </tbody>
+  </table>
+</div>
