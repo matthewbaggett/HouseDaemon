@@ -73,7 +73,9 @@ $cum_gbp = 0;
       <td class="coin"><?php echo $coin_name; ?></td>
       <td class="name">
         <?php echo $account->name?$account->name:'<em>Untitled Wallet</em>'; ?>
-        <a href="<?php echo $this->url("wallets/rename/{$account->account_id}"); ?>" class="btn btn-primary btn-xs">Edit</a>
+        <a href="<?php echo $this->url("wallets/rename/{$account->account_id}"); ?>" class="btn btn-primary btn-xs">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </a>
       </td>
       <td class="address">
         <?php echo $account->address; ?>
@@ -92,8 +94,12 @@ $cum_gbp = 0;
       <td class="confirmed"><?php echo number_format($confirmed, 8); ?></td>
       <td class="unconfirmed"><?php echo number_format($unconfirmed, 8); ?></td>
       <td>
-        <a href="<?php echo $this->url("transactions/refresh/{$account->account_id}");?>" class="btn btn-warning btn-xs"><?php echo $this->t("Refresh"); ?></a>
-        <a href="<?php echo $this->url("transactions/view/{$account->account_id}");?>" class="btn btn-info btn-xs"><?php echo $this->t("Transactions"); ?></a>
+        <a href="<?php echo $this->url("transactions/refresh/{$account->account_id}");?>" class="btn btn-warning btn-xs">
+          <span class="glyphicon glyphicon-refresh"></span>
+        </a>
+        <a href="<?php echo $this->url("transactions/view/{$account->account_id}");?>" class="btn btn-info btn-xs">
+          <span class="glyphicon glyphicon-list"></span>
+        </a>
       </td>
       <td class="rate rate-month"><?php echo number_format($transactions_count['month'],0); ?></td>
       <td class="rate rate-week"><?php echo number_format($transactions_count['week'],0); ?></td>
