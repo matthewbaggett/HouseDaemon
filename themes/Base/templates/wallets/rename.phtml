@@ -1,0 +1,9 @@
+<form action="<?php echo $this->url("wallets/rename"); ?>" method="post">
+  <div class="form-row">
+    <label for="coin"><?php echo $this->t("Rename :coin wallet called :current_title", array(':coin' => $account->get_coin()->name, ':current_title'=> $account->name?$account->name:'Untitled Wallet')); ?>:</label>
+    <input name="name" value="<?php echo $account->name; ?>"/>
+  </div>
+  <div class="form-row">
+    <input class="btn btn-warning" type="submit"/>
+  </div>
+</form>

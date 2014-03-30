@@ -73,7 +73,7 @@ $cum_gbp = 0;
       <td class="coin"><?php echo $coin_name; ?></td>
       <td class="name">
         <?php echo $account->name?$account->name:'<em>Untitled Wallet</em>'; ?>
-        <a href="wallet/rename/<?php echo $account->account_id; ?>" class="btn btn-primary btn-xs">Edit</a>
+        <a href="<?php echo $this->url("wallets/rename/{$account->account_id}"); ?>" class="btn btn-primary btn-xs">Edit</a>
       </td>
       <td class="address">
         <?php echo $account->address; ?>

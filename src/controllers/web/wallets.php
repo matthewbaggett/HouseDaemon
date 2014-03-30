@@ -29,6 +29,20 @@ $app->get('/wallets', function () use ($app) {
   ));
 });
 
+
+$app->get('/wallets/rename/:account_id', function ($account_id) use ($app) {
+  \LoneSatoshi\Models\User::check_logged_in();
+
+  $account = \LoneSatoshi\Models\Account::search()
+    ->where('user_id', \LoneSatoshi\Models\User::get_current()->user_id)
+    ->where('account_id', $account_id)
+    ->execOne();
+
+  $app->render('wallets/rename.phtml', array(
+    'account' => $account
+  ));
+});
+
 $app->get('/wallets/add', function () use ($app) {
   \LoneSatoshi\Models\User::check_logged_in();
 
