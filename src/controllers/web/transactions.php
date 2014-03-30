@@ -32,11 +32,13 @@ $app->get('/transactions/view/:account_id', function ($account_id) use ($app) {
     ->exec();
 
   $account_balance_chart = array();
-  $account_balance_chart[] = array('Date', 'Amount');
+  $account_balance_chart[] = array('Date', 'Amount', 'Accumulated');
+  $accumulated = 0;
   foreach($transactions as $transaction){
     /* @var $transaction \LoneSatoshi\Models\Transaction */
+    $accumulated = $accumulated + $transaction->amount;
     $account_balance_chart[] = array(
-      $transaction->date, $transaction->amount
+      strtotime($transaction->date), $transaction->amount, $accumulated
     );
   }
 
