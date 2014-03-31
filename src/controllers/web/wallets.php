@@ -21,7 +21,7 @@ $app->get('/wallets', function () use ($app) {
     /* @var $account \LoneSatoshi\Models\Account */
     $value = 0;
     if($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\Balance){
-      $value = $account->get_balance_unconfirmed()->get_valuation('BTC');
+      $value = $account->get_balance_confirmed()->get_valuation('BTC');
     }
     $accounts_weighted[$value . '-' . $account->account_id] = $account;
   }
