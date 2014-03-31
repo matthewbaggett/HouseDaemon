@@ -42,8 +42,6 @@ $app->get('/transactions/view/:account_id', function ($account_id) use ($app) {
     );
   }
 
-  krumo($account_balance_chart);
-
   $app->render('transactions/list.phtml', array(
     'account' => $account,
     'transactions' => $transactions,
