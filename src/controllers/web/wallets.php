@@ -26,6 +26,7 @@ $app->get('/wallets', function () use ($app) {
     $accounts_weighted[$value . '-' . $account->account_id] = $account;
   }
   ksort($accounts_weighted);
+  krumo($accounts_weighted);
   $accounts_weighted = array_reverse($accounts_weighted);
   $app->render('wallets/list.phtml', array(
     'accounts' => $accounts_weighted,
