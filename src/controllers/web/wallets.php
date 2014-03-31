@@ -23,7 +23,7 @@ $app->get('/wallets', function () use ($app) {
     if($account->get_balance_confirmed() instanceof \LoneSatoshi\Models\Balance){
       $value = $account->get_balance_confirmed()->get_valuation('BTC');
     }
-    $accounts_weighted[$value . '-' . $account->account_id] = $account;
+    $accounts_weighted[number_format($value,8)] = $account;
   }
   ksort($accounts_weighted);
   krumo($accounts_weighted);
