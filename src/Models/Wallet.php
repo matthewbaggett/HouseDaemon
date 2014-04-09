@@ -112,18 +112,30 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
         $transaction->block_index   = isset($raw_transaction->blockindex) ? $raw_transaction->blockindex : null;
         $transaction->block_time    = isset($raw_transaction->blocktime) ? date("Y-m-d H:i:s", $raw_transaction->blocktime) : null;
         $transaction->save();
-        if($new_transaction && $transaction->category == 'receive'){
-          Notification::send(
-            Notification::Warning,
-            "Received: :amount :coin into :wallet_name",
-            array(
-              ':amount' => $transaction->amount,
-              ':coin' => $transaction->get_account()->get_coin()->name,
-              ':address' => $transaction->address,
-              ':wallet_name' => $transaction->get_account()->name !== '' ? $transaction->get_account()->name : $transaction->address,
-            ),
-            $transaction->get_account()->get_user()
+        if($new_transaction){
+          $details = array(
+            ':amount' => abs($transaction->amount),
+            ':coin' => $transaction->get_account()->get_coin()->name,
+            ':address' => $transaction->address,
+            ':wallet_name' => $transaction->get_account()->name !== '' ? $transaction->get_account()->name : $transaction->address,
           );
+          if($transaction->category == 'receive'){
+            Notification::send(
+              Notification::Warning,
+              "Received: :amount :coin into :wallet_name",
+              $details,
+              $transaction->get_account()->get_user()
+            );
+          }
+          if($transaction->category == 'send'){
+            Notification::send(
+              Notification::Warning,
+              "Sent: :amount :coin into :wallet_name",
+              $details,
+              $transaction->get_account()->get_user()
+            );
+          }
+
         }
       }
       return $new_transaction_count;
