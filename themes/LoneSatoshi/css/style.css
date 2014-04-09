@@ -31,6 +31,9 @@ table.wallets td.valuation-gbp,
 table.transactions td.amount{
     text-align: right;
 }
+table.wallets td.name .btn{
+    float: right;
+}
 
 #chart_account_balance,
 #chart_valuation{
@@ -38,3 +41,4 @@ table.transactions td.amount{
     width: 100%;
     float: left; display: block;
 }
+

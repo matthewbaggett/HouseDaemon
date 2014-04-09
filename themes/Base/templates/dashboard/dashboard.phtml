@@ -3,5 +3,4 @@
     <p class="lead">
         <?php echo $this->t(':salutation, :username', array(':salutation' => \LoneSatoshi\Models\Greeting::search()->order('rand()')->execOne()->greeting, ':username' => $_SESSION['user']->displayname)); ?>
     </p>
-    <p>Known block count: <?php echo $block_count; ?></p>
 </div>
