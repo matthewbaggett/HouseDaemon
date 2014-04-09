@@ -115,11 +115,12 @@ class Wallet extends \FourOneOne\ActiveRecord\ActiveRecord{
         if($new_transaction && $transaction->category == 'receive'){
           Notification::send(
             Notification::Warning,
-            "Received Payment: :amount :coin into :address",
+            "Received: :amount :coin into :wallet_name",
             array(
               ':amount' => $transaction->amount,
               ':coin' => $transaction->get_account()->get_coin()->name,
               ':address' => $transaction->address,
+              ':wallet_name' => $transaction->get_account()->name !== '' ? $transaction->get_account()->name : $transaction->address,
             ),
             $transaction->get_account()->get_user()
           );
