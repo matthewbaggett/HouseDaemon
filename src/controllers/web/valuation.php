@@ -11,7 +11,9 @@ function make_valuation_chart_data($base_coin, $values){
     $headers[] = $target_coin;
     foreach($exchange_rates as $exchange_rate){
       /* @var $exchange_rate \LoneSatoshi\Models\ExchangeRate */
-      $units[$exchange_rate->date][$exchange_rate->output] = $exchange_rate->rate;
+      if($exchange_rate->rate > 0){
+        $units[$exchange_rate->date][$exchange_rate->output] = $exchange_rate->rate;
+      }
     }
   }
 
