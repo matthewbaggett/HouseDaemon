@@ -34,7 +34,7 @@ $app->get('/status/', function () use ($app) {
   }
 
   $response->TransactionDensity = array();
-  foreach(\LoneSatoshi\Models\TransactionDensity::search()->where('time_period', date("Y-m-d H:i:s", strtotime('one month ago')))->exec() as $density){
+  foreach(\LoneSatoshi\Models\TransactionDensity::search()->where('time_period', date("Y-m-d H:i:s", strtotime('one month ago')), '>=')->exec() as $density){
     $response->TransactionDensity[$density->time_period] = array(
       "Frequency" => $density->frequency,
       "Volume" => $density->volume
