@@ -1,0 +1,33 @@
+<?php if(\LoneSatoshi\Models\User::get_current()->is_admin()): ?>
+  <hr/>
+
+  <?php global $active_record_log; ?>
+
+  <p>
+    <?php
+    echo 'Connections: ' . $active_record_log['ConnectionCount'] . ' ';
+    echo 'Queries: ' . $active_record_log['QueryCount'];
+    ?>
+  </p>
+
+  <?php if(isset($active_record_log['QueryLogSQL'])): ?>
+    <table class="table table-striped table-condensedgi">
+      <thead>
+      <tr>
+        <td>Delay</td>
+        <td>Results</td>
+        <td>Query</td>
+      </tr>
+      </thead>
+      <tbody>
+        <?php foreach($active_record_log['QueryLogSQL'] as $query): ?>
+          <tr>
+            <td><?php echo number_format($query['delay'],4) . " sec"; ?></td>
+            <td><?php echo number_format($query['result_count'],0); ?></td>
+            <td><?php echo $query['query']; ?></td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  <?php endif; ?>
+<?php endif; ?>

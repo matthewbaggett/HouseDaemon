@@ -1,31 +1,5 @@
-<?php global $active_record_log; ?>
-
 <footer>
   <p>
     <span style="text-align:left;float:left">&copy; <a href="mailto:matthew@baggett.me">Matthew Baggett</a> <?php echo date("Y"); ?></span>
   </p>
-  <p>
-    <?php
-    echo 'Connections: ' . $active_record_log['ConnectionCount'] . ' ';
-    echo 'Queries: ' . $active_record_log['QueryCount'];
-    ?>
-  </p>
 </footer>
-
-<?php
-function sort_active_record_log($a, $b) {
-  return number_format($a['delay'],6) - number_format($b['delay'],6);
-}
-
-?>
-
-<?php if(isset($active_record_log['QueryLogSQL'])): ?>
-  <?php usort($active_record_log['QueryLogSQL'],"sort_active_record_log"); ?>
-  <ul>
-    <?php foreach($active_record_log['QueryLogSQL'] as $query): ?>
-      <li>
-        <?php echo number_format($query['delay'],4) . " - " . $query['query']; ?>
-      </li>
-    <?php endforeach; ?>
-  </ul>
-<?php endif; ?>
