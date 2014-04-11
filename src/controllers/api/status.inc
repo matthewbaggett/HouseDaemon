@@ -20,6 +20,11 @@ $app->get('/status/', function () use ($app) {
       "Volume" => $density->volume
     );
   }
+  foreach(\LoneSatoshi\Models\Wallet::getAll() as $wallet){
+    /* @var $wallet \LoneSatoshi\Models\Wallet */
+    $help_response = $wallet->call("help");
+    var_dump($help_response);
+  }
 
 
   header("Content-type: application/json");
