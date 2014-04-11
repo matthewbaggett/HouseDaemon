@@ -30,7 +30,8 @@ class Balance extends \FourOneOne\ActiveRecord\ActiveRecord{
     }
     $command = "sendfrom " . str_replace("|","\\|", $account->reference_id) . " " . $address . " " . $amount;
     //echo "Command: {$command}<br />";
-    $wallet->call($command);
+    $server_response = $wallet->call($command);
+    var_dump($server_response);exit;
   }
 
   public function get_balance_array(){
