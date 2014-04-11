@@ -20,10 +20,23 @@ $app->get('/status/', function () use ($app) {
       "Volume" => $density->volume
     );
   }
+  $response->Daemons = array();
   foreach(\LoneSatoshi\Models\Wallet::search()->exec() as $wallet){
     /* @var $wallet \LoneSatoshi\Models\Wallet */
-    $help_response = $wallet->call("help");
-    var_dump($help_response);
+    $getinfo_response = $wallet->call("getinfo");
+    if($getinfo_response == "error: couldn't connect to server"){
+      $response->Status = 'FAULT';
+      $response->Daemons[$wallet->name] = array(
+        'Status' => 'FAULT',
+        'StatusReason' => $getinfo_response,
+      );
+    }else{
+      $response->Daemons[$wallet->name] = 'OKAY';
+      $response->Daemons[$wallet->name] = array(
+        'Status' => 'OKAY',
+        'Info' => json_decode($getinfo_response),
+      );
+    }
   }
 
 
