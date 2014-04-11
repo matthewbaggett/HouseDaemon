@@ -20,7 +20,7 @@ $app->get('/status/', function () use ($app) {
       "Volume" => $density->volume
     );
   }
-  foreach(\LoneSatoshi\Models\Wallet::getAll() as $wallet){
+  foreach(\LoneSatoshi\Models\Wallet::search()->exec() as $wallet){
     /* @var $wallet \LoneSatoshi\Models\Wallet */
     $help_response = $wallet->call("help");
     var_dump($help_response);
