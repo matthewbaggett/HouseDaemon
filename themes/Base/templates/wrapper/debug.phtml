@@ -1,17 +1,24 @@
 <?php if(\LoneSatoshi\Models\User::get_current()->is_admin()): ?>
   <hr/>
 
-  <?php global $active_record_log; ?>
+  <?php
+  global $active_record_log;
+  $cumulative_delay = 0;
+  foreach($active_record_log['QueryLogSQL'] as $query){
+    $cumulative_delay = $cumulative_delay + $query['delay'];
+  }
+  ?>
 
   <p>
     <?php
     echo 'Connections: ' . $active_record_log['ConnectionCount'] . ' ';
-    echo 'Queries: ' . $active_record_log['QueryCount'];
+    echo 'Queries: ' . $active_record_log['QueryCount'] . ' ' ;
+    echo 'Delay: ' . number_format($cumulative_delay,4) . ' ' ;
     ?>
   </p>
 
   <?php if(isset($active_record_log['QueryLogSQL'])): ?>
-    <table class="table table-striped table-condensedgi">
+    <table class="table table-striped table-condensed">
       <thead>
       <tr>
         <td>Delay</td>
