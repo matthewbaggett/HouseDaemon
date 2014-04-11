@@ -13,13 +13,7 @@ $app->get('/status/', function () use ($app) {
   $response->Times->LastUpdateSecondsSince = intVal(time() - $cron_last_run);
   $response->Times->TransactionLogDelay = floatVal($time_to_parse_transaction_log);
   $response->BlockCount = intVal(\LoneSatoshi\Models\Setting::get("block_count"));
-  $response->TransactionDensity = array();
-  foreach(\LoneSatoshi\Models\TransactionDensity::search()->exec() as $density){
-    $response->TransactionDensity[$density->time_period] = array(
-      "Frequency" => $density->frequency,
-      "Volume" => $density->volume
-    );
-  }
+
   $response->Daemons = array();
   foreach(\LoneSatoshi\Models\Wallet::search()->exec() as $wallet){
     /* @var $wallet \LoneSatoshi\Models\Wallet */
@@ -37,6 +31,14 @@ $app->get('/status/', function () use ($app) {
         'Info' => json_decode($getinfo_response),
       );
     }
+  }
+
+  $response->TransactionDensity = array();
+  foreach(\LoneSatoshi\Models\TransactionDensity::search()->where('time_period', date("Y-m-d H:i:s", strtotime('one month ago')))->exec() as $density){
+    $response->TransactionDensity[$density->time_period] = array(
+      "Frequency" => $density->frequency,
+      "Volume" => $density->volume
+    );
   }
 
 
