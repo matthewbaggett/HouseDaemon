@@ -19,11 +19,16 @@ class Transaction extends \FourOneOne\ActiveRecord\ActiveRecord{
   public $block_index;
   public $block_time;
 
+  private $_account;
+
   /**
    * @return Account
    */
   public function get_account(){
-    return Account::search()->where('account_id', $this->account_id)->execOne();
+    if(!$this->_account){
+      $this->_account = Account::search()->where('account_id', $this->account_id)->execOne();
+    }
+    return $this->_account;
   }
 
   public function get_transaction_array(){
