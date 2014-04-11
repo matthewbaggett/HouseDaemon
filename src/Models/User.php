@@ -73,6 +73,26 @@ class User extends \FourOneOne\ActiveRecord\ActiveRecord{
     return $query->exec();
   }
 
+  public function pay_from_specific_account($address, Account $account, $amount){
+    $query = BalanceConfirmed::search();
+    $query->where('user_id', $this->user_id);
+    $query->where('coin_id', $account->get_coin()->coin_id);
+    /* @var $balance BalanceConfirmed */
+    $balance = $query->execOne();
+
+    $balance->pay($account->get_coin(), $address, $amount);
+
+    Notification::send(
+      Notification::Warning,
+      "Payed :amount :coin to :address from :origin", array(
+        ":amount" => $amount,
+        ":coin" => $balance->get_account()->get_coin()->name,
+        ":address" => $address,
+        ":origin" => $account->name != '' ? $account->name : $account->address,
+      )
+    );
+  }
+
   public function pay($address, Coin $coin, $amount){
     $amount_initial = $amount;
     $balances = $this->get_balances($coin, 'balance', 'ASC');
