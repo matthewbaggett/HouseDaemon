@@ -17,6 +17,8 @@
     ?>
   </p>
 
+  <p><?php echo "Load is currently: (" . implode(", ", sys_getloadavg()) . ")"; ?></p>
+
   <?php if(isset($active_record_log['QueryLogSQL'])): ?>
     <table class="table table-striped table-condensed">
       <thead>
