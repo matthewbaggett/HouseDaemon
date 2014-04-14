@@ -1,4 +1,4 @@
-<?php if(\LoneSatoshi\Models\User::get_current()->is_admin()): ?>
+<?php if(\LoneSatoshi\Models\User::get_current() instanceof \LoneSatoshi\Models\User && \LoneSatoshi\Models\User::get_current()->is_admin()): ?>
   <hr/>
 
   <?php
