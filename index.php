@@ -14,7 +14,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 set_time_limit(120);
 if(!file_exists('./vendor/autoload.php')){
-  die("You need to run <em>php composer.phar update</em> in the Sous root directory.");
+  die("You need to run <em>php composer.phar update</em> in the NextSpoiler root directory.");
 }
 
 require_once("./vendor/autoload.php");

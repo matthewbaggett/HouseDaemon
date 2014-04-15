@@ -73,6 +73,11 @@ class ViewController extends \Slim\View
             return $url;
         }
 
+        // Relative-to-root URLs...
+        if(substr($url, 0, 1) == '/'){
+            return $url;
+        }
+
         // Remove excess slashes to the left of URL.
         for($i = 0; $i <= 3; $i++){
             $url = ltrim($url,"/");

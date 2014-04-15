@@ -1,44 +1,24 @@
-table.wallets,
-table.transactions{
-    font-size: 10px;
-}
-table.wallets .btn.btn-xs,
-table.transactions .btn.btn-xs{
-    font-size: 10px;
-}
-
-table.wallets td.address,
-table.wallets td.confirmed,
-table.wallets td.unconfirmed,
-table.wallets td.rate,
-table.wallets td.valuation-btc,
-table.wallets td.valuation-usd,
-table.wallets td.valuation-gbp,
-table.transactions td.address,
-table.transactions td.amount,
-table.transactions td.confirmations,
-table.transactions td.txid,
-table.transactions td.blockhash,
-table.transactions td.blockindex{
-    font-family: monospace;
-}
-table.wallets td.confirmed,
-table.wallets td.unconfirmed,
-table.wallets td.rate,
-table.wallets td.valuation-btc,
-table.wallets td.valuation-usd,
-table.wallets td.valuation-gbp,
-table.transactions td.amount{
-    text-align: right;
-}
-table.wallets td.name .btn{
-    float: right;
-}
-
-#chart_account_balance,
-#chart_valuation{
-    height: 600px;
+.spoiler{
+    float: left;
+    display: block;
     width: 100%;
-    float: left; display: block;
 }
+.spoiler .text{
+    float: left;
+    display: block;
+    width: 100%;
 
+    font-size: 500%;
+    text-align: center;
+    margin-top: 20%;
+    background-color: #efefef;
+}
+.spoiler .contributor{
+    text-align: right;
+    float: left;
+    display: block;
+    width: 100%;
+    margin-bottom: 20%;
+    font-style: italic;
+    color: #bbbbbb;
+}
