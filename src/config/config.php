@@ -22,14 +22,7 @@ switch(gethostname()){
       'db_database' => 'nextspoiler'
     ));
 }
-$database = new \FourOneOne\ActiveRecord\DatabaseLayer(array(
-  'db_type' => 'Mysql',
-  'db_hostname' => '127.0.0.1',
-  'db_port' => '3306',
-  'db_username' => 'nextspoiler',
-  'db_password' => 'hcVfPZx4nLCBtK8q',
-  'db_database' => 'nextspoiler'
-));
+
 
 // PHP Settings
 error_reporting(E_ALL);
