@@ -74,7 +74,7 @@ class ViewController extends \Slim\View
         }
 
         // Relative-to-root URLs...
-        if(substr($url, 0, 1) == '/'){
+        if(substr($url, 0, 1) == '/' && substr($url, 1, 1) != '/'){
             return $url;
         }
 
