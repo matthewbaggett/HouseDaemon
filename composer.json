@@ -1,5 +1,5 @@
 {
-    "name": "lonesatoshi/lonesatoshi",
+    "name": "fouroneone/nextspoiler",
     "authors": [
         {
             "name": "Matthew Baggett",
@@ -24,21 +24,11 @@
         "fouroneone/translation": "dev-master",
         "fouroneone/session": "dev-master",
         "swiftmailer/swiftmailer": "5.*",
-        "frenkynet/flysystem": "0.1.*",
         "oodle/krumo": "dev-master",
-        "herzult/php-ssh": "0.1.*",
-        "geoip/geoip": "~1.14",
-        "lonesatoshi/exchangeapi": "dev-master"
     },
-    "require-dev": {
-        "phpunit/phpunit": "3.7.*",
-        "phpunit/dbUnit": "1.2.*"
-    },
-    "provide": {
-        "ext-ssh2": "*"
-    },
+
     "autoload": {
-        "psr-4": {"LoneSatoshi\\": "src/"}
+        "psr-4": {"NextSpoiler\\": "src/"}
     }
 
 }

@@ -7,8 +7,8 @@ define("WEB_DISK_ROOT", dirname($_SERVER['SCRIPT_FILENAME']));
 define("APP_DISK_ROOT", WEB_DISK_ROOT);
 define("APP_ROOT", APP_DISK_ROOT);
 define("WEB_IS_SSL", $_SERVER['SERVER_PORT']==443?true:false);
-define("APP_NAME", "LoneSatoshi");
-define("THEME", "LoneSatoshi");
+define("APP_NAME", "NextSpoiler");
+define("THEME", "NextSpoiler");
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');

@@ -5,9 +5,9 @@ $database = new \FourOneOne\ActiveRecord\DatabaseLayer(array(
   'db_type' => 'Mysql',
   'db_hostname' => '127.0.0.1',
   'db_port' => '3306',
-  'db_username' => 'lonesatoshi',
-  'db_password' => 'WAncPKHEBEsj4tUt',
-  'db_database' => 'lonesatoshi'
+  'db_username' => 'nextspoiler',
+  'db_password' => 'hcVfPZx4nLCBtK8q',
+  'db_database' => 'nextspoiler'
 ));
 
 // PHP Settings
@@ -18,9 +18,9 @@ ini_set('memory_limit', '32M');
 date_default_timezone_set('Europe/London');
 
 // Mail Settings
-$mailer_transport = Swift_SmtpTransport::newInstance('mail.lonesatoshi.com', 465, 'ssl')
-  ->setUsername('system@lonesatoshi.com')
+$mailer_transport = Swift_SmtpTransport::newInstance('mail.nextspoiler.com', 465, 'ssl')
+  ->setUsername('system@nextspoiler.com')
   ->setPassword('m-MzaSgN')
 ;
-$mailer_from = array("system@lonesatoshi.com" => "LoneSatoshi System");
-$mailer_default_to = array("matthew+lonesatoshicopies@baggett.me");
+$mailer_from = array("system@nextspoiler.com" => "NextSpoiler");
+$mailer_default_to = array("matthew+nextspoilercopies@baggett.me");

@@ -12,46 +12,19 @@ $app->post('/login', function () use ($app, $session) {
   $password = $app->request()->post('password');
 
   // Support logging in with username
-  $user = \LoneSatoshi\Models\User::search()->where('username', $username)->where('password', hash("SHA1", $password))->execOne();
+  $user = \NextSpoiler\Models\User::search()->where('username', $username)->where('password', hash("SHA1", $password))->execOne();
 
   // Support logging in with email address
-  if(!$user instanceof \LoneSatoshi\Models\User){
-    $user = \LoneSatoshi\Models\User::search()->where('email', $username)->where('password', hash("SHA1", $password))->execOne();
+  if(!$user instanceof \NextSpoiler\Models\User){
+    $user = \NextSpoiler\Models\User::search()->where('email', $username)->where('password', hash("SHA1", $password))->execOne();
   }
 
-  $location = \LoneSatoshi\Models\Location::get_by_ip($_SERVER['REMOTE_ADDR']);
-
   // Check login failure.
-  if(!$user instanceof \LoneSatoshi\Models\User){
-      $attempted_user =\LoneSatoshi\Models\User::search()->where('username', $username)->execOne();
-      if($attempted_user instanceof \LoneSatoshi\Models\User){
-
-        \LoneSatoshi\Models\Notification::send(
-          \LoneSatoshi\Models\Notification::Warning,
-          "FAILED login to :username from :location at :time ",
-          array(
-            ":username" => $username,
-            ":ip_addr" => $_SERVER['REMOTE_ADDR'],
-            ":time" => date("Y-m-d H:i:s"),
-            ":password" => $password,
-            ":location" => $location instanceof \LoneSatoshi\Models\Location ? $location->get_place() : "Unknown Location",
-          ),
-          $attempted_user
-        );
-      }
+  if(!$user instanceof \NextSpoiler\Models\User){
       header("Location: login?failed");
       exit;
   }else{
       $_SESSION['user'] = $user;
-      \LoneSatoshi\Models\Notification::send(
-        \LoneSatoshi\Models\Notification::Warning,
-        "Successful login to :username from :location at :time", array(
-          ":username" => $user->username,
-          ":ip_addr" => $_SERVER['REMOTE_ADDR'],
-          ":time" => date("Y-m-d H:i:s"),
-          ":location" => $location instanceof \LoneSatoshi\Models\Location ? $location->get_place() : "Unknown Location",
-        )
-      );
       header("Location: dashboard");
       exit;
   }
@@ -73,7 +46,7 @@ $app->post('/register', function () use ($app) {
     exit;
   }
 
-  if(\LoneSatoshi\Models\User::search()->where('username', $_POST['username'])->count() > 0){
+  if(\NextSpoiler\Models\User::search()->where('username', $_POST['username'])->count() > 0){
     header("Location: register?failed=" . urlencode("Username in use."));
     exit;
   }
@@ -88,7 +61,7 @@ $app->post('/register', function () use ($app) {
     exit;
   }
 
-  $user = new \LoneSatoshi\Models\User();
+  $user = new \NextSpoiler\Models\User();
   $user->username = $_POST['username'];
   $user->password = hash("SHA1", $_POST['password']);
   $user->displayname = $_POST['realname'];

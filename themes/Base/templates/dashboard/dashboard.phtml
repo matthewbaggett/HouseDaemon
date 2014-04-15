@@ -1,6 +1,4 @@
 <div class="page-header">
     <h1> <?php $this->t("My :sitename Dashboard", array(':sitename' => $this->getSiteTitle(false))); ?></h1>
-    <p class="lead">
-        <?php echo $this->t(':salutation, :username', array(':salutation' => \LoneSatoshi\Models\Greeting::search()->order('rand()')->execOne()->greeting, ':username' => $_SESSION['user']->displayname)); ?>
-    </p>
+
 </div>
