@@ -41,6 +41,8 @@ if(substr($_SERVER['SERVER_NAME'], 0, 4) == 'api.'){
 }
 */
 
+$mode = 'web';
+
 $file_list = scandir("./src/controllers/{$mode}");
 sort($file_list);
 foreach($file_list as $file){
