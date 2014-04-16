@@ -1,5 +1,5 @@
 {
-    "name": "fouroneone/nextspoiler",
+    "name": "fouroneone/skeleton",
     "authors": [
         {
             "name": "Matthew Baggett",
@@ -7,10 +7,6 @@
         }
     ],
     "repositories": [
-        {
-            "url": "https://github.com/matthewbaggett/Exchange-API.git",
-            "type": "git"
-        },
         {
             "url": "https://github.com/FourOneOne/ActiveRecord.git",
             "type": "git"
@@ -28,7 +24,7 @@
     },
 
     "autoload": {
-        "psr-4": {"NextSpoiler\\": "src/"}
+        "psr-4": {"Skeleton\\": "src/"}
     }
 
 }

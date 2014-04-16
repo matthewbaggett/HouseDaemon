@@ -12,15 +12,15 @@ $app->post('/login', function () use ($app, $session) {
   $password = $app->request()->post('password');
 
   // Support logging in with username
-  $user = \NextSpoiler\Models\User::search()->where('username', $username)->where('password', hash("SHA1", $password))->execOne();
+  $user = \Skeleton\Models\User::search()->where('username', $username)->where('password', hash("SHA1", $password))->execOne();
 
   // Support logging in with email address
-  if(!$user instanceof \NextSpoiler\Models\User){
-    $user = \NextSpoiler\Models\User::search()->where('email', $username)->where('password', hash("SHA1", $password))->execOne();
+  if(!$user instanceof \Skeleton\Models\User){
+    $user = \Skeleton\Models\User::search()->where('email', $username)->where('password', hash("SHA1", $password))->execOne();
   }
 
   // Check login failure.
-  if(!$user instanceof \NextSpoiler\Models\User){
+  if(!$user instanceof \Skeleton\Models\User){
       header("Location: login?failed");
       exit;
   }else{
@@ -46,7 +46,7 @@ $app->post('/register', function () use ($app) {
     exit;
   }
 
-  if(\NextSpoiler\Models\User::search()->where('username', $_POST['username'])->count() > 0){
+  if(\Skeleton\Models\User::search()->where('username', $_POST['username'])->count() > 0){
     header("Location: register?failed=" . urlencode("Username in use."));
     exit;
   }
@@ -61,7 +61,7 @@ $app->post('/register', function () use ($app) {
     exit;
   }
 
-  $user = new \NextSpoiler\Models\User();
+  $user = new \Skeleton\Models\User();
   $user->username = $_POST['username'];
   $user->password = hash("SHA1", $_POST['password']);
   $user->displayname = $_POST['realname'];

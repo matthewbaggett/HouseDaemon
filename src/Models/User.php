@@ -1,5 +1,5 @@
 <?php
-namespace NextSpoiler\Models;
+namespace Skeleton\Models;
 
 class User extends \FourOneOne\ActiveRecord\ActiveRecord{
   protected $_table = "users";

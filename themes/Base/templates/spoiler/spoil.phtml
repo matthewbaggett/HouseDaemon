@@ -1,5 +1,5 @@
 <div class="spoiler">
-  <?php if($spoiler instanceof \NextSpoiler\Models\Spoiler): ?>
+  <?php if($spoiler instanceof \Skeleton\Models\Spoiler): ?>
     <div class="text"><?php echo $spoiler->spoiler; ?></div>
     <div class="contributor">Contributed by <?php echo $spoiler->get_user()->displayname; ?></div>
   <?php else: ?>

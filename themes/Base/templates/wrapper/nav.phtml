@@ -11,13 +11,13 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <?php if(isset($_SESSION['user']) && $_SESSION['user'] instanceof \NextSpoiler\Models\User): ?>
+              <?php if(isset($_SESSION['user']) && $_SESSION['user'] instanceof \Skeleton\Models\User): ?>
                 <li><?php echo $this->l("series", $this->t("Series")); ?></li>
                 <li><?php echo $this->l("spoilers", $this->t("Spoilers")); ?></li>
               <?php endif; ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <?php if(isset($_SESSION['user']) && $_SESSION['user'] instanceof \NextSpoiler\Models\User): ?>
+                <?php if(isset($_SESSION['user']) && $_SESSION['user'] instanceof \Skeleton\Models\User): ?>
                   <li><?php echo $this->l("logout", $this->t("Logout")); ?></li>
                 <?php else: ?>
                   <li class="active"><?php echo $this->l("login", $this->t("Login")); ?></li>
