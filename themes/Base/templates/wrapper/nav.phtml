@@ -11,10 +11,8 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <?php if(isset($_SESSION['user']) && $_SESSION['user'] instanceof \Skeleton\Models\User): ?>
-                <li><?php echo $this->l("series", $this->t("Series")); ?></li>
-                <li><?php echo $this->l("spoilers", $this->t("Spoilers")); ?></li>
-              <?php endif; ?>
+              <li><?php echo $this->l("#", $this->t("Link A")); ?></li>
+              <li><?php echo $this->l("#", $this->t("Link B")); ?></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php if(isset($_SESSION['user']) && $_SESSION['user'] instanceof \Skeleton\Models\User): ?>
