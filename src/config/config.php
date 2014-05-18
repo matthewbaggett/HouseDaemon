@@ -1,25 +1,28 @@
 <?php
+define("TIME_STARTUP",  microtime(true));
+define("WEB_HOST",      $_SERVER['HTTP_HOST']);
+define("WEB_ROOT",      dirname($_SERVER['SCRIPT_NAME']));
+define("WEB_DISK_ROOT", dirname($_SERVER['SCRIPT_FILENAME']));
+define("APP_DISK_ROOT", WEB_DISK_ROOT);
+define("APP_ROOT",      APP_DISK_ROOT);
+define("WEB_IS_SSL",    $_SERVER['SERVER_PORT']==443?true:false);
+define("APP_NAME",      "HouseDaemon");
+define("THEME",         "Custom");
+
+// Set up error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
 // Database Settings
 switch(gethostname()){
-  case 'hostnamehere':
-    $database = new \FourOneOne\ActiveRecord\DatabaseLayer(array(
-      'db_type'     => 'Mysql',
-      'db_hostname' => 'localhost',
-      'db_port'     => '3306',
-      'db_username' => 'username',
-      'db_password' => 'password',
-      'db_database' => 'database'
-    ));
-    break;
   default:
     $database = new \FourOneOne\ActiveRecord\DatabaseLayer(array(
       'db_type'     => 'Mysql',
-      'db_hostname' => 'localhost',
+      'db_hostname' => 'monitor',
       'db_port'     => '3306',
-      'db_username' => 'username',
-      'db_password' => 'password',
-      'db_database' => 'database'
+      'db_username' => 'housedaemon',
+      'db_password' => 'YZur4BBjSRhHeMru',
+      'db_database' => 'housedaemon'
     ));
 }
 
