@@ -7,6 +7,7 @@ class Cycler{
 
   public function __construct(){
     $this->_start_microtime = microtime(true);
+    set_time_limit(0);
   }
 
   public function run($callback){
@@ -22,11 +23,10 @@ class Cycler{
     $time_since_begin = microtime(true) - $this->_start_microtime;
     if(!$return){
       echo "\r";
-    }
-    echo "[" . number_format($time_since_begin,3) . "] > {$message}";
-    if($return){
+    }else{
       echo "\n";
     }
+    echo "[" . number_format($time_since_begin,3) . "] > {$message}";
   }
 }
 
@@ -36,7 +36,21 @@ class HouseEventReceiver{
     $events_triggered = array();
     foreach($tests as $test){
       /* @var $test \Skeleton\Models\EventTest */
-      $events_triggered = array_merge($events_triggered, $test->run());
+      $age = time() - $test->interval;
+      $recent_event_test = \Skeleton\Models\Event::search()
+        ->where('event_test_id', $test->event_test_id)
+        ->where('created',date("Y-m-d H:i:s", $age), '>=')
+        ->execOne();
+      if($recent_event_test instanceof \Skeleton\Models\Event){
+        //$cyc->log("Skip {$test->name}");
+        continue;
+      }
+      $cyc->log("Run {$test->name}");
+      $result = $test->run();
+      echo "\n";
+      if(is_array($result)){
+        $events_triggered = array_merge($events_triggered, $result);
+      }
     }
     if(count($events_triggered) > 0){
       $cyc->log(count($events_triggered) . " events triggered");

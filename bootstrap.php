@@ -12,6 +12,7 @@ require_once("./vendor/fouroneone/session/FourOneOne/Session/Session.php");
 // Load not-autoloaded-things
 require_once("./src/config/config.php");
 require_once("./src/lib/mail.php");
+require_once("./src/lib/simple_page_grep.php");
 
 // Load themes
 if(PHP_SAPI != 'cli'){

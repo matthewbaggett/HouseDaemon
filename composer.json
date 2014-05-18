@@ -21,7 +21,8 @@
         "fouroneone/session": "dev-master",
         "swiftmailer/swiftmailer": "5.*",
         "oodle/krumo": "dev-master",
-        "react/react": "0.4.*"
+        "react/react": "0.4.*",
+        "sunra/php-simple-html-dom-parser": "v1.5.0"
     },
 
     "autoload": {
