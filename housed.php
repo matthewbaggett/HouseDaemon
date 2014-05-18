@@ -26,7 +26,7 @@ class Cycler{
     }else{
       echo "\n";
     }
-    echo "[" . number_format($time_since_begin,3) . "] > {$message}";
+    echo "[" . number_format($time_since_begin,3) . "][" . date("Y-m-d H:i:s") . "] > {$message}";
   }
 }
 
