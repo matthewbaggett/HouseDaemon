@@ -63,5 +63,5 @@ $app = new HouseEventReceiver();
 $cyc = new Cycler();
 $cyc->run(function($persist) use ($cyc, $app){
   $app->check_for_events($cyc);
-  usleep(500);
+  usleep(CYCLE_SLEEP);
 });
