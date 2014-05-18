@@ -2,24 +2,15 @@
 
 // Database Settings
 switch(gethostname()){
-  case 'hostnamehere':
-    $database = new \FourOneOne\ActiveRecord\DatabaseLayer(array(
-      'db_type'     => 'Mysql',
-      'db_hostname' => 'localhost',
-      'db_port'     => '3306',
-      'db_username' => 'username',
-      'db_password' => 'password',
-      'db_database' => 'database'
-    ));
-    break;
+
   default:
     $database = new \FourOneOne\ActiveRecord\DatabaseLayer(array(
       'db_type'     => 'Mysql',
-      'db_hostname' => 'localhost',
+      'db_hostname' => 'monitor',
       'db_port'     => '3306',
-      'db_username' => 'username',
-      'db_password' => 'password',
-      'db_database' => 'database'
+      'db_username' => 'housedaemon',
+      'db_password' => 'YZur4BBjSRhHeMru',
+      'db_database' => 'housedaemon'
     ));
 }
 
