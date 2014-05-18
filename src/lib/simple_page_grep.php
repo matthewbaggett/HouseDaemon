@@ -7,7 +7,7 @@ class SimplePageGrep{
     return $cell->plaintext;
   }
 
-  public function json($url){
+  public static function json($url){
     $ch = curl_init();
     $timeout = 5;
     curl_setopt($ch, CURLOPT_URL, $url);
