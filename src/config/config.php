@@ -9,6 +9,7 @@ if(php_sapi_name() != 'cli'){
   define("WEB_IS_SSL",    $_SERVER['SERVER_PORT']==443?true:false);
 }else{
   // CLI
+  define("CYCLE_SLEEP", 1000);
 }
 define("APP_DISK_ROOT", APP_ROOT);
 define("APP_NAME",      "HouseDaemon");
