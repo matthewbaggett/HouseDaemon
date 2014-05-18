@@ -33,15 +33,11 @@ $app->view()->setSiteTitle(APP_NAME);
 
 $app->add(new \Zeuxisoo\Whoops\Provider\Slim\WhoopsMiddleware);
 
-/* Uncomment this block if, say, you had a set of API controllers as well as a web controller.
 if(substr($_SERVER['SERVER_NAME'], 0, 4) == 'api.'){
   $mode = 'api';
 }else{
   $mode = "web";
 }
-*/
-
-$mode = 'web';
 
 $file_list = scandir("./src/controllers/{$mode}");
 sort($file_list);
