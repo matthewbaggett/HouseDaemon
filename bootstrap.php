@@ -14,26 +14,28 @@ require_once("./src/config/config.php");
 require_once("./src/lib/mail.php");
 
 // Load themes
-require_once("themes/Base/base.inc");
-require_once("themes/" . THEME . "/template.inc");
+if(PHP_SAPI != 'cli'){
+  require_once("themes/Base/base.inc");
+  require_once("themes/" . THEME . "/template.inc");
 
-// Decide if we're the API version or the Web version
-if(substr($_SERVER['SERVER_NAME'], 0, 4) == 'api.'){
-  $mode = 'api';
-}else{
-  $mode = "web";
-}
+  // Decide if we're the API version or the Web version
+  if(substr($_SERVER['SERVER_NAME'], 0, 4) == 'api.'){
+    $mode = 'api';
+  }else{
+    $mode = "web";
+  }
 
-// Load all controllers.
-$file_list = scandir("./src/controllers/{$mode}");
-sort($file_list);
-foreach($file_list as $file){
-  switch($file){
-    case '.':
-    case '..':
-      // Do nothing
-      break;
-    default:
-      require_once("./src/controllers/{$mode}/{$file}");
+  // Load all controllers.
+  $file_list = scandir("./src/controllers/{$mode}");
+  sort($file_list);
+  foreach($file_list as $file){
+    switch($file){
+      case '.':
+      case '..':
+        // Do nothing
+        break;
+      default:
+        require_once("./src/controllers/{$mode}/{$file}");
+    }
   }
 }
