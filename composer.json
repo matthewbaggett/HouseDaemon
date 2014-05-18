@@ -20,7 +20,8 @@
         "fouroneone/translation": "dev-master",
         "fouroneone/session": "dev-master",
         "swiftmailer/swiftmailer": "5.*",
-        "oodle/krumo": "dev-master"
+        "oodle/krumo": "dev-master",
+        "react/react": "0.4.*"
     },
 
     "autoload": {
