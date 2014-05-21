@@ -1,6 +1,6 @@
 #!/bin/bash
 while :
 do
-	housed.php;
+	./housed.php;
 	sleep 1
 done
