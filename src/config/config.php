@@ -19,19 +19,33 @@ define("THEME",         "Custom");
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-// Database Settings
+// Set up database.
+
+define("DATABASE_TYPE", "Mysql");
+define("DATABASE_PORT", "3306");
+define("DATABASE_USER", "housedaemon");
+define("DATABASE_PASS", "YZur4BBjSRhHeMru");
+define("DATABASE_DB", "housedaemon");
+
 switch(gethostname()){
+  case 'Surrey.local':
+    define("DATABASE_HOST", "25.72.204.22");
+    break;
+
   default:
-    $database = new \FourOneOne\ActiveRecord\DatabaseLayer(array(
-      'db_type'     => 'Mysql',
-      'db_hostname' => 'monitor',
-      'db_port'     => '3306',
-      'db_username' => 'housedaemon',
-      'db_password' => 'YZur4BBjSRhHeMru',
-      'db_database' => 'housedaemon'
-    ));
+    define("DATABASE_HOST", "localhost");
+    break;
 }
 
+// Database Settings
+$database = new \FourOneOne\ActiveRecord\DatabaseLayer(array(
+  'db_type'     => DATABASE_TYPE,
+  'db_hostname' => DATABASE_HOST,
+  'db_port'     => DATABASE_PORT,
+  'db_username' => DATABASE_USER,
+  'db_password' => DATABASE_PASS,
+  'db_database' => DATABASE_DB
+));
 
 // PHP Settings
 error_reporting(E_ALL);
